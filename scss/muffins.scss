@@ -1,0 +1,15 @@
+@import "compass";
+
+body{
+    background-color: #EEE;
+}
+
+.main_image{
+    width: 100%;
+    min-height: 100vh;
+
+    //@include background(image-url("5.jpg"));
+    background-image: url(../images/11.jpg);
+    background-position: center;
+    background-size: cover;
+}
