@@ -1,15 +1,36 @@
 @import "compass";
 
+*{
+    //font-family: 'Quattrocento Sans', sans-serif !important;
+}
+
 body{
     background-color: #EEE;
 }
 
 .main_image{
     width: 100%;
-    min-height: 100vh;
+    min-height: 90vh;
 
-    //@include background(image-url("5.jpg"));
-    background-image: url(../images/11.jpg);
     background-position: center;
     background-size: cover;
+}
+
+.orbit_description{
+    position: absolute;
+    bottom: 5vh;
+    left: 5vh;
+    background-color: rgba(255,255,255,0.2);
+
+    padding: 2rem;
+
+    p,h2{
+        color: #fff;
+    }
+}
+
+.orbit-bullets-container{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }

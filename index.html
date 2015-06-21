@@ -7,16 +7,19 @@
     <link rel="Shortcut icon" href="images/favicon.png" />
     <link rel="stylesheet" href="stylesheets/app.css"/>
     <link rel="stylesheet" href="stylesheets/muffins.css"/>
-    <link rel="stylesheet" href="stylesheets/font-awesome.css" />
+    <link rel="stylesheet" href="stylesheets/font-awesome.css"/>
+    <link href='http://fonts.googleapis.com/css?family=Quattrocento+Sans:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
     <script src="bower_components/modernizr/modernizr.js"></script>
+    
   </head>
 <body>
     <div class="fixed">
-        <nav class="top-bar" data-topbar role="navigation">
+        <nav class="top-bar" data-topbar role="navigation" data-options="is_hover: false">
             <ul class="title-area">
                 <li class="name">
                     <h1>
-                        <a href="#">Przepisownia.pl</a>
+                        <a href="#">the Recipe</a>
                     </h1>
                 </li>
                 <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
@@ -25,6 +28,10 @@
             <section class="top-bar-section">
                 <ul class="right">
 
+                    <li><a href="#">Przepisy</a></li>
+                    <li><a href="#">Restauracje</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Kontakt</a></li>
                     <li class="has-dropdown">
                         <a href="#"><i class="fa fa-user"></i> hera04</a>
                         <ul class="dropdown">
@@ -34,24 +41,60 @@
                         </ul>
                     </li>
 
-                    <li class="has-dropdown">
-                        <a href="#"><i class="fa fa-user"></i> hera04</a>
-                        <ul class="dropdown">
-                            <li><a href="#"><i class="fa fa-user"></i> Profil</a></li>
-                            <li><a href="#"><i class="fa fa-wrench"></i> Ustawienia</a></li>
-                            <li><a href="#"><i class="fa fa-sign-out"></i> Wyloguj się</a></li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <ul class="left">
-                    <li><a href="#">Left Nav Button</a></li>
                 </ul>
             </section>
         </nav>
     </div>
 
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <div class="column" style="margin: 0; padding: 0;">
+        <ul class="example-orbit-content" data-orbit>
+            <li data-orbit-slide="headline-1">
+                <div class="main_image" style="background-image: url(images/14.jpg);">
+                    <div class="row">
+                        <div class="orbit_description small-6 columns">
+                            <h2>Wspaniały shake z truskawek</h2>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li data-orbit-slide="headline-2">
+                <div class="main_image" style="background-image: url(images/15.jpg);">
+                    <div class="row">
+                        <div class="orbit_description small-6 columns">
+                            <h2>Pyszna kawa</h2>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li data-orbit-slide="headline-3">
+                <div class="main_image" style="background-image: url(images/32.jpg);">
+                    <div class="row">
+                        <div class="orbit_description small-6 columns">
+                            <h2>Coś tam jeszcze</h2>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="row">
+        <div class="small-12 column">
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+
+
+            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+
+            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
+        </div>
+    </div>
+
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/foundation/js/foundation.min.js"></script>
     <script src="js/app.js"></script>
 </body>
