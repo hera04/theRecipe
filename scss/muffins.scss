@@ -1,36 +1,77 @@
 @import "compass";
 
+$bgcolor: #DDD;
+$cnt_bgcolor: #fff;
+
 *{
     //font-family: 'Quattrocento Sans', sans-serif !important;
+    img{
+        width: 100%;
+        height: auto;
+    }
 }
 
 body{
     background-color: #EEE;
 }
 
-.main_image{
-    width: 100%;
-    min-height: 90vh;
+// Klasy dla elementów w orbibie
+    .main_image{
+        width: 100%;
+        min-height: 100vh;
 
-    background-position: center;
-    background-size: cover;
-}
-
-.orbit_description{
-    position: absolute;
-    bottom: 5vh;
-    left: 5vh;
-    background-color: rgba(255,255,255,0.2);
-
-    padding: 2rem;
-
-    p,h2{
-        color: #fff;
+        background-position: center;
+        background-size: cover;
     }
-}
 
-.orbit-bullets-container{
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-}
+    .orbit_description{
+        position: absolute;
+        bottom: 10vh;
+        //left: 5vh;
+        background-color: rgba(255,255,255,0.2);
+        padding: 2rem;
+
+        p{ margin-bottom:0; }
+
+        p,h2{ color: #fff; }
+    }
+
+    .orbit-bullets li{
+        background: $cnt_bgcolor;
+    }
+
+    .orbit-bullets-container{
+        position: absolute;
+        top: 75px;
+        width: 100%;
+    }
+
+// Klasy dla top-nav. Zmiana wielkoœci top-bar
+    .nav_wrapper{
+        @include transition(all 0.6s ease-in-out);
+        background-color: $cnt_bgcolor;
+        //padding: 10px 0;
+        //.top-bar .name h1{ font-size: 2.75rem; @include transition(font-size 0.6s ease-in-out);}
+        //.top-bar-section ul li > a { font-size: 1.1rem; @include transition(font-size 0.6s ease-in-out);}
+    }
+
+    .small{
+        //padding: 0;
+        //.top-bar .name h1{ font-size: 2.25rem; }
+        //.top-bar-section ul li > a { font-size: 1rem; }
+    }
+
+// Klasy dla zawartoœci strony
+    .site-content{
+        @include transition(all 0.6s ease-in-out);
+        @include translateY(0);
+        background-color: $cnt_bgcolor;
+        
+        width: 85vw;
+        margin: auto;
+        
+        .row{padding: 10px 0;}
+    }
+    .site-content-static{
+        @include translateY(-20px);
+    }
