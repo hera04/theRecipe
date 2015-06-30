@@ -5,14 +5,14 @@ $(document).foundation();
 $(window).load(function () {
 
     var top_margin = $(window).height() * 0.7;
-    //alert(top_margin);
+    //alert($(window).width());
 
     $(document).scroll(function () {
         $("#navigation").toggleClass("small", ($(this).scrollTop() > 0));
         $("#siteContent").toggleClass("site-content-static", ($(this).scrollTop() > 0));
     });
 
-    //if $(window).height() > 1024 {$("#siteContent").toggleClass("site-content");}
+    if ( $(window).width() > 1024) { $("#siteContent").toggleClass("site-content-large"); }
 
 });
 

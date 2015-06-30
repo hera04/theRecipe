@@ -66,12 +66,34 @@ body{
         @include transition(all 0.6s ease-in-out);
         @include translateY(0);
         background-color: $cnt_bgcolor;
-        
-        width: 85vw;
-        margin: auto;
-        
         .row{padding: 10px 0;}
     }
     .site-content-static{
         @include translateY(-20px);
     }
+    .site-content-large{
+        
+        width: 90vw;
+        margin: auto;
+        
+    }
+
+    
+    .elo1_1{
+        @include transition(all 0.6s ease-in-out);
+        //@include translateY(75%);
+    }
+    .elo1:hover + .elo1_1, .elo1_1:hover{
+        //@include translateY(-40%);
+        //background-color: #000 !important;
+        opacity: 0.9 !important;
+    }
+
+    /*
+    .elo1_1 {
+      background-color: #fff;
+    }
+    .elo1_1:hover {
+      background-color: #000;
+    }
+    */
