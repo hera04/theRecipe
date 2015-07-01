@@ -95,7 +95,7 @@ $include-html-global-classes: $include-html-classes;
 // $font-weight-normal: normal;
 // $font-weight-bold: bold;
 
-// $white       : #FFFFFF;
+$white       : #FFFFFF;
 // $ghost       : #FAFAFA;
 // $snow        : #F9F9F9;
 // $vapor       : #F6F6F6;
@@ -103,9 +103,9 @@ $include-html-global-classes: $include-html-classes;
 // $silver      : #EFEFEF;
 // $smoke       : #EEEEEE;
 // $gainsboro   : #DDDDDD;
-// $iron        : #CCCCCC;
+$iron        : #CCCCCC;
 // $base        : #AAAAAA;
-// $aluminum    : #999999;
+$aluminum    : #999999;
 // $jumbo       : #888888;
 // $monsoon     : #777777;
 // $steel       : #666666;
@@ -116,7 +116,8 @@ $include-html-global-classes: $include-html-classes;
 // $black       : #000000;
 
 // We use these as default colors throughout
-// $primary-color: #008CBA;
+//$primary-color: #008CBA;
+    $primary-color: #CD5C5C;
 // $secondary-color: #e7e7e7;
 // $alert-color: #f04124;
 // $success-color: #43AC6A;
@@ -929,9 +930,9 @@ $include-html-global-classes: $include-html-classes;
 // $orbit-timer-show-progress-bar: true;
 
 // We use these to control the bullet nav styles
-// $orbit-bullet-nav-color: $iron;
-// $orbit-bullet-nav-color-active: $aluminum;
-// $orbit-bullet-radius: rem-calc(9);
+    $orbit-bullet-nav-color: $iron;
+    $orbit-bullet-nav-color-active: $white;;
+    $orbit-bullet-radius: rem-calc(12);
 
 // We use these to controls the style of slide numbers
 // $orbit-slide-number-bg: rgba(0,0,0,0);
@@ -1453,7 +1454,7 @@ $include-html-global-classes: $include-html-classes;
 // $topbar-menu-link-font-size: rem-calc(13);
 // $topbar-menu-link-weight: $font-weight-bold;
 // $topbar-menu-link-color: $white;
-// $topbar-menu-icon-color: $white;
+    $topbar-menu-icon-color: $iron;
 // $topbar-menu-link-color-toggled: $jumbo;
 // $topbar-menu-icon-color-toggled: $jumbo;
 // $topbar-menu-icon-position: $opposite-direction; // Change to $default-float for a left menu icon
