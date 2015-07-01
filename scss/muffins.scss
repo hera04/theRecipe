@@ -63,17 +63,12 @@ body{
         @include translateY(0);
         background-color: $cnt_bgcolor;
         .row{padding: 10px 0;}
+        width: 90vw;
+        margin: auto;
     }
     .site-content-static{
         @include translateY(-20px);
     }
-    .site-content-large{
-        
-        width: 90vw;
-        margin: auto;
-        
-    }
-
     
     .elo1_1{
         @include transition(all 0.6s ease-in-out);

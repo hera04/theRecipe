@@ -2,91 +2,116 @@
 <html class="no-js" lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Muffins World</title>
     <link rel="Shortcut icon" href="images/favicon.png" />
     <link rel="stylesheet" href="stylesheets/app.css"/>
     <link rel="stylesheet" href="stylesheets/muffins.css"/>
     <link rel="stylesheet" href="stylesheets/font-awesome.css"/>
+    <link rel="stylesheet" href="stylesheets/hero-slider.css">
     <link href='http://fonts.googleapis.com/css?family=Oxygen:400,300,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
 
     <script src="bower_components/modernizr/modernizr.js"></script>
     
   </head>
 <body>
-    <div class="fixed">
-        <div class="nav_wrapper" id="navigation" style="box-shadow: 0px 10px 10px rgba(0,0,0,0.2);">
-            <nav class="top-bar" data-topbar role="navigation" data-options="is_hover: false">
-                <ul class="title-area">
-                    <li class="name">
-                        <h1>
-                            <a href="#">the Recipe</a>
-                        </h1>
+
+<!--Top Navigation-->
+<div class="fixed">
+    <div class="nav_wrapper" id="navigation" style="box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.05);">
+        <nav class="top-bar" data-topbar role="navigation" data-options="is_hover: false">
+            <ul class="title-area">
+                <li class="name">
+                    <h1>
+                        <a href="#">the Recipe</a>
+                    </h1>
+                </li>
+                <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+            </ul>
+
+            <section class="top-bar-section">
+                <ul class="right">
+
+                    <li><a href="#">Przepisy</a></li>
+                    <li><a href="#">Restauracje</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Kontakt</a></li>
+                    <li class="has-dropdown">
+                        <a href="#"><i class="fa fa-user"></i> hera04</a>
+                        <ul class="dropdown">
+                            <li><a href="#"><i class="fa fa-user"></i> Profil</a></li>
+                            <li><a href="#"><i class="fa fa-wrench"></i> Ustawienia</a></li>
+                            <li><a href="#"><i class="fa fa-sign-out"></i> Wyloguj się</a></li>
+                        </ul>
                     </li>
-                    <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+
                 </ul>
+            </section>
+        </nav>
+    </div>
+</div>
+<!--#end Top_Navigation-->
 
-                <section class="top-bar-section">
-                    <ul class="right">
+<!-- Sekcja główna - Popularne wpisy -->
+<div style="margin: 0; padding: 0;">
+    <section class="cd-hero">
+        <ul class="cd-hero-slider autoplay" style="margin: 0; padding: 0; height: 100vh;">
+            <li style="background-image: url(images/8.jpg); background-position: center; background-size: cover; " class="selected">
+                <div class="large-6 column" style="margin-top: 20vh;">
+                    <div style="padding: 10px;">
+                        <h2 style="color: #444;">Deser z truskawami</h2>
+                        <p style="font-size: 1rem; font-weight: 100; text-align: justify; color: #444;">
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                        </p>
+                    </div>
+                </div> <!-- .cd-half-width -->
+                <div style="width: 100vw; height: 100vh; background-color: rgba(255, 255, 255, 0.2);"></div>
+            </li>
 
-                        <li><a href="#">Przepisy</a></li>
-                        <li><a href="#">Restauracje</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Kontakt</a></li>
-                        <li class="has-dropdown">
-                            <a href="#"><i class="fa fa-user"></i> hera04</a>
-                            <ul class="dropdown">
-                                <li><a href="#"><i class="fa fa-user"></i> Profil</a></li>
-                                <li><a href="#"><i class="fa fa-wrench"></i> Ustawienia</a></li>
-                                <li><a href="#"><i class="fa fa-sign-out"></i> Wyloguj się</a></li>
-                            </ul>
-                        </li>
+            <li style="background-image: url(images/33.jpg); background-position: center; background-size: cover; ">
+                <div class="large-6 column" style="margin-top: 20vh;">
+                    <div style="padding: 10px;">
+                        <h2 style="color: #444;">Deser z truskawami</h2>
+                        <p style="font-size: 1rem; font-weight: 100; text-align: justify; color: #444;">
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                        </p>
+                    </div>
+                </div> <!-- .cd-half-width -->
+                <div style="width: 100vw; height: 100vh; background-color: rgba(255, 255, 255, 0.2);"></div>
+            </li>
 
-                    </ul>
-                </section>
-            </nav>
+        </ul> <!-- .cd-hero-slider -->
+
+        <div style="width: 100%; height: 30vh; position: absolute; bottom: 0; z-index: 0;">
+            <form>
+                <div class="row">
+                    <h3 style="font-weight: 100; width: 100%; text-align: center; padding-bottom: 20px;"> Witaj w theRecipe! Na co masz ochotę? </h3>
+                    <div class="large-10 columns">
+                        <input type="text" placeholder="Szukaj" class="radius" style="border-width: 0; height: 50px; text-align: center; font-size: 1.2rem"/>
+                    </div>
+                    <div class="large-2 column">
+                        <a href="#" class="button" style="width: 100%;">Search</a>
+                    </div>
+                </div>
+            </form>
         </div>
-    </div>
 
-    <div style="margin: 0; padding: 0;">
-        <ul class="example-orbit-content text-justify" data-orbit>
-            <li data-orbit-slide="headline-1">
-                <div class="main_image" style="background-image: url(images/14.jpg);">
-                    <div class="row">
-                        <div class="orbit_description large-6 columns ">
-                            <h2>Wspaniały shake z truskawek</h2>
-                            <p>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                            </p>
-                            <a class="right" style="color:white">Zobacz przepis...</a>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li data-orbit-slide="headline-2">
-                <div class="main_image" style="background-image: url(images/15.jpg);">
-                    <div class="row">
-                        <div class="orbit_description large-6 columns">
-                            <h2>Pyszna kawa</h2>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. </p>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li data-orbit-slide="headline-3">
-                <div class="main_image" style="background-image: url(images/32.jpg);">
-                    <div class="row">
-                        <div class="orbit_description large-6 columns">
-                            <h2>Coś tam jeszcze</h2>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. </p>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div>
+        <div class="cd-slider-nav" style="height: 50px;">
+            <nav>
+                <!--<span class="cd-marker item-1"></span>-->
+                <ul>
+                    <li class="selected"><p style="margin: 0;"><i class="fa fa-circle-thin"></i></p></li>
+                    <li><p style="margin: 0;"><i class="fa fa-circle-thin"></i></p></li>
+                    <li><p style="margin: 0;"><i class="fa fa-circle-thin"></i></p></li>
+                </ul>
+            </nav>
+        </div> <!-- .cd-slider-nav -->
+    </section> <!-- .cd-hero -->
+</div>
+
 
     <div class="site-content" id="siteContent">
+
         <div class="" style="position: absolute; top: 5px; right: 10px;">
             <ul class="inline-list">
                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -120,9 +145,11 @@
                         <!-- / SEKCJA GŁÓWNEJ WIADOMOŚCI-->
                         <div class="medium-12 column">
                             <div class="row">
-                                <div class="medium-6 column" style="overflow:hidden;">
+                                <div class="medium-6 column" style="overflow: hidden;">
                                     <h5 style="color: indianred; transform: translateX(-5px);">Dania</h5>
-                                    <h3><b><i>Pasztet z sosem</i></b></h3>
+                                    <h3>
+                                        <b><i>Pasztet z sosem</i></b>
+                                    </h3>
                                     <div class="medium-12" style="position: relative;">
                                         <img src="images/7.jpg" class="elo1" />
                                         <div class="elo1_1" style="opacity: 0; position: absolute; bottom: 0; left: 0; background-color: #fff; z-index: 5;">
@@ -143,9 +170,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="medium-6 column" style="overflow:hidden;">
+                                <div class="medium-6 column" style="overflow: hidden;">
                                     <h5 style="color: indianred; transform: translateX(-5px);">Dania</h5>
-                                    <h3><b><i>Pasztet z sosem</i></b></h3>
+                                    <h3>
+                                        <b><i>Pasztet z sosem</i></b>
+                                    </h3>
                                     <div class="medium-12" style="position: relative;">
                                         <img src="images/8.jpg" class="elo1" />
                                         <div class="elo1_1" style="opacity: 0; position: absolute; bottom: 0; left: 0; background-color: #fff; z-index: 5;">
@@ -168,9 +197,11 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="medium-6 column" style="overflow:hidden;">
+                                <div class="medium-6 column" style="overflow: hidden;">
                                     <h5 style="color: indianred; transform: translateX(-5px);">Dania</h5>
-                                    <h3><b><i>Pasztet z sosem</i></b></h3>
+                                    <h3>
+                                        <b><i>Pasztet z sosem</i></b>
+                                    </h3>
                                     <div class="medium-12" style="position: relative;">
                                         <img src="images/10.jpg" class="elo1" />
                                         <div class="elo1_1" style="opacity: 0; position: absolute; bottom: 0; left: 0; background-color: #fff; z-index: 5;">
@@ -191,9 +222,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="medium-6 column" style="overflow:hidden;">
+                                <div class="medium-6 column" style="overflow: hidden;">
                                     <h5 style="color: indianred; transform: translateX(-5px);">Dania</h5>
-                                    <h3><b><i>Pasztet z sosem</i></b></h3>
+                                    <h3>
+                                        <b><i>Pasztet z sosem</i></b>
+                                    </h3>
                                     <div class="medium-12" style="position: relative;">
                                         <img src="images/18.jpg" class="elo1" />
                                         <div class="elo1_1" style="opacity: 0; position: absolute; bottom: 0; left: 0; background-color: #fff; z-index: 5;">
@@ -216,9 +249,11 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="medium-6 column" style="overflow:hidden;">
+                                <div class="medium-6 column" style="overflow: hidden;">
                                     <h5 style="color: indianred; transform: translateX(-5px);">Dania</h5>
-                                    <h3><b><i>Pasztet z sosem</i></b></h3>
+                                    <h3>
+                                        <b><i>Pasztet z sosem</i></b>
+                                    </h3>
                                     <div class="medium-12" style="position: relative;">
                                         <img src="images/24.jpg" class="elo1" />
                                         <div class="elo1_1" style="opacity: 0; position: absolute; bottom: 0; left: 0; background-color: #fff; z-index: 5;">
@@ -239,9 +274,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="medium-6 column" style="overflow:hidden;">
+                                <div class="medium-6 column" style="overflow: hidden;">
                                     <h5 style="color: indianred; transform: translateX(-5px);">Dania</h5>
-                                    <h3><b><i>Pasztet z sosem</i></b></h3>
+                                    <h3>
+                                        <b><i>Pasztet z sosem</i></b>
+                                    </h3>
                                     <div class="medium-12" style="position: relative;">
                                         <img src="images/6.jpg" class="elo1" />
                                         <div class="elo1_1" style="opacity: 0; position: absolute; bottom: 0; left: 0; background-color: #fff; z-index: 5;">
@@ -344,10 +381,11 @@
                 </div>
             </div>
         </div>
-    </div>
+</div>
 
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/foundation/js/foundation.min.js"></script>
-    <script src="js/app.js"></script>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/foundation/js/foundation.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>

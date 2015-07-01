@@ -12,7 +12,7 @@ $(window).load(function () {
         $("#siteContent").toggleClass("site-content-static", ($(this).scrollTop() > 0));
     });
 
-    if ( $(window).width() > 1024) { $("#siteContent").toggleClass("site-content-large"); }
+    //if ( $(window).width() > 1024) { $("#siteContent").toggleClass("site-content-large"); }
 
 });
 
