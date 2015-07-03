@@ -88,3 +88,19 @@ body{
       background-color: #000;
     }
     */
+
+    // ZMIANA KOLORU PLACEHOLDER
+    input[type="text"] {
+      @include input-placeholder {
+        color: rgba(0,0,0,0.8);
+      }
+    } 
+    
+    #andrzej1, #andrzej2{
+        background-color:rgba(255,255,255,0.2);
+        @include transition(all 0.3s ease-in-out);
+    }
+    #andrzej1:hover, #andrzej2:hover{
+        background-color:rgba(255,255,255,0);
+        cursor:pointer;
+    }
