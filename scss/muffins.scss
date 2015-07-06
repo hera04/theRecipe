@@ -2,6 +2,7 @@
 
 $bgcolor: #DDD;
 $cnt_bgcolor: #fff;
+$main_color: rgb(205,92,92);
 
 *{
     //font-family: 'Quattrocento Sans', sans-serif !important;
@@ -70,8 +71,12 @@ body{
         @include translateY(-20px);
     }
     
+    .elo{
+        cursor: pointer;
+    }
     .elo1_1{
         @include transition(all 0.6s ease-in-out);
+        cursor: pointer;
         //@include translateY(75%);
     }
     .elo1:hover + .elo1_1, .elo1_1:hover{
@@ -96,11 +101,32 @@ body{
       }
     } 
     
-    #andrzej1, #andrzej2{
-        background-color:rgba(255,255,255,0.2);
+    .andrzej1{
+        background-color:rgba(255,255,255,0.3) !important;
         @include transition(all 0.3s ease-in-out);
-    }
-    #andrzej1:hover, #andrzej2:hover{
-        background-color:rgba(255,255,255,0);
         cursor:pointer;
+    }
+    .andrzej1_1{
+        opacity:0;
+        @include transition(all 0.3s ease-in-out);
+        cursor:pointer;
+    }
+    .andrzej1:hover + .andrzej1_1 {
+        opacity:1;
+    }
+    .andrzej1:hover{
+        background-color:rgba(255,255,255,0) !important;
+    }
+
+    /*.andrzej1:hover + .andrzej1_1, .andrzej1_1:hover, .andrzej1:hover {
+        background-color:rgba(255,255,255,0) !important;
+        cursor:pointer !important;
+    }*/
+
+    .footer_link a{
+        color: #222;
+    }
+    
+    .footer_link a:hover{
+        color: $main_color;
     }
