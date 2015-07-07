@@ -8,7 +8,7 @@ $(window).load(function () {
     //alert($(window).width());
 
     $(document).scroll(function () {
-        $("#navigation").toggleClass("small", ($(this).scrollTop() > 0));
+        $("#navigation").toggleClass("add_shadow", ($(this).scrollTop() > ($(window).height()-100) ));
         $("#siteContent").toggleClass("site-content-static", ($(this).scrollTop() > 0));
     });
 

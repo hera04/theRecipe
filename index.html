@@ -18,7 +18,7 @@
 
     <!-- NAVIGATION ------------------------------------------------------------------->
     <div class="fixed">
-        <div class="nav_wrapper" id="navigation" style="box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);">
+        <div class="nav_wrapper" id="navigation" style="">
             <nav class="top-bar" data-topbar role="navigation" data-options="is_hover: false">
                 <ul class="title-area">
                     <li class="name">
@@ -51,7 +51,6 @@
         </div>
     </div>
     <!--------------------------------------------------------------------------------->
-
     <!-- POPULARNE WPISY -------------------------------------------------------------->
     <div style="margin: 0; padding: 0;">
         <section class="cd-hero">
@@ -100,7 +99,8 @@
                             <input type="text" placeholder="Na co masz ochotę?" class="radius" style="border-width: 0; height: 50px; text-align: center; font-size: 1.2rem" />
                         </div>
                         <div class="medium-2 column">
-                            <a href="#" class="button" style="width: 100%;">Wyszukaj</a>
+                            <a href="#" class="button hide-for-large-up radius" style="width: 100%;"><i class="fa fa-search"></i></a>
+                            <a href="#" class="button show-for-large-up radius" style="width: 100%;">Wyszukaj</a>
                         </div>
                     </div>
                 </form>
@@ -119,12 +119,11 @@
         </section> <!-- .cd-hero -->
     </div>
     <!--------------------------------------------------------------------------------->
-
     <!-- MAIN CONTENT ----------------------------------------------------------------->
     <div class="site-content" id="siteContent">
 
         <!-- Linki do portali społecznościowych -->
-        <div class="" style="position: absolute; top: 5px; right: 10px; z-index: 5;">
+        <div class="social-media">
             <ul class="inline-list">
                 <li><a href="http://www.facebook.pl"><i class="fa fa-facebook"></i></a></li>
                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -136,24 +135,23 @@
         <!------------------------------------------------------------------->
         <!-- Sekcja wpisów -------------------------------------------------->
         <div class="row" style="text-align: justify;">
-            <h1>Najnowsze wpisy</h1>
+            <h1 style="padding-left:10px;">Najnowsze wpisy</h1>
 
             <!-- WPISY ------------------------------------------------------>
             <div class="large-8 column">
                 <!-- GŁÓWNY WPIS -------------------------------------------->
-                <div class="row">
-                    <div class="medium-12 column" style="position: relative;">
+                <div class="row main-post">
+                    <div class="medium-12 column">
                         <!-- Data i Kategoria ------------------------------->
-                        <div class="medium-4 column show-for-medium-up" style="background-color: #fff; position: absolute; right: 50px; top: 0; z-index: 2;">
+                        <div class="medium-5 large-4 column show-for-medium-up mp-info">
                             <h6>poniedziałek, 20 listopad</h6>
-                            <h3>
-                                <b>Dania</b>
-                            </h3>
+                            <h3><b>Dania</b></h3>
                         </div>
                         <!-- Opis głównej wiadomości------------------------->
-                        <div class="medium-12 column" style="position: absolute; bottom: 0; right: 0; background-color: rgba(255, 255, 255, 0.8); z-index: 1;">
+                        <div class="medium-12 column mp-desc-wrapper">
                             <h2>Pomysł na sorbet owocowy</h2>
-                            <p style="padding: 10px;">
+                            <p class="right show-for-small-only"><a href="#">Zobacz przepis...</a></p>
+                            <p class="show-for-medium-up">
                                 Ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.Ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.
                                 <br /><a class="right" href="#">Zobacz przepis...</a>
                             </p>
@@ -165,19 +163,17 @@
                 <!----------------------------------------------------------->
                 <!-- POZOSTAŁE WPISY ---------------------------------------->
                 <div class="medium-12 column">
-                    <!-- Wpis 1 i 2 -->
-                    <div class="row">
-                        <div class="medium-6 column" style="overflow: hidden;">
+                    <!-- Wpisy 1 - 6 -->
+                    <div class="row other-posts">
+                        <div class="medium-6 column op-wrapper">
                             <!-- Tytuł przepisu -->
-                            <h5 style="color: indianred; transform: translateX(-5px);">Dania</h5>
-                            <h3>
-                                <b><i>Pasztet z sosem</i></b>
-                            </h3>
+                            <h5 class="op-category">Dania</h5>
+                            <h3 class="site-titles">Pasztet z sosem</h3>
                             <!-- Opis przepisu -->
-                            <div class="medium-12" style="position: relative;">
-                                <img src="images/8.jpg" class="elo1" alt="Zdjęcie wypieku" />
-                                <div class="elo1_1" style="opacity: 0; position: absolute; bottom: 0; left: 0; background-color: #fff; z-index: 5;">
-                                    <div class="entry_description medium-12 columns" style="font-size: 0.9rem; padding: 10px 20px;">
+                            <div class="medium-12 op-desc-wrapper">
+                                <img class="op-desc-trigger" src="images/8.jpg" alt="Zdjęcie wpisu"/>
+                                <div class="op-desc-to-show">
+                                    <div class="medium-12 columns op-desc">
                                         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
                                         <a class="right">Zobacz przepis...</a>
                                     </div>
@@ -186,7 +182,7 @@
                             <!-- Podtytuł i ocena przepisu -->
                             <div class="medium-12 columns">
                                 <h5 class="left">Na każdą okazję</h5>
-                                <div class="right" style="color: indianred; margin-top: 3px;">
+                                <div class="right op-rating">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
@@ -194,17 +190,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="medium-6 column" style="overflow: hidden;">
+                        <div class="medium-6 column op-wrapper">
                             <!-- Tytuł przepisu -->
-                            <h5 style="color: indianred; transform: translateX(-5px);">Dania</h5>
-                            <h3>
-                                <b><i>Pasztet z sosem</i></b>
-                            </h3>
+                            <h5 class="op-category">Dania</h5>
+                            <h3 class="site-titles">Pasztet z sosem</h3>
                             <!-- Opis przepisu -->
-                            <div class="medium-12" style="position: relative;">
-                                <img src="images/8.jpg" class="elo1" alt="Zdjęcie wypieku" />
-                                <div class="elo1_1" style="opacity: 0; position: absolute; bottom: 0; left: 0; background-color: #fff; z-index: 5;">
-                                    <div class="entry_description medium-12 columns" style="font-size: 0.9rem; padding: 10px 20px;">
+                            <div class="medium-12 op-desc-wrapper">
+                                <img class="op-desc-trigger" src="images/8.jpg" alt="Zdjęcie wpisu"/>
+                                <div class="op-desc-to-show">
+                                    <div class="medium-12 columns op-desc">
                                         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
                                         <a class="right">Zobacz przepis...</a>
                                     </div>
@@ -213,7 +207,7 @@
                             <!-- Podtytuł i ocena przepisu -->
                             <div class="medium-12 columns">
                                 <h5 class="left">Na każdą okazję</h5>
-                                <div class="right" style="color: indianred; margin-top: 3px;">
+                                <div class="right op-rating">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
@@ -221,20 +215,15 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- Wpis 3 i 4 -->
-                    <div class="row">
-                        <div class="medium-6 column" style="overflow: hidden;">
+                        <div class="medium-6 column op-wrapper">
                             <!-- Tytuł przepisu -->
-                            <h5 style="color: indianred; transform: translateX(-5px);">Dania</h5>
-                            <h3>
-                                <b><i>Pasztet z sosem</i></b>
-                            </h3>
+                            <h5 class="op-category">Dania</h5>
+                            <h3 class="site-titles">Pasztet z sosem</h3>
                             <!-- Opis przepisu -->
-                            <div class="medium-12" style="position: relative;">
-                                <img src="images/8.jpg" class="elo1" alt="Zdjęcie wypieku" />
-                                <div class="elo1_1" style="opacity: 0; position: absolute; bottom: 0; left: 0; background-color: #fff; z-index: 5;">
-                                    <div class="entry_description medium-12 columns" style="font-size: 0.9rem; padding: 10px 20px;">
+                            <div class="medium-12 op-desc-wrapper">
+                                <img class="op-desc-trigger" src="images/8.jpg" alt="Zdjęcie wpisu"/>
+                                <div class="op-desc-to-show">
+                                    <div class="medium-12 columns op-desc">
                                         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
                                         <a class="right">Zobacz przepis...</a>
                                     </div>
@@ -243,7 +232,7 @@
                             <!-- Podtytuł i ocena przepisu -->
                             <div class="medium-12 columns">
                                 <h5 class="left">Na każdą okazję</h5>
-                                <div class="right" style="color: indianred; margin-top: 3px;">
+                                <div class="right op-rating">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
@@ -251,17 +240,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="medium-6 column" style="overflow: hidden;">
+                        <div class="medium-6 column op-wrapper">
                             <!-- Tytuł przepisu -->
-                            <h5 style="color: indianred; transform: translateX(-5px);">Dania</h5>
-                            <h3>
-                                <b><i>Pasztet z sosem</i></b>
-                            </h3>
+                            <h5 class="op-category">Dania</h5>
+                            <h3 class="site-titles">Pasztet z sosem</h3>
                             <!-- Opis przepisu -->
-                            <div class="medium-12" style="position: relative;">
-                                <img src="images/8.jpg" class="elo1" alt="Zdjęcie wypieku" />
-                                <div class="elo1_1" style="opacity: 0; position: absolute; bottom: 0; left: 0; background-color: #fff; z-index: 5;">
-                                    <div class="entry_description medium-12 columns" style="font-size: 0.9rem; padding: 10px 20px;">
+                            <div class="medium-12 op-desc-wrapper">
+                                <img class="op-desc-trigger" src="images/8.jpg" alt="Zdjęcie wpisu"/>
+                                <div class="op-desc-to-show">
+                                    <div class="medium-12 columns op-desc">
                                         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
                                         <a class="right">Zobacz przepis...</a>
                                     </div>
@@ -270,7 +257,7 @@
                             <!-- Podtytuł i ocena przepisu -->
                             <div class="medium-12 columns">
                                 <h5 class="left">Na każdą okazję</h5>
-                                <div class="right" style="color: indianred; margin-top: 3px;">
+                                <div class="right op-rating">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
@@ -278,20 +265,15 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- Wpis 5 i 6 -->
-                    <div class="row">
-                        <div class="medium-6 column" style="overflow: hidden;">
+                        <div class="medium-6 column op-wrapper">
                             <!-- Tytuł przepisu -->
-                            <h5 style="color: indianred; transform: translateX(-5px);">Dania</h5>
-                            <h3>
-                                <b><i>Pasztet z sosem</i></b>
-                            </h3>
+                            <h5 class="op-category">Dania</h5>
+                            <h3 class="site-titles">Pasztet z sosem</h3>
                             <!-- Opis przepisu -->
-                            <div class="medium-12" style="position: relative;">
-                                <img src="images/8.jpg" class="elo1" alt="Zdjęcie wypieku" />
-                                <div class="elo1_1" style="opacity: 0; position: absolute; bottom: 0; left: 0; background-color: #fff; z-index: 5;">
-                                    <div class="entry_description medium-12 columns" style="font-size: 0.9rem; padding: 10px 20px;">
+                            <div class="medium-12 op-desc-wrapper">
+                                <img class="op-desc-trigger" src="images/8.jpg" alt="Zdjęcie wpisu"/>
+                                <div class="op-desc-to-show">
+                                    <div class="medium-12 columns op-desc">
                                         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
                                         <a class="right">Zobacz przepis...</a>
                                     </div>
@@ -300,7 +282,7 @@
                             <!-- Podtytuł i ocena przepisu -->
                             <div class="medium-12 columns">
                                 <h5 class="left">Na każdą okazję</h5>
-                                <div class="right" style="color: indianred; margin-top: 3px;">
+                                <div class="right op-rating">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
@@ -308,17 +290,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="medium-6 column" style="overflow: hidden;">
+                        <div class="medium-6 column op-wrapper">
                             <!-- Tytuł przepisu -->
-                            <h5 style="color: indianred; transform: translateX(-5px);">Dania</h5>
-                            <h3>
-                                <b><i>Pasztet z sosem</i></b>
-                            </h3>
+                            <h5 class="op-category">Dania</h5>
+                            <h3 class="site-titles">Pasztet z sosem</h3>
                             <!-- Opis przepisu -->
-                            <div class="medium-12" style="position: relative;">
-                                <img src="images/8.jpg" class="elo1" alt="Zdjęcie wypieku" />
-                                <div class="elo1_1" style="opacity: 0; position: absolute; bottom: 0; left: 0; background-color: #fff; z-index: 5;">
-                                    <div class="entry_description medium-12 columns" style="font-size: 0.9rem; padding: 10px 20px;">
+                            <div class="medium-12 op-desc-wrapper">
+                                <img class="op-desc-trigger" src="images/8.jpg" alt="Zdjęcie wpisu"/>
+                                <div class="op-desc-to-show">
+                                    <div class="medium-12 columns op-desc">
                                         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
                                         <a class="right">Zobacz przepis...</a>
                                     </div>
@@ -327,7 +307,7 @@
                             <!-- Podtytuł i ocena przepisu -->
                             <div class="medium-12 columns">
                                 <h5 class="left">Na każdą okazję</h5>
-                                <div class="right" style="color: indianred; margin-top: 3px;">
+                                <div class="right op-rating">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
@@ -350,21 +330,21 @@
             <div class="large-4 column">
                 <!-- Szukajka -->
                 <div class="row">
-                    <div class="medium-12 column">
+                    <div class="small-12 medium-8 medium-centered large-12 column">
                         <h5>Wyszukiwarka</h5>
                         <h3>Na co masz ochotę?</h3>
                         <form>
                             <!-- Szukaj po nazwie -->
                             <div class="row">
                                 <div class="large-12 columns">
-                                    <input type="text" placeholder="Szukaj" class="radius" />
+                                    <input type="text" placeholder="Szukaj" class="radius"/>
                                 </div>
                             </div>
 
                             <!-- Szukaj po kategorii -->
                             <div class="row">
                                 <div class="large-12 columns">
-                                    <input type="text" placeholder="Kategoria" class="radius" />
+                                    <input type="text" placeholder="Kategoria" class="radius"/>
                                 </div>
                             </div>
 
@@ -388,46 +368,47 @@
                                 </div>
                             </div>
                         </form>
+                        <p>Co masz w <a href="#" data-reveal-id="myModal">lodówce</a>?</p>
                     </div>
                 </div>
                 <!-- Komentarze -->
                 <div class="row">
-                    <div class="medium-12 column">
+                    <div class="small-12 medium-8 medium-centered large-12 column">
                         <h3>
                             <b>Najnowsze komentarze</b>
                         </h3>
                         <div class="row">
-                            <div class="medium-12 column">
-                                <h5 style="padding-bottom: 5px;"><span style="padding-right: 5px; font-weight: bold; font-style: italic;">Herbata z owocami</span><small> 1 komentarz</small></h5>
-                                <p style="margin-bottom: 0; padding-top: 15px; border-top-style: solid; border-top-width: 1px; border-top-color: #DDD; font-size: 0.8rem; margin-left: 10px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-                                <p class="right" style="font-weight: bold; margin-bottom: 0; color: indianred;">~andrzejek</p>
+                            <div class="medium-12 column comment-wrapper">
+                                <a href="#"><h5 class="site-titles cm-title">Herbata z owocami<small> 1 komentarz</small></h5></a>
+                                <p class="cm-description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                                <p class="right cm-author">~andrzejek</p>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="medium-12 column">
-                                <h5 style="padding-bottom: 5px;"><span style="padding-right: 5px; font-weight: bold; font-style: italic;">Herbata z owocami</span><small> 1 komentarz</small></h5>
-                                <p style="margin-bottom: 0; padding-top: 15px; border-top-style: solid; border-top-width: 1px; border-top-color: #DDD; font-size: 0.8rem; margin-left: 10px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-                                <p class="right" style="font-weight: bold; margin-bottom: 0; color: indianred;">~andrzejek</p>
+                            <div class="medium-12 column comment-wrapper">
+                                <a href="#"><h5 class="site-titles cm-title">Herbata z owocami<small> 1 komentarz</small></h5></a>
+                                <p class="cm-description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                                <p class="right cm-author">~andrzejek</p>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="medium-12 column">
-                                <h5 style="padding-bottom: 5px;"><span style="padding-right: 5px; font-weight: bold; font-style: italic;">Herbata z owocami</span><small> 1 komentarz</small></h5>
-                                <p style="margin-bottom: 0; padding-top: 15px; border-top-style: solid; border-top-width: 1px; border-top-color: #DDD; font-size: 0.8rem; margin-left: 10px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-                                <p class="right" style="font-weight: bold; margin-bottom: 0; color: indianred;">~andrzejek</p>
+                            <div class="medium-12 column comment-wrapper">
+                                <a href="#"><h5 class="site-titles cm-title">Herbata z owocami<small> 1 komentarz</small></h5></a>
+                                <p class="cm-description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                                <p class="right cm-author">~andrzejek</p>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="medium-12 column">
-                                <h5 style="padding-bottom: 5px;"><span style="padding-right: 5px; font-weight: bold; font-style: italic;">Herbata z owocami</span><small> 1 komentarz</small></h5>
-                                <p style="margin-bottom: 0; padding-top: 15px; border-top-style: solid; border-top-width: 1px; border-top-color: #DDD; font-size: 0.8rem; margin-left: 10px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-                                <p class="right" style="font-weight: bold; margin-bottom: 0; color: indianred;">~andrzejek</p>
+                            <div class="medium-12 column comment-wrapper">
+                                <a href="#"><h5 class="site-titles cm-title">Herbata z owocami<small> 1 komentarz</small></h5></a>
+                                <p class="cm-description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                                <p class="right cm-author">~andrzejek</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- Tagi -->
-                <div class="show-for-medium-up">
+                <div class="show-for-large-up">
                     TO JEST CHMURKA TAGÓW<br />
                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.
                 </div>
@@ -438,14 +419,13 @@
         <!------------------------------------------------------------------->
     </div>
     <!--------------------------------------------------------------------------------->
-
     <!-- FOOD BATTLE ------------------------------------------------------------------>
-    <div class="show-for-large-up" style="background: #FFF; width: 100%; height: 90vh; transform: translateY(-40px); margin: 0; padding: 0; position: relative; z-index: -1;">
+    <div class="show-for-large-up battle-wrapper">
         <!-- Statystyki i opis wypieków -->
-        <div style="position: absolute; top: 50px; z-index: 2; background-color: rgba(255, 255, 255, 0.8); text-align: center; line-height: 2rem; border-radius: 10px;" class="medium-4 column medium-offset-4">
+        <div class="medium-4 column medium-offset-4 bt-desc">
             <h1>MUFFINS BATTLE</h1>
-            <p style="text-align: justify;">Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.Sapien elit in malesuada semper mi, id sollicitudin urna fermentum. </p>
-            <table style="width: 100%; margin-top: 10px;">
+            <p style="text-align: justify;">Ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat. Ut fusce varius nisl ac ipsum gravida vel pretium tellus.</p>
+            <table>
                 <thead>
                     <tr>
                         <th>Babeczki</th>
@@ -475,121 +455,131 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="panel radius" style="color: rgba(0, 0, 0, 0.6)">
-                <i>jajka, woda, wanilia, mąka, cukier, truskawki, morele, mąka, masło, agrest, cukier puder</i>
+            <div class="panel radius ingredients">
+                jajka, woda, wanilia, mąka, cukier, truskawki, morele, mąka, masło, agrest, cukier puder
             </div>
         </div>
         <!-- Opis pierwszego wypieku -->
-        <div class="" style="position: relative; float: left; width: 50%; height: 95vh; background-image: url(images/28.jpg); background-position: center; background-size: cover;">
-            <!-- Biała maska -->
-            <div id="" class="andrzej1" style="width: 100%; height: 100%; position: relative; z-index: 1;"></div>
-            <!-- Opis -->
-            <div id="" class="andrzej1_1" style="text-align: justify; width: 50%; height: 100%; padding: 10vh 20px; line-height: 2rem; background-color: rgba(255, 255, 255, 0.5); border-radius: 5px; position: absolute; top: 0; left: 0; z-index: 0;">
-                <h2 style="text-transform: uppercase; font-weight: 100; text-align: left;">Babeczki z pomidorami</h2>
-                Ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.e varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.Ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.e varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.
+        <form action="#" method="post">
+            <div class="opponent" style="background-image: url(images/29.jpg);">
+                <!-- Biała maska> -->
+                <input type="submit" class="opp-trigger" value="" />
+                <!-- Opis -->
+                <div class="opp-desc" style="left: 0;">
+                    <h2 class="opp-title" style="">Babeczki z pomidorami</h2>
+                    Ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.e varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.Ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.e varius nisl ac ipsum gravida.
+                </div>
             </div>
-        </div>
+        </form>
         <!-- Opis drugiego wypieku -->
-        <div class="" style="position: relative; float: left; width: 50%; height: 95vh; background-image: url(images/29.jpg); background-position: center; background-size: cover;">
-            <!-- Biała maska> -->
-            <div id="" class="andrzej1" style="width: 100%; height: 100%; position: relative; z-index: 1;"></div>
-            <!-- Opis -->
-            <div id="" class="andrzej1_1" style="text-align: justify; width: 50%; height: 100%; padding: 10vh 20px; line-height: 2rem; background-color: rgba(255, 255, 255, 0.5); border-radius: 5px; position: absolute; top:0; right: 0; z-index: 0;">
-                <h2 style="text-transform: uppercase; font-weight: 100; text-align: left;">Babeczki z pomidorami</h2>
-                Ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.e varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.Ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.e varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.
+        <form action="#" method="post">
+            <div class="opponent" style="background-image: url(images/30.jpg);">
+                <!-- Biała maska> -->
+                <input type="submit" class="opp-trigger" value="" />
+                <!-- Opis -->
+                <div class="opp-desc" style="right: 0;">
+                    <h2 class="opp-title" style="">Babeczki z pomidorami</h2>
+                    Ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.e varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.Ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.e varius nisl ac ipsum gravida.
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--------------------------------------------------------------------------------->
+    <!-- FOOTER ----------------------------------------------------------------------->
+    <div class="site-content footer">
+        <div class="row medium-collapse">
+            <div class="medium-12 column">
+                <!-- Na skróty ----------------------------------------------->
+                <div class="row medium-collapse show-for-medium-up">
+                    <div class="medium-12 column">
+                        <div class="large-2 medium-4 column link-wrapper">
+                            <ul class="footer_link">
+                                <li class="ft-title">Desery</li>
+                                <li><a>Tiramisu</a></li>
+                                <li><a>Strawberry Summer</a></li>
+                                <li><a>Mus czekoladowy</a></li>
+                                <li><a>Truskawkowe Triffle</a></li>
+                                <li><a>Czekoladowa wyspa</a></li>
+                            </ul>
+                        </div>
+                        <div class="large-2 medium-4 column link-wrapper">
+                            <ul class="footer_link">
+                                <li class="ft-title">Desery</li>
+                                <li><a>Tiramisu</a></li>
+                                <li><a>Strawberry Summer</a></li>
+                                <li><a>Mus czekoladowy</a></li>
+                                <li><a>Truskawkowe Triffle</a></li>
+                                <li><a>Czekoladowa wyspa</a></li>
+                            </ul>
+                        </div>
+                        <div class="large-2 medium-4 column link-wrapper">
+                            <ul class="footer_link">
+                                <li class="ft-title">Desery</li>
+                                <li><a>Tiramisu</a></li>
+                                <li><a>Strawberry Summer</a></li>
+                                <li><a>Mus czekoladowy</a></li>
+                                <li><a>Truskawkowe Triffle</a></li>
+                                <li><a>Czekoladowa wyspa</a></li>
+                            </ul>
+                        </div>
+                        <div class="large-2 medium-4 column link-wrapper">
+                            <ul class="footer_link">
+                                <li class="ft-title">Desery</li>
+                                <li><a>Tiramisu</a></li>
+                                <li><a>Strawberry Summer</a></li>
+                                <li><a>Mus czekoladowy</a></li>
+                                <li><a>Truskawkowe Triffle</a></li>
+                                <li><a>Czekoladowa wyspa</a></li>
+                            </ul>
+                        </div>
+                        <div class="large-2 medium-4 column link-wrapper">
+                            <ul class="footer_link">
+                                <li class="ft-title">Desery</li>
+                                <li><a>Tiramisu</a></li>
+                                <li><a>Strawberry Summer</a></li>
+                                <li><a>Mus czekoladowy</a></li>
+                                <li><a>Truskawkowe Triffle</a></li>
+                                <li><a>Czekoladowa wyspa</a></li>
+                            </ul>
+                        </div>
+                        <div class="large-2 medium-4 column link-wrapper">
+                            <ul class="footer_link">
+                                <li class="ft-title">Desery</li>
+                                <li><a>Tiramisu</a></li>
+                                <li><a>Strawberry Summer</a></li>
+                                <li><a>Mus czekoladowy</a></li>
+                                <li><a>Truskawkowe Triffle</a></li>
+                                <li><a>Czekoladowa wyspa</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- O Autorze ----------------------------------------------->
+                <div class="row ft-about">
+                    <div class="medium-4 column hide-for-small-only">
+                        <h5 class="ab-title">Lorem Ipsum</h5>
+                        <p class="ab-desc">Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.elit in malesuada semper mi, id sollicitudin urna fermentum.</p>
+                    </div>
+                    <div class="medium-4 column hide-for-small-only">
+                        <h5 class="ab-title">Lorem Ipsum</h5>
+                        <p class="ab-desc">Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.elit in malesuada semper mi, id sollicitudin urna fermentum.</p>
+                    </div>
+                    <div class="medium-4 column">
+                        <h5 class="ab-title">Lorem Ipsum</h5>
+                        <p class="ab-desc">Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.elit in malesuada semper mi, id sollicitudin urna fermentum.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <!--------------------------------------------------------------------------------->
 
-    <!-- FOOTER ----------------------------------------------------------------------->
-    <div style="transform: translateY(-30px); position: relative; z-index: 0;" class="site-content">
-        <div class="row  medium-collapse" style="background-color: #fff;">
-            <div class="medium-12 column" style="">
-                <div class="row medium-collapse">
-                    <!-- Na skróty (to linki w stopce, w których zawarte są linki do najnowszych / gorących wpisów) -->
-                    <div class="medium-6 column">
-                        <div class="medium-4 column" style="padding-right: 0">
-                            <ul style="list-style-type: none; font-size: 0.9rem;" class="footer_link">
-                                <li style="color: indianred; transform: translateX(-10px); font-weight: bold;">Desery</li>
-                                <li><a>Tiramisu</a></li>
-                                <li><a>Strawberry Summer</a></li>
-                                <li><a>Mus czekoladowy</a></li>
-                                <li><a>Truskawkowe Triffle</a></li>
-                                <li><a>Czekoladowa wyspa</a></li>
-                            </ul>
-                        </div>
-                        <div class="medium-4 column" style="padding-right: 0">
-                            <ul style="list-style-type: none; font-size: 0.9rem;" class="footer_link">
-                                <li style="color: indianred; transform: translateX(-10px); font-weight: bold;">Desery</li>
-                                <li><a>Tiramisu</a></li>
-                                <li><a>Strawberry Summer</a></li>
-                                <li><a>Mus czekoladowy</a></li>
-                                <li><a>Truskawkowe Triffle</a></li>
-                                <li><a>Czekoladowa wyspa</a></li>
-                            </ul>
-                        </div>
-                        <div class="medium-4 column" style="padding-right: 0">
-                            <ul style="list-style-type: none; font-size: 0.9rem;" class="footer_link">
-                                <li style="color: indianred; transform: translateX(-10px); font-weight: bold;">Desery</li>
-                                <li><a>Tiramisu</a></li>
-                                <li><a>Strawberry Summer</a></li>
-                                <li><a>Mus czekoladowy</a></li>
-                                <li><a>Truskawkowe Triffle</a></li>
-                                <li><a>Czekoladowa wyspa</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="medium-6 column">
-                        <div class="small-4 column" style="padding-right: 0">
-                            <ul style="list-style-type: none; font-size: 0.9rem;" class="footer_link">
-                                <li style="color: indianred; transform: translateX(-10px); font-weight: bold;">Desery</li>
-                                <li><a>Tiramisu</a></li>
-                                <li><a>Strawberry Summer</a></li>
-                                <li><a>Mus czekoladowy</a></li>
-                                <li><a>Truskawkowe Triffle</a></li>
-                                <li><a>Czekoladowa wyspa</a></li>
-                            </ul>
-                        </div>
-                        <div class="small-4 column" style="padding-right: 0">
-                            <ul style="list-style-type: none; font-size: 0.9rem;" class="footer_link">
-                                <li style="color: indianred; transform: translateX(-10px); font-weight: bold;">Desery</li>
-                                <li><a>Tiramisu</a></li>
-                                <li><a>Strawberry Summer</a></li>
-                                <li><a>Mus czekoladowy</a></li>
-                                <li><a>Truskawkowe Triffle</a></li>
-                                <li><a>Czekoladowa wyspa</a></li>
-                            </ul>
-                        </div>
-                        <div class="small-4 column" style="padding-right: 0">
-                            <ul style="list-style-type: none; font-size: 0.9rem;" class="footer_link">
-                                <li style="color: indianred; transform: translateX(-10px); font-weight: bold;">Desery</li>
-                                <li><a>Tiramisu</a></li>
-                                <li><a>Strawberry Summer</a></li>
-                                <li><a>Mus czekoladowy</a></li>
-                                <li><a>Truskawkowe Triffle</a></li>
-                                <li><a>Czekoladowa wyspa</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <!-- Opisy w stopce (Zawierają informacje o stronie/autorach itp) -->
-                    <div class="medium-4 column hide-for-small-only">
-                        <h5 style="font-weight: 400;text-transform: uppercase;padding-bottom: 10px; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #BBB;">Lorem Ipsum</h5>
-                        <p style="font-size: 0.8rem;">Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.elit in malesuada semper mi, id sollicitudin urna fermentum.</p>
-                    </div>
-                    <div class="medium-4 column hide-for-small-only">
-                        <h5 style="font-weight: 400; text-transform: uppercase; padding-bottom: 10px; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #BBB;">Lorem Ipsum</h5>
-                        <p style="font-size: 0.8rem;">Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.elit in malesuada semper mi, id sollicitudin urna fermentum.</p>
-                    </div>
-                    <div class="medium-4 column">
-                        <h5 style="font-weight: 400;text-transform: uppercase;padding-bottom: 10px; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #BBB;">Lorem Ipsum</h5>
-                        <p style="font-size: 0.8rem;">Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.elit in malesuada semper mi, id sollicitudin urna fermentum.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- MODALE ----------------------------------------------------------------------->
+    <div id="myModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+        <h2 id="modalTitle">Awesome. I have it.</h2>
+        <p class="lead">Your couch. It is mine.</p>
+        <p>I'm a cool paragraph that lives inside of an even cooler modal. Wins!</p>
+        <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>
     <!--------------------------------------------------------------------------------->
 
