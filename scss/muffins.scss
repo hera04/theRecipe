@@ -1,0 +1,446 @@
+@import "compass";
+@import "_responsive.scss";
+
+$bg-color: #EEE; /* Background color - kolor t³a */
+$fg-color: #fff; /* Foreground color - kolor t³a pierwszego planu */
+
+$main-color: #CD5C5C; /* G³ówny kolor strony */
+$secondary-color: #999; /* Poboczny kolor strony (kolor obramowañ, niekatywnych linków itp) */
+$text-color: #444;  /* kolor tekstu */
+
+
+/**
+* #.# Podstawowe klasy
+*/
+
+    html{
+        /* Mieszanka, która ustawia responsywnoœæ rozmiaru czcionki */
+        @include responsive("font-size", 13px,
+            (
+                400px: 14px,
+                640px: 14.5px,
+                1024px: 15px,
+                1440px: 16px
+            )
+        );
+
+        color: $text-color;
+    }
+
+    *{
+        // Pe³na responsywnoœæ obrazków
+        img{
+            width: 100%;
+            height: auto;
+        }
+
+        // Przejœcia dla ca³ej strony
+        @include transition(all 0.3s ease-in-out);
+    }
+
+    body{
+        background-color: $bg-color;
+    }
+
+    input[type="text"] {
+      @include input-placeholder {
+        color: rgba(0,0,0,0.8);
+      }
+    } 
+
+    textarea {
+      background-color: rgba(0,0,0,0.05);
+    } 
+
+
+/**
+* #.# Menu nawigacji
+*/
+    .nav_wrapper{
+        background-color: $fg-color;
+        box-shadow: none;
+    }
+    /* Dodaje dolny cieñ do nawigacji */
+    .nav_wrapper.add_shadow{
+        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);
+    }
+
+
+/**
+* #.# Popularne wpisy
+*
+* Klasy dla seksji 'popularne wpisy'.
+* Zastosowano dodatek Hero-Slider. W celu przystosowania do tej witryny zastosowa³em podane ni¿ej klasy.
+* 
+*/
+    .slider{
+        margin: 0; 
+        padding: 0; 
+        height: 100vh;
+
+        /* sl - slider */
+
+        /* Klasy dla pojedyñczego obiektu - jeden 'popularny' wpis */
+        .sl-item{
+             background-position: center; 
+             background-size: cover;
+
+             /* Bia³a 100% maska na³o¿ona na ka¿dy element */
+             .mask{
+                 width: 100vw; 
+                 height: 100vh; 
+                 background-color: rgba(255, 255, 255, 0.2);
+             }
+             /* Wrapper dla opisu elementu */
+             .sl-desc-wrapper{
+                padding: 10px; 
+                background-color: rgba(255, 255, 255, 0.2); 
+                border-radius: 10px;
+
+                .sl-desc-title{
+                    color: #444; 
+                    font-size: 2rem;
+                }
+
+                p{
+                    font-size: 1rem; 
+                    font-weight: 100; 
+                    text-align: justify; 
+                    color: #444;
+                }
+            }
+        }
+    }
+
+    /* Szukajka */
+    .search-bar{
+        width: 100%; 
+        position: absolute; 
+        bottom: 10vh; 
+        z-index: 0;
+
+        .search-form{
+            border-width: 0; 
+            height: 50px; 
+            text-align: center; 
+            font-size: 1.2rem
+        }
+
+        a{
+            width: 100%;
+        }
+    }
+
+    /* Nawigacja po popularnych wpisach */
+    .sl-nav{
+        height: 50px !important;
+        ul li p{
+            margin: 0;
+        }
+    }
+    
+    
+
+/**
+* #.# Zawartoœæ strony
+*/
+    /* #.# G³ówny pojemnik na stronê */
+    .site-content{
+        width: 90vw; /* Change page width */
+        margin: auto;
+        background-color: $fg-color;
+        @include translateY(0);
+        position: relative;
+        z-index: 0;
+                
+        .row{ 
+            padding: 10px 0; 
+        }
+    }
+
+    /* Klasa dla contentu - zawartoœæ przesuwa siê 20px w górê po scrollu w dó³ */
+    .site-content-static{
+        @include translateY(-20px);
+    }
+
+    .shadow{
+        @include box-shadow(0px 0px 71px -40px rgba(0,0,0,0.75));
+    }
+
+    /* Tytu³y stron */
+    .site-titles{
+        font-weight: bold;
+        font-style: italic;
+    }
+        /* Ikonki odnoœników do spo³ecznoœci */
+        .social-media{
+            position: absolute; 
+            top: 5px; 
+            right: 10px; 
+            z-index: 10;
+            a{
+                color: $secondary-color;
+                &:hover{
+                    color: $main_color;
+                }
+            }
+        }
+
+        /* brc - breadcrumbs */
+        .brc-wrapper{
+            position: absolute;
+            top: 0; 
+            left: 10px; 
+            z-index: 5; 
+            padding: 0;
+            .brc-list{
+                margin-top: 0; 
+                margin-bottom: 0; 
+                border-style: none; 
+                background: none;
+            }
+        }
+
+        /* mp - main-post */
+        /*Etykieta informacyjna g³ówego wpisu*/
+        .mp-info{ 
+            background-color: $fg-color; 
+            position: absolute; 
+            right: 50px; 
+            top: 0; 
+            z-index: 2;
+        }
+        /* pojemnik na opis g³ównego postu */
+        .mp-desc-wrapper{
+            position: absolute; 
+            bottom: 0; 
+            z-index: 1;
+            right: 0; background-color: rgba(255, 255, 255, 0.8);
+            padding: 0 1.8rem;
+        }
+
+        /* op - other-posts */
+        .op-wrapper{
+            overflow: hidden;
+            .op-category{
+                color: $main_color; 
+                transform: translateX(-5px);
+            }
+            .op-title{
+            }
+            .op-desc-wrapper{
+                cursor:pointer;
+                position:relative;
+            }
+            /* zawartoœæ do pokazania (opis wpisu) */
+            .op-desc-to-show{
+                opacity: 0; 
+                position: absolute; 
+                bottom: 0; 
+                left: 0; 
+                background-color: $fg-color; 
+                z-index: 5;
+            }
+            .op-desc-trigger:hover + .op-desc-to-show, 
+            .op-desc-to-show:hover{
+                /* Po najechaniu na op-desc-trigger zmieniaj¹ siê w³aœciwoœci op-desc-to-show */
+                opacity: 0.9;
+            }
+            .op-desc{
+                padding: 10px;
+            }
+            .op-rating{
+                color: $main_color; 
+                margin-top: 3px;
+            }
+        }
+
+        /* cm - comments */
+        .comment-wrapper{
+            .cm-title{
+                padding-bottom: 5px;
+                padding-right: 5px; 
+            }
+            .cm-description{
+                margin-bottom: 0; 
+                margin-left: 10px;
+                padding-top: 15px; 
+                border-top-style: solid; 
+                border-top-width: 1px; 
+                border-top-color: $secondary-color; 
+                font-size: 0.8rem; 
+            }
+            .cm-author{
+                font-weight: bold; 
+                margin-bottom: 0; 
+                color: $main_color;
+            }
+            .cm-date{
+                margin-top: 5px; 
+                margin-left: 10px; 
+                font-size: 0.8rem; 
+                color: $secondary-color;
+            }
+        }
+    
+        /* bt - muffins battle */
+        .battle-wrapper{
+            background: $fg-color; 
+            width: 100%; 
+            height: 90vh; 
+            transform: translateY(-40px); 
+            margin: 0; 
+            padding: 0; 
+            position: relative; 
+            z-index: -1;
+
+            .bt-desc{
+                position: absolute; 
+                top: 40px; 
+                z-index: 2; 
+                background-color: rgba(255, 255, 255, 0.6); 
+                text-align: center; 
+                line-height: 2rem; 
+                border-radius: 10px;
+
+                table{
+                    width: 100%; 
+                    margin-top: 10px;
+                }
+
+                /* sk³adniki */
+                .ingredients{
+                    color: rgba(0, 0, 0, 0.6);
+                    font-style: italic;
+                }
+            }
+
+            /* #.# 'Zawodnicy' / Przeciwnicy */
+            .opponent{
+                position: relative; 
+                float: left; 
+                width: 50%; 
+                height: 95vh; 
+                background-position: center; 
+                background-size: cover;
+            
+                /* Bia³a maska dla obiektu przeciwnika, która po najechaniu zmienia siê na przeŸroczyst¹  */
+                .opp-trigger{
+                    width: 100%; 
+                    height: 100%; 
+                    position: relative; 
+                    z-index: 1;
+                    border:none;
+                    background-color:rgba(255,255,255,0.3);
+                    cursor:pointer;
+                }
+                .opp-desc{
+                    width: 50%; 
+                    height: 100%;
+                    position: absolute; 
+                    top:0; 
+                    z-index: 0;
+                 
+                    opacity:0;
+                    text-align: justify; 
+                    padding: 10vh 20px; 
+                    line-height: 2rem; 
+                    background-color: rgba(255, 255, 255, 0.5); 
+                    border-radius: 5px; 
+                    .opp-title{
+                        text-transform: uppercase; 
+                        font-weight: 100; 
+                        text-align: left;
+                    }
+                }
+                /* Po najechaniu na opp-trigger zmienia siê opp-desc */
+                .opp-trigger:hover + .opp-desc, 
+                .opp-desc:hover {
+                    opacity:1;
+                }
+                .opp-trigger:hover{
+                    background-color:rgba(255,255,255,0);
+                }
+            }
+        }
+
+        /* Klasy dla strony z przepisami */
+        /* rc - recipe */
+        .recipe{
+            .rc-main-image{
+                padding: 0 10px;
+            }
+            .rc-title{
+                font-weight: 100; 
+                margin-bottom: 0; 
+                margin-top: 0;
+            }
+            .rc-author{
+                margin-top: 0; 
+                margin-bottom: 20px; 
+                color: $secondary-color;
+            }
+            .rc-subtitle{
+                border-bottom-width: 2px; 
+                border-bottom-color: $secondary-color; 
+                border-bottom-style: solid;
+            }
+            .rc-author-desc{ /* Od Autora o przepisie */
+                font-size: 1.1rem;
+            }
+        }
+
+        /* rcs - recipe sidebar */
+        .recipe-side{
+            .rcs-info-table{
+                width: 100%; 
+                margin-left: 10px; 
+                background: none; 
+                border: none; 
+                margin-bottom: 0;
+            }
+            .rcs-atr-val{
+                font-size: 1rem;
+                font-weight: bold;
+            }
+        }
+
+
+    
+    
+/**
+* #.# Stopka
+*/
+    
+    .footer{
+        transform: translateY(-30px);
+
+        .link-wrapper{
+            padding-right: 0;
+            ul{ list-style-type: none; }
+            a{
+                color: $text-color;
+                &:hover{color: $main_color};
+            }
+            .ft-title{
+                color: $main_color; 
+                transform: translateX(-10px); 
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+        }
+
+        .ft-about{
+            .ab-title{
+                font-weight: 400; 
+                text-transform: uppercase; 
+                padding-bottom: 10px; 
+                border-bottom-style: solid; 
+                border-bottom-width: 2px; 
+                border-bottom-color: $secondary-color;
+            }
+            .ab-desc{
+                //font-size: 0.9rem;
+            }
+        }
+    }    

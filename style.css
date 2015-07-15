@@ -1,0 +1,19 @@
+/*
+ Theme Name:   theRecipe
+ Theme URI:    http://therecipe.com
+ Description:  Motyw dla strony z przepisami na wypieki
+ Author:       Przemysław Hernik
+ Author URI:   http://phernik.com
+ Version:      0.5
+*/
+
+.wp_info {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    z-index: 10;
+    padding: 10px;
+    background: red;
+    color: white;
+    font-size: 1em;
+}
