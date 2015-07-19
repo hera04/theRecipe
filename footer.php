@@ -1,6 +1,6 @@
 <!-- FOOTER -------------------------------------------------------------------- -->
     <footer>
-    <div class="site-content footer">
+    <div class="site-content footer"  style="transform: translateY(-30px);">
         <div class="row medium-collapse">
             <div class="medium-12 column">
                 <!-- Na skróty -------------------------------------------- -->

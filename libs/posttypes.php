@@ -76,13 +76,46 @@
                     'hierarchical' => false,
                     'menu_position' => 5,
                     'supports'=>array(
-                        'title','editor','thumbnail','excerpt','custom-fields',
+                        'title','editor','thumbnail','excerpt','custom-fields'
                     ),
                     'has_archive'=>true
                 );
             
-                /* Rejestracja customowego typu postu food_fight */
+                /* Rejestracja customowego typu postu restaurants */
                 register_post_type('food_fight', $food_fight_args);
+                
+                /* Rejestrujemy typ postu food_fight */
+                $restaurants_args = array(
+                    'labels' => array(
+                        /* Tytuły w menu administracyjnym */
+                        'name'               => 'Restauracje',
+		                'singular_name'      => 'Restauracje',
+		                'add_new'            => 'Dodaj nową restaurację',
+		                'add_new_item'       => 'Dodaj nową restaurację',
+		                'new_item'           => 'Nowa restauracja',
+		                'edit_item'          => 'Edytuj restaurację',
+		                'view_item'          => 'Zobacz restauracje',
+		                'all_items'          => 'Wszystkie restauracje',
+		                'search_items'       => 'Szukaj w restauracjach',
+		                'parent_item_colon'  => '',
+		                'not_found'          => 'Nie znaleziono restauracji',
+		                'not_found_in_trash' => 'Nic nie ma w koszu'
+                    ),
+                    'public'=>true,
+                    'public_queryable'=> true,
+                    'show_ui'=> true,
+                    'query_var'=> true,
+                    'rewrite'=> true,
+                    'menu_icon' => 'dashicons-store',
+                    'capability_type'=> 'post',
+                    'hierarchical' => true,
+                    'menu_position' => 5,
+                    'supports'=>array('title','editor','author','thumbnail','excerpt','comments','custom-fields','post-formats'),
+                    'has_archive'=>true
+                );
+                
+                /* Rejestracja customowego typu postu food_fight */
+                register_post_type('restaurants', $restaurants_args);
         }
     
     /* #.# Rejestracja taksonomii 
@@ -181,6 +214,36 @@
 		            'update_count_callback' => '_update_post_term_count',   // Automatyczny callback (wywo³anie zwrotne) - automatycznie po zapisaniu zostanie uruchomiona funkcja, któr¹ podamy w argumencie.
 		            'query_var'             => true,
 		            'rewrite'               => array( 'slug' => 'ingredients' )    // Przypisywanie linków. Jeœli jest false to nie korzystamy z permalinków. Jeœli ustawimy slug to korzystamy z pretty urls za pomc¹ nazwy taksonomii np ..../product_type/...
+                )
+            );
+            
+            register_taxonomy(
+                'location',
+                array('restaurants'),
+                array(
+                    'hierarchical' => true,
+                    'labels'=>array(
+		                'name'                       => 'Położenie',
+		                'singular_name'              => 'Położenie',
+		                'search_items'               => 'Wyszukaj położenia',
+		                'popular_items'              => 'Popularne położenia',
+		                'all_items'                  => 'Wszystkie położenia',
+		                'parent_item'                => null,
+		                'parent_item_colon'          => null,
+		                'edit_item'                  => 'Edytuj położenie',
+		                'update_item'                => 'Aktualizuj położenie',
+		                'add_new_item'               => 'Dodaj nowe położenie',
+		                'new_item_name'              => 'Nazwa nowego położenia',
+		                'separate_items_with_commas' => 'Oddziel położenia przecinkiem',
+		                'add_or_remove_items'        => 'Dodaj lub usuń położenia',
+		                'choose_from_most_used'      => 'Wybierz z najczęściej używanych położeń',
+		                'not_found'                  => 'Nie znaleziono położeń'
+                    ),
+                    'show_ui'               => true,
+		            'show_admin_column'     => true,
+		            'update_count_callback' => '_update_post_term_count',   // Automatyczny callback (wywo³anie zwrotne) - automatycznie po zapisaniu zostanie uruchomiona funkcja, któr¹ podamy w argumencie.
+		            'query_var'             => true,
+		            'rewrite'               => array( 'slug' => 'locations' )    // Przypisywanie linków. Jeœli jest false to nie korzystamy z permalinków. Jeœli ustawimy slug to korzystamy z pretty urls za pomc¹ nazwy taksonomii np ..../product_type/...
                 )
             );
         

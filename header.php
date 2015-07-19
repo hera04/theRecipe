@@ -68,7 +68,7 @@
                         </li>
                         <li><a href="base.html">Szukaj</a></li>
                         <li><a href="#">Food Fight</a></li>
-                        <li><a href="base.html">Restauracje</a></li>
+                        <li><a href="<?php echo esc_url(home_url('/archive-restaurants.php')); ?>">Restauracje</a></li>
                         <li><a href="#">Kontakt</a></li>
                         <li class="has-dropdown">
                             <a href="#"><i class="fa fa-user"></i> hera04</a>

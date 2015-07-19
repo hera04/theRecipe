@@ -76,7 +76,7 @@ $text-color: #444;  /* kolor tekstu */
     .slider{
         margin: 0; 
         padding: 0; 
-        height: 100vh;
+        min-height: 100vh !important;
 
         /* sl - slider */
 
@@ -87,8 +87,8 @@ $text-color: #444;  /* kolor tekstu */
 
              /* Bia³a 100% maska na³o¿ona na ka¿dy element */
              .mask{
-                 width: 100vw; 
-                 height: 100vh; 
+                 width: 100%; 
+                 height: 100%; 
                  background-color: rgba(255, 255, 255, 0.2);
              }
              /* Wrapper dla opisu elementu */
@@ -129,6 +129,20 @@ $text-color: #444;  /* kolor tekstu */
         a{
             width: 100%;
         }
+    }
+
+    /* Opis restauracji (rst) */
+    .rst-desc{
+        position: absolute; 
+        top: 0; 
+        right: 0; 
+        z-index: 0; 
+        margin:0; 
+        padding: 75px 30px; 
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.9);
+        overflow: hidden;
+        text-align: justify; 
     }
 
     /* Nawigacja po popularnych wpisach */
@@ -253,22 +267,35 @@ $text-color: #444;  /* kolor tekstu */
                 color: $main_color; 
                 margin-top: 3px;
             }
+            .op-footer{
+                /* Jest to stopka, która zawiera w sobie przycisk 'Czytaj dalej' oraz rating. 
+                *  Wykorzystywana w rozsze¿onym formacie postu.
+                */
+                position: absolute; 
+                bottom: 0; 
+                right:0
+            }
         }
 
         /* cm - comments */
         .comment-wrapper{
             .cm-title{
-                padding-bottom: 5px;
+                //padding-bottom: 5px;
                 padding-right: 5px; 
             }
             .cm-description{
                 margin-bottom: 0; 
                 margin-left: 10px;
                 padding-top: 15px; 
-                border-top-style: solid; 
+                /*border-top-style: solid; 
                 border-top-width: 1px; 
-                border-top-color: $secondary-color; 
+                border-top-color: $secondary-color;*/ 
                 font-size: 0.8rem; 
+            }
+            .cm-quote{
+                margin: 0 20px; 
+                color: #888; 
+                font-style: italic
             }
             .cm-author{
                 font-weight: bold; 
@@ -413,7 +440,6 @@ $text-color: #444;  /* kolor tekstu */
 */
     
     .footer{
-        transform: translateY(-30px);
 
         .link-wrapper{
             padding-right: 0;
