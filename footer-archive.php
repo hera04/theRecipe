@@ -7,6 +7,30 @@
                     <div class="medium-12 column">
                         <h3>Najnowsze przepisy w tej kategorii:</h3>
                         <div class="small-6 large-3 column op-wrapper">
+                            <!-- Tytuł przepisu -->
+                            <a href="#"><h3 class="site-titles">Pasztet z sosem</h3></a>
+                            <!-- Opis przepisu -->
+                            <div class="medium-12 op-desc-wrapper">
+                                <img class="op-desc-trigger" src="<?php echo THEME_URL; ?>images/8.jpg" alt="Zdjęcie wpisu" />
+                                <div class="op-desc-to-show">
+                                    <div class="medium-12 columns op-desc">
+                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                                        <a class="right" href="#">Zobacz przepis...</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Podtytuł i ocena przepisu -->
+                            <div class="medium-12 columns">
+                                <h5 class="left">Na każdą okazję</h5>
+                                <div class="right op-rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="small-6 large-3 column op-wrapper">
                             <!-- Tytu³ przepisu -->
                             <a href="#"><h3 class="site-titles">Pasztet z sosem</h3></a>
                             <!-- Opis przepisu -->
@@ -21,31 +45,7 @@
                             </div>
                             <!-- Podtytu³ i ocena przepisu -->
                             <div class="medium-12 columns">
-                                <h5 class="left">Na ka¿d¹ okazjê</h5>
-                                <div class="right op-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="small-6 large-3 column op-wrapper">
-                            <!-- Tytu³ przepisu -->
-                            <a href="#"><h3 class="site-titles">Pasztet z sosem</h3></a>
-                            <!-- Opis przepisu -->
-                            <div class="medium-12 op-desc-wrapper">
-                                <img class="op-desc-trigger" src="<?php echo THEME_URL; ?>images/8.jpg" alt="Zdjêcie wpisu" />
-                                <div class="op-desc-to-show">
-                                    <div class="medium-12 columns op-desc">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-                                        <a class="right" href="#">Zobacz przepis...</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Podtytu³ i ocena przepisu -->
-                            <div class="medium-12 columns">
-                                <h5 class="left">Na ka¿d¹ okazjê</h5>
+                                <h5 class="left">Na każdą okazję</h5>
                                 <div class="right op-rating">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
@@ -60,7 +60,7 @@
                                 <h3 class="site-titles">Pasztet z sosem</h3></a>
                             <!-- Opis przepisu -->
                             <div class="medium-12 op-desc-wrapper">
-                                <img class="op-desc-trigger" src="<?php echo THEME_URL; ?>images/8.jpg" alt="Zdjêcie wpisu"/>
+                                <img class="op-desc-trigger" src="<?php echo THEME_URL; ?>images/8.jpg" alt="Zdjęcie wpisu"/>
                                 <div class="op-desc-to-show">
                                     <div class="medium-12 columns op-desc">
                                         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
@@ -70,7 +70,7 @@
                             </div>
                             <!-- Podtytu³ i ocena przepisu -->
                             <div class="medium-12 columns">
-                                <h5 class="left">Na ka¿d¹ okazjê</h5>
+                                <h5 class="left">Na każdą okazję/h5>
                                 <div class="right op-rating">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
@@ -84,7 +84,7 @@
                             <a href="#"><h3 class="site-titles">Pasztet z sosem</h3></a>
                             <!-- Opis przepisu -->
                             <div class="medium-12 op-desc-wrapper">
-                                <img class="op-desc-trigger" src="<?php echo THEME_URL; ?>images/8.jpg" alt="Zdjêcie wpisu" />
+                                <img class="op-desc-trigger" src="<?php echo THEME_URL; ?>images/8.jpg" alt="Zdjęcie wpisu" />
                                 <div class="op-desc-to-show">
                                     <div class="medium-12 columns op-desc">
                                         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
@@ -94,7 +94,7 @@
                             </div>
                             <!-- Podtytu³ i ocena przepisu -->
                             <div class="medium-12 columns">
-                                <h5 class="left">Na ka¿d¹ okazjê</h5>
+                                <h5 class="left">Na każdą okazję</h5>
                                 <div class="right op-rating">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>

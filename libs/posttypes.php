@@ -11,111 +11,117 @@
         function therecipe_init_posttypes(){
         
                 /* Rejestrujemy typ postu przepisy https://codex.wordpress.org/Function_Reference/register_post_type*/
-                $recipes_args = array(
-                    'labels' => array(
-                        /* Tytuły w menu administracyjnym */
-                        'name'               => 'Przepisy',
-		                'singular_name'      => 'Przepisy',
-		                'add_new'            => 'Dodaj nowy przepis',
-		                'add_new_item'       => 'Dodaj nowy przepis',
-		                'new_item'           => 'Nowy przepis',
-		                'edit_item'          => 'Edytuj przepis',
-		                'view_item'          => 'Zobacz przepis',
-		                'all_items'          => 'Wszystkie przepisy',
-		                'search_items'       => 'Szukaj w przepisach',
-		                'parent_item_colon'  => '',
-		                'not_found'          => 'Nie znaleziono żadnych przepisów',
-		                'not_found_in_trash' => 'Nic nie ma w koszu'
-                    ),
-                    'public'=>true,                 // Typ posta będzie dostępny publicznie
-                    'public_queryable'=> true,      // Czy można do niego wysyłać zapytanie
-                    'show_ui'=> true,               // Pokazuj UI (przyciski/panele)
-                    'query_var'=> true,             //  The query_var is used for direct queries through WP_Query like new WP_Query(array('people'=>$person_name)) and URL queries like /?people=$person_name. Setting query_var to false will disable these methods.
-                    'rewrite'=> true,               // Automatyczne nadpisywanie adresów
-                    'menu_icon' => 'dashicons-welcome-add-page',    // dodanie ikonki https://developer.wordpress.org/resource/dashicons/
-                    'capability_type'=> 'post',
-                    'hierarchical' => false,        // False, poniewaą posty nie są hierarchiczne jak np. strony
-                    'menu_position' => 5,
-                    'supports'=>array(
-                        /**
-                         * Jakie funkcjonalnoœci wspiera dany typ posta 
-                         * Jeœli wejdziemy do panelu administracyjnego i włączymy 'opcje ekranu' zobaczymy wszystkie funkcjonalności danego typu postu.
-                         * */
-                        'title','editor','author','thumbnail','excerpt','comments','custom-fields','post-formats'
-                    ),
-                    'has_archive'=>true            // Czy ten typ postu będzie mial swoje własne archiwum
-                );
+                    $recipes_args = array(
+                        'labels' => array(
+                            /* Tytuły w menu administracyjnym */
+                            'name'               => 'Przepisy',
+		                    'singular_name'      => 'Przepisy',
+		                    'add_new'            => 'Dodaj nowy przepis',
+		                    'add_new_item'       => 'Dodaj nowy przepis',
+		                    'new_item'           => 'Nowy przepis',
+		                    'edit_item'          => 'Edytuj przepis',
+		                    'view_item'          => 'Zobacz przepis',
+		                    'all_items'          => 'Wszystkie przepisy',
+		                    'search_items'       => 'Szukaj w przepisach',
+		                    'parent_item_colon'  => '',
+		                    'not_found'          => 'Nie znaleziono żadnych przepisów',
+		                    'not_found_in_trash' => 'Nic nie ma w koszu'
+                        ),
+                        'public'=>true,                 // Typ posta będzie dostępny publicznie
+                        'public_queryable'=> true,      // Czy można do niego wysyłać zapytanie
+                        'show_ui'=> true,               // Pokazuj UI (przyciski/panele)
+                        'query_var'=> true,             //  The query_var is used for direct queries through WP_Query like new WP_Query(array('people'=>$person_name)) and URL queries like /?people=$person_name. Setting query_var to false will disable these methods.
+                        'rewrite'=> true,               // Automatyczne nadpisywanie adresów
+                        'menu_icon' => 'dashicons-welcome-add-page',    // dodanie ikonki https://developer.wordpress.org/resource/dashicons/
+                        'capability_type'=> 'post',
+                        'hierarchical' => false,        // False, poniewaą posty nie są hierarchiczne jak np. strony
+                        'menu_position' => 5,
+                        'supports'=>array(
+                            /**
+                             * Jakie funkcjonalnoœci wspiera dany typ posta 
+                             * Jeœli wejdziemy do panelu administracyjnego i włączymy 'opcje ekranu' zobaczymy wszystkie funkcjonalności danego typu postu.
+                             * */
+                            'title','editor','author','post-thumbnails','excerpt','comments','custom-fields','post-formats'
+                        ),
+                        'has_archive'=>true            // Czy ten typ postu będzie mial swoje własne archiwum
+                    );
             
-                /* Rejestracja customowego typu postu */
-                register_post_type('recipes', $recipes_args);
+                    /* Rejestracja customowego typu postu */
+                    register_post_type('recipes', $recipes_args);
+                    
+                /* ------------------------------------------------------------------------------------------------------------- */
             
                 /* Rejestrujemy typ postu food_fight */
-                $food_fight_args = array(
-                    'labels' => array(
-                        /* Tytu³y w menu administracyjnym */
-                        'name'               => 'Food Fight',
-		                'singular_name'      => 'Food Fight',
-		                'add_new'            => 'Dodaj nowy pojedynek',
-		                'add_new_item'       => 'Dodaj nowy pojedynek',
-		                'new_item'           => 'Nowy pojedynek',
-		                'edit_item'          => 'Edytuj pojedynek',
-		                'view_item'          => 'Zobacz pojedynek',
-		                'all_items'          => 'Wszystkie pojedynki',
-		                'search_items'       => 'Szukaj w pojedynkach',
-		                'parent_item_colon'  => '',
-		                'not_found'          => 'Nie znaleziono pojedynków',
-		                'not_found_in_trash' => 'Nic nie ma w koszu'
-                    ),
-                    'public'=>true,
-                    'public_queryable'=> true,
-                    'show_ui'=> true,
-                    'query_var'=> true,
-                    'rewrite'=> true,
-                    'menu_icon' => 'dashicons-image-flip-horizontal',
-                    'capability_type'=> 'post',
-                    'hierarchical' => false,
-                    'menu_position' => 5,
-                    'supports'=>array(
-                        'title','editor','thumbnail','excerpt','custom-fields'
-                    ),
-                    'has_archive'=>true
-                );
+                    $food_fight_args = array(
+                        'labels' => array(
+                            /* Tytu³y w menu administracyjnym */
+                            'name'               => 'Food Fight',
+		                    'singular_name'      => 'Food Fight',
+		                    'add_new'            => 'Dodaj nowy pojedynek',
+		                    'add_new_item'       => 'Dodaj nowy pojedynek',
+		                    'new_item'           => 'Nowy pojedynek',
+		                    'edit_item'          => 'Edytuj pojedynek',
+		                    'view_item'          => 'Zobacz pojedynek',
+		                    'all_items'          => 'Wszystkie pojedynki',
+		                    'search_items'       => 'Szukaj w pojedynkach',
+		                    'parent_item_colon'  => '',
+		                    'not_found'          => 'Nie znaleziono pojedynków',
+		                    'not_found_in_trash' => 'Nic nie ma w koszu'
+                        ),
+                        'public'=>true,
+                        'public_queryable'=> true,
+                        'show_ui'=> true,
+                        'query_var'=> true,
+                        'rewrite'=> true,
+                        'menu_icon' => 'dashicons-image-flip-horizontal',
+                        'capability_type'=> 'post',
+                        'hierarchical' => false,
+                        'menu_position' => 5,
+                        'supports'=>array(
+                            'title','editor','thumbnail','excerpt','custom-fields'
+                        ),
+                        'has_archive'=>true
+                    );
             
-                /* Rejestracja customowego typu postu restaurants */
-                register_post_type('food_fight', $food_fight_args);
+                    /* Rejestracja customowego typu postu restaurants */
+                    register_post_type('food_fight', $food_fight_args);
                 
-                /* Rejestrujemy typ postu food_fight */
-                $restaurants_args = array(
-                    'labels' => array(
-                        /* Tytuły w menu administracyjnym */
-                        'name'               => 'Restauracje',
-		                'singular_name'      => 'Restauracje',
-		                'add_new'            => 'Dodaj nową restaurację',
-		                'add_new_item'       => 'Dodaj nową restaurację',
-		                'new_item'           => 'Nowa restauracja',
-		                'edit_item'          => 'Edytuj restaurację',
-		                'view_item'          => 'Zobacz restauracje',
-		                'all_items'          => 'Wszystkie restauracje',
-		                'search_items'       => 'Szukaj w restauracjach',
-		                'parent_item_colon'  => '',
-		                'not_found'          => 'Nie znaleziono restauracji',
-		                'not_found_in_trash' => 'Nic nie ma w koszu'
-                    ),
-                    'public'=>true,
-                    'public_queryable'=> true,
-                    'show_ui'=> true,
-                    'query_var'=> true,
-                    'rewrite'=> true,
-                    'menu_icon' => 'dashicons-store',
-                    'capability_type'=> 'post',
-                    'hierarchical' => true,
-                    'menu_position' => 5,
-                    'supports'=>array('title','editor','author','thumbnail','excerpt','comments','custom-fields','post-formats'),
-                    'has_archive'=>true
-                );
+                /* ------------------------------------------------------------------------------------------------------------- */
                 
-                /* Rejestracja customowego typu postu food_fight */
-                register_post_type('restaurants', $restaurants_args);
+                /* Rejestrujemy typ postu restaurants */
+                    $restaurants_args = array(
+                        'labels' => array(
+                            /* Tytuły w menu administracyjnym */
+                            'name'               => 'Restauracje',
+		                    'singular_name'      => 'Restauracje',
+		                    'add_new'            => 'Dodaj nową restaurację',
+		                    'add_new_item'       => 'Dodaj nową restaurację',
+		                    'new_item'           => 'Nowa restauracja',
+		                    'edit_item'          => 'Edytuj restaurację',
+		                    'view_item'          => 'Zobacz restauracje',
+		                    'all_items'          => 'Wszystkie restauracje',
+		                    'search_items'       => 'Szukaj w restauracjach',
+		                    'parent_item_colon'  => '',
+		                    'not_found'          => 'Nie znaleziono restauracji',
+		                    'not_found_in_trash' => 'Nic nie ma w koszu'
+                        ),
+                        'public'=>true,
+                        'public_queryable'=> true,
+                        'show_ui'=> true,
+                        'query_var'=> true,
+                        'rewrite'=> true,
+                        'menu_icon' => 'dashicons-store',
+                        'capability_type'=> 'post',
+                        'hierarchical' => true,
+                        'menu_position' => 5,
+                        'supports'=>array('title','editor','author','thumbnail','excerpt','comments','custom-fields','post-formats'),
+                        'has_archive'=>true
+                    );
+                
+                    /* Rejestracja customowego typu postu restaurants */
+                    register_post_type('restaurants', $restaurants_args);
+                
+                /* ------------------------------------------------------------------------------------------------------------- */
         }
     
     /* #.# Rejestracja taksonomii 
@@ -218,7 +224,7 @@
             );
             
             register_taxonomy(
-                'location',
+                'locations',
                 array('restaurants'),
                 array(
                     'hierarchical' => true,

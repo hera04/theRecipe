@@ -52,6 +52,14 @@ $text-color: #444;  /* kolor tekstu */
       background-color: rgba(0,0,0,0.05);
     } 
 
+    .info-bar{
+        ol{ margin-bottom:0}
+        position:fixed; 
+        bottom:25px; 
+        right:50px; 
+        z-index: 10;
+    }
+
 
 /**
 * #.# Menu nawigacji
@@ -170,6 +178,14 @@ $text-color: #444;  /* kolor tekstu */
         .row{ 
             padding: 10px 0; 
         }
+
+        // Klasy ni¿er odsuwaj¹ siê od siebie.
+        .entrys{
+            padding-right:20px;
+        }
+        .sidebar{
+            padding-left:20px;
+        }
     }
 
     /* Klasa dla contentu - zawartoœæ przesuwa siê 20px w górê po scrollu w dó³ */
@@ -236,9 +252,16 @@ $text-color: #444;  /* kolor tekstu */
         /* op - other-posts */
         .op-wrapper{
             overflow: hidden;
+            padding-bottom:25px;
+            border-bottom-style: solid;
+            border-bottom-width: 1px;
+            border-bottom-color: $bg-color;
+
             .op-category{
                 color: $main_color; 
                 transform: translateX(-5px);
+                margin-top:0.7rem;
+                margin-bottom:0;
             }
             .op-title{
             }
@@ -265,7 +288,21 @@ $text-color: #444;  /* kolor tekstu */
             }
             .op-rating{
                 color: $main_color; 
-                margin-top: 3px;
+                ul{ 
+                    margin-bottom: 5px; 
+                    li{
+                        margin:0 2px; padding:0;
+                        position:relative;
+                        font-family: FontAwesome;  
+                        &:before{
+                            content: "\f006";
+                        }                          
+                    }
+                }
+                .active:before{
+                    content: "\f005";
+                }
+
             }
             .op-footer{
                 /* Jest to stopka, która zawiera w sobie przycisk 'Czytaj dalej' oraz rating. 
@@ -408,8 +445,8 @@ $text-color: #444;  /* kolor tekstu */
                 color: $secondary-color;
             }
             .rc-subtitle{
-                border-bottom-width: 2px; 
-                border-bottom-color: $secondary-color; 
+                border-bottom-width: 1px; 
+                border-bottom-color: $bg-color; 
                 border-bottom-style: solid;
             }
             .rc-author-desc{ /* Od Autora o przepisie */

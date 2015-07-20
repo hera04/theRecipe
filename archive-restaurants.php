@@ -16,173 +16,65 @@
         <!------------------------------------------------------------------->
         <!-- Sekcja wpisów -------------------------------------------------->
         <div class="row" style="text-align: justify;">
-            <h1 style="padding-left: 10px;">Zrecenzowane restaracje</h1>
+            <h1 style="padding-left: 10px;"><?php if( isset($_REQUEST['search']) ) echo 'Wyniki wyszukiwania:'; else echo 'Zrecenzowane restauracje'; ?></h1>
             <!-- WPISY ------------------------------------------------------>
-            <div class="large-8 column">
+            <div class="large-8 column entrys">
                 <!-- POZOSTAŁE WPISY ---------------------------------------->
-                <div class="row">
-                    <div class="medium-12 column op-wrapper">
-                        <!-- Nazwa restauracji -->
-                        <h5 class="op-category">Kawiarnie</h5>
-                        <a href="#"><h3 class="site-titles">Kawiarnia weranda</h3></a>
-                        <!-- Opis restauracji -->
-                        <div class="row">
-                            <div class="medium-12 columns op-desc-wrapper" style="cursor: default">
-                                <div class="row">
-                                    <div class="medium-6 column">
-                                        <img class="op-desc-trigger" src="images/40.jpg" alt="Zdjęcie wpisu" />
-                                    </div>
-                                    <div class="medium-6 column" style="cursor: default">
-                                        <h5>Na każdą okazję</h5>
-                                        <p>Laoreet ac, aliquam sit amet justo nunc tempor, metus vel placerat suscipit, orci nisl iaculis eros, a tincidunt nisi odio eget lorem nulla condimentum.</p>
-                                    </div>
-                                    <div class="medium-6 column right op-footer">
-                                        <div class="left">
-                                            <a href="#">Czytaj dalej...</a>
+                <?php
+                    $query_params = getQueryParams();
+                    foreach ($query_params as $val){
+                        echo $val.'</br >';    
+                    };
+                    
+                    if(isset($query_params['search_rst'])) {
+                        $query_params['post_title_like'] = $query_params['search_rst'];
+                        unset($query_params['search_rst']);
+                    };
+                    $loop = new WP_Query($query_params);
+				?>
+
+                <?php if($loop->have_posts()) :?>					
+					<?php while ($loop->have_posts()) : $loop->the_post(); ?>
+                        <section id="restaurant-<?php the_ID(); ?>" <?php post_class('entry'); ?> >
+                            <div class="row">
+                                <div class="medium-12 column op-wrapper">
+                                    <!-- Nazwa restauracji -->
+                                    <a href="<?php the_permalink(); ?>" class="left"><h3 class="site-titles"><?php the_title(); ?></h3></a>
+                                    <h6 class="op-category right"><?php echo printRestaurantCategories($post->ID);?></h6>                                    
+                                    <!-- Opis restauracji -->                                    
+                                    <div class="medium-12 columns op-desc-wrapper" style="cursor: default">
+                                        <div class="row">
+                                            <?php $has_thumb = has_post_thumbnail($post->ID); ?>
+                                            <?php if($has_thumb):?>
+                                                <div class="medium-6 column">
+                                                    <?php the_post_thumbnail('post-thumbnail', array( 'class'	=> 'op-desc-trigger')); ?>
+                                                </div>
+                                            <?php endif;?>
+                                            <div class="<?php if($has_thumb) echo 'medium-6'; else echo 'medium-12';?> column" style="cursor: default">
+                                                <h5>Na każdą okazję</h5>
+                                                <p><?php echo cutText(get_the_excerpt(),200); ?></p>
+                                            </div>
+                                            <div class="<?php if($has_thumb) echo 'medium-6'; else echo 'medium-12';?> column right op-footer">
+                                                <div class="left">
+                                                    <a href="<?php the_permalink(); ?>">Czytaj dalej...</a>
+                                                </div>
+                                                <div class="right op-rating">
+                                                    <ul class="inline-list">
+                                                        <?php showRating($post->ID,'ranking',5); ?>
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="right op-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                    </div>
+                                    </div>                                    
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="medium-12 column op-wrapper">
-                        <!-- Nazwa restauracji -->
-                        <h5 class="op-category">Kawiarniee</h5>
-                        <a href="#">
-                            <h3 class="site-titles">Kawiarnia weranda</h3></a>
-                        <!-- Opis restauracji -->
-                        <div class="row">
-                            <div class="medium-12 columns op-desc-wrapper" style="cursor: default">
-                                <div class="row">
-                                    <div class="medium-6 column">
-                                        <img class="op-desc-trigger" src="images/40.jpg" alt="Zdjęcie wpisu"/>
-                                    </div>
-                                    <div class="medium-6 column">
-                                        <h5>Na każdą okazję</h5>
-                                        <p>Laoreet ac, aliquam sit amet justo nunc tempor, metus vel placerat suscipit, orci nisl iaculis eros, a tincidunt nisi odio eget lorem nulla condimentum.</p>
-                                    </div>
-                                    <div class="medium-6 column right op-footer">
-                                        <div class="left">
-                                            <a href="#">Czytaj dalej...</a>
-                                        </div>
-                                        <div class="right op-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="medium-12 column op-wrapper">
-                        <!-- Nazwa restauracji -->
-                        <h5 class="op-category">Kawiarnie</h5>
-                        <a href="#">
-                            <h3 class="site-titles">Kawiarnia weranda</h3></a>
-                        <!-- Opis restauracji -->
-                        <div class="row">
-                            <div class="medium-12 columns op-desc-wrapper" style="cursor: default">
-                                <div class="row">
-                                    <div class="medium-6 column">
-                                        <img class="op-desc-trigger" src="images/40.jpg" alt="Zdjęcie wpisu"/>
-                                    </div>
-                                    <div class="medium-6 column" style="cursor: default">
-                                        <h5>Na każdą okazję</h5>
-                                        <p>Laoreet ac, aliquam sit amet justo nunc tempor, metus vel placerat suscipit, orci nisl iaculis eros, a tincidunt nisi odio eget lorem nulla condimentum.</p>
-                                    </div>
-                                    <div class="medium-6 column right op-footer">
-                                        <div class="left">
-                                            <a href="#">Czytaj dalej...</a>
-                                        </div>
-                                        <div class="right op-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="medium-12 column op-wrapper">
-                        <!-- Nazwa restauracji -->
-                        <h5 class="op-category">Kawiarnie</h5>
-                        <a href="#"><h3 class="site-titles">Kawiarnia weranda</h3></a>
-                        <!-- Opis restauracji -->
-                        <div class="row">
-                            <div class="medium-12 columns op-desc-wrapper" style="cursor: default">
-                                <div class="row">
-                                    <div class="medium-6 column">
-                                        <img class="op-desc-trigger" src="images/40.jpg" alt="Zdjęcie wpisu" />
-                                    </div>
-                                    <div class="medium-6 column" style="cursor: default">
-                                        <h5>Na każdą okazję</h5>
-                                        <p>Laoreet ac, aliquam sit amet justo nunc tempor, metus vel placerat suscipit, orci nisl iaculis eros, a tincidunt nisi odio eget lorem nulla condimentum.</p>
-                                    </div>
-                                    <div class="medium-6 column right op-footer">
-                                        <div class="left">
-                                            <a href="#">Czytaj dalej...</a>
-                                        </div>
-                                        <div class="right op-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="medium-12 column op-wrapper">
-                        <!-- Nazwa restauracji -->
-                        <h5 class="op-category">Kawiarnie</h5>
-                        <a href="#"><h3 class="site-titles">Kawiarnia weranda</h3></a>
-                        <!-- Opis restauracji -->
-                        <div class="row">
-                            <div class="medium-12 columns op-desc-wrapper" style="cursor: default">
-                                <div class="row">
-                                    <div class="medium-6 column">
-                                        <img class="op-desc-trigger" src="images/40.jpg" alt="Zdjęcie wpisu" />
-                                    </div>
-                                    <div class="medium-6 column" style="cursor: default">
-                                        <h5>Na każdą okazję</h5>
-                                        <p>Laoreet ac, aliquam sit amet justo nunc tempor, metus vel placerat suscipit, orci nisl iaculis eros, a tincidunt nisi odio eget lorem nulla condimentum.</p>
-                                    </div>
-                                    <div class="medium-6 column right op-footer">
-                                        <div class="left">
-                                            <a href="#">Czytaj dalej...</a>
-                                        </div>
-                                        <div class="right op-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                        </section>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <h4>Nie znaleziono postów </h4>
+                <?php endif; ?>
                 <!----------------------------------------------------------->
+
                 <!-- Paginacja -->
                 <div class="row">
                     <div class="medium-12 column text-center">
@@ -204,31 +96,30 @@
             </div>
             <!--------------------------------------------------------------->
             <!-- SIDEBAR - szukajka - komentarze - tagi --------------------->
-            <div class="large-4 column">
+            <div class="large-4 column sidebar">
                 <!-- Szukajka -->
                 <div class="row">
                     <div class="small-12 medium-8 medium-centered large-12 column">
                         <h5>Wyszukiwarka</h5>
-                        <h3 class="site-titles">Najnowsze komentarze</h3>
-                        <form>
+                        <h3 class="site-titles">Wyszukaj restauracje</h3>
+                        <?php $searchQuery = $_REQUEST['search_rst']; // Inicjowanie zmiennej, która przechowuje wysłane zapytanie ?> 
+                        <form method="get" action="<?php current_page_url(); ?>">
                             <!-- Szukaj po nazwie -->
                             <div class="row">
                                 <div class="large-12 columns">
-                                    <input type="text" placeholder="Szukaj restauracji" class="radius" />
+                                    <input type="text" placeholder="<?php if( isset($_REQUEST['search'])&&($searchQuery!="") ) echo $searchQuery; else echo 'Wpisz nazwę restauracji'; ?>" class="radius" name="search_rst"/>
                                 </div>
                             </div>
-                            <!-- Szukaj po kategorii -->
+                            <!-- Szukaj po adresie -->
                             <div class="row">
                                 <div class="large-12 columns">
-                                    <input type="text" placeholder="Wpisz adres" class="radius" />
+                                    <input type="text" placeholder="Wpisz adres" class="radius" name=""/>
                                 </div>
                             </div>
                             <!-- Button -->
                             <div class="row">
                                 <div class="large-12 columns">
-                                    <a href="#" style="width: 100%;" class=" button small text-center radius">
-                                        Default Button
-                                    </a>
+                                    <input type="submit" name="search" value="Szukaj" class="button tiny text-center radius" style="width: 100%;"/>
                                 </div>
                             </div>
                         </form>
@@ -301,7 +192,7 @@
                             <ul class="example-orbit op-wrapper" data-orbit data-options="slide_number: false; bullets:false;">
                                 <li>
                                     <div class="op-desc-wrapper">
-                                        <img class="op-desc-trigger" src="images/8.jpg" alt="Zdjęcie wpisu" />
+                                        <img class="op-desc-trigger" src="<?php echo THEME_URL ?>images/8.jpg" alt="Zdjęcie wpisu" />
                                         <div class="op-desc-to-show">
                                             <div class="op-desc">
                                                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
@@ -315,7 +206,7 @@
                                 </li>
                                 <li class="active">
                                     <div class="op-desc-wrapper">
-                                        <img class="op-desc-trigger" src="images/9.jpg" alt="Zdjęcie wpisu" />
+                                        <img class="op-desc-trigger" src="<?php echo THEME_URL ?>images/9.jpg" alt="Zdjęcie wpisu" />
                                         <div class="op-desc-to-show">
                                             <div class="op-desc">
                                                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
@@ -329,7 +220,7 @@
                                 </li>
                                 <li>
                                     <div class="op-desc-wrapper">
-                                        <img class="op-desc-trigger" src="images/7.jpg" alt="Zdjęcie wpisu" />
+                                        <img class="op-desc-trigger" src="<?php echo THEME_URL ?>images/7.jpg" alt="Zdjęcie wpisu" />
                                         <div class="op-desc-to-show">
                                             <div class="op-desc">
                                                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
@@ -360,13 +251,8 @@
         <!------------------------------------------------------------------->
     </div>
     <!--------------------------------------------------------------------------------->
-    <!-- MODALE ----------------------------------------------------------------------->
-    <div id="myModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-        <h2 id="modalTitle">Awesome. I have it.</h2>
-        <p class="lead">Your couch. It is mine.</p>
-        <p>I'm a cool paragraph that lives inside of an even cooler modal. Wins!</p>
-        <a class="close-reveal-modal" aria-label="Close">&#215;</a>
-    </div>
+    <!-- MODALE I INFORACJE ----------------------------------------------------------->
+        <?php showInfo(); ?>
     <!--------------------------------------------------------------------------------->
     
     <?php get_footer('archive'); ?>
