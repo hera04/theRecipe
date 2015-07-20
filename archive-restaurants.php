@@ -21,17 +21,14 @@
             <div class="large-8 column entrys">
                 <!-- POZOSTAŁE WPISY ---------------------------------------->
                 <?php
-                    $query_params = getQueryParams();
-                    foreach ($query_params as $val){
-                        echo $val.'</br >';    
-                    };
-                    
-                    if(isset($query_params['search_rst'])) {
-                        $query_params['post_title_like'] = $query_params['search_rst'];
-                        unset($query_params['search_rst']);
-                    };
-                    $loop = new WP_Query($query_params);
-				?>
+				    $query_params = getQueryParams();
+                    if(isset($query_params['search'])) {
+						$query_params['post_title_like'] = $query_params['search'];
+						unset($query_params['search']);
+					}
+
+				    $loop = new WP_Query($query_params);
+			    ?>
 
                 <?php if($loop->have_posts()) :?>					
 					<?php while ($loop->have_posts()) : $loop->the_post(); ?>
@@ -102,24 +99,19 @@
                     <div class="small-12 medium-8 medium-centered large-12 column">
                         <h5>Wyszukiwarka</h5>
                         <h3 class="site-titles">Wyszukaj restauracje</h3>
-                        <?php $searchQuery = $_REQUEST['search_rst']; // Inicjowanie zmiennej, która przechowuje wysłane zapytanie ?> 
+
+                        <?php $search = getQuerySingleParam('search'); ?>
                         <form method="get" action="<?php current_page_url(); ?>">
                             <!-- Szukaj po nazwie -->
                             <div class="row">
                                 <div class="large-12 columns">
-                                    <input type="text" placeholder="<?php if( isset($_REQUEST['search'])&&($searchQuery!="") ) echo $searchQuery; else echo 'Wpisz nazwę restauracji'; ?>" class="radius" name="search_rst"/>
+                                    <input type="text" name="search" id="search" placeholder="<?php echo $search ?>" />
                                 </div>
-                            </div>
-                            <!-- Szukaj po adresie -->
-                            <div class="row">
-                                <div class="large-12 columns">
-                                    <input type="text" placeholder="Wpisz adres" class="radius" name=""/>
-                                </div>
-                            </div>
+                            </div>                            
                             <!-- Button -->
                             <div class="row">
                                 <div class="large-12 columns">
-                                    <input type="submit" name="search" value="Szukaj" class="button tiny text-center radius" style="width: 100%;"/>
+                                    <input type="submit" value="Szukaj" class="button tiny text-center radius" style="width: 100%;"/>
                                 </div>
                             </div>
                         </form>
