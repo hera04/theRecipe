@@ -33,7 +33,8 @@
      */
         function showRating($postID,$field_name,$max_point){
             $rate = (int)get_post_meta($postID,$field_name,true);   // get_post_meta: https://developer.wordpress.org/reference/functions/get_post_meta/
-            if ($rate){            
+            if ($rate){  
+                echo '<ul class="inline-list">';
                 for($i=1; $i<=$max_point; $i++){
                     echo '<li class="';
                     if( $i <= $rate){
@@ -41,6 +42,7 @@
                     }
                     echo '"></li>';
                 };
+                echo '</ul>';
             } else echo 'Brak oceny';
         }
     
@@ -139,6 +141,7 @@
         
     /*
      * #.# Zaokr¹glanie zapytañ do bazy WP
+     * Pomocne w prostym wyszukiwaniu, gdzie mo¿emy 'zapodziaæ' jedn¹ literkê itp
      */    
         add_filter('posts_where', 'title_like_posts_where', 10, 2);
         function title_like_posts_where( $where, &$wp_query ) {
@@ -149,5 +152,35 @@
             }
             
             return $where;
+        }
+        
+    /*
+     * #.# Tworzenie uniwersalnej paginacji
+     * $loop jest to obiekt WP_Query dla tego motywu. Nie u¿ywam wp_query, poniewa¿ $loop bierze udzia³ w filtrowaniu wyników wyszukiwania.
+     */
+        function generatePagination($paged,$loop){
+            $big = 999999999; // need an unlikely integer
+
+            $page_links = paginate_links( array(
+                'base'               => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+                'format'             => '?page=%#%',
+                'total'              => $loop->max_num_pages,
+                'current'            => max(1, $paged ),
+                'show_all'           => False,
+                'end_size'           => 1,
+                'mid_size'           => 2,
+                'prev_next'          => True,
+                'prev_text'          => __('&#171;'),   // «
+                'next_text'          => __('&#187;'),   // » 
+                'type'               => 'array'
+            ) );
+            if( is_array( $page_links ) ) {
+                $paged = ( get_query_var('paged') == 0 ) ? 1 : get_query_var('paged');
+                echo '<ul class="pagination">';
+                foreach ( $page_links as $page ) {
+                    echo '<li>'.$page.'</li>';
+                }
+                echo '</ul>';
+            }
         }
 ?>

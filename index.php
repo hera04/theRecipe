@@ -2,7 +2,7 @@
 
     <!-- POPULARNE WPISY -------------------------------------------------------------->
     <section class="cd-hero">
-        <ul class="cd-hero-slider autoplay slider">
+        <ul class="cd-hero-slider autoplay slider full-height">
 
             <li style="background-image: url(<?php echo THEME_URL ?>images/33.jpg);" class="selected sl-item">
                 <div class="large-6 column" style="margin-top: 20%;">
@@ -41,7 +41,7 @@
             </li>
         </ul>
 
-        <div class="search-bar">
+        <div class="search-bar search-bar-bottom">
             <form>
                 <div class="row">
                     <div class="medium-10 columns">

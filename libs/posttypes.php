@@ -54,7 +54,7 @@
                 /* Rejestrujemy typ postu food_fight */
                     $food_fight_args = array(
                         'labels' => array(
-                            /* Tytu³y w menu administracyjnym */
+                            /* Tytuły w menu administracyjnym */
                             'name'               => 'Food Fight',
 		                    'singular_name'      => 'Food Fight',
 		                    'add_new'            => 'Dodaj nowy pojedynek',

@@ -10,7 +10,7 @@ $(window).load(function () {
     $(document).scroll(function () {
         $("#navigation").toggleClass("add_shadow", ($(this).scrollTop() > ($(window).height() - 100)));
         $("#navigation_base").toggleClass("add_shadow", ($(this).scrollTop() > 0));
-        $("#siteContent").toggleClass("site-content-static", ($(this).scrollTop() > 0));
+        $("#siteContent").toggleClass("sc-static", ($(this).scrollTop() > 0));
     });
 
     //if ( $(window).width() > 1024) { $("#siteContent").toggleClass("site-content-large"); }

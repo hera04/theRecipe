@@ -81,12 +81,17 @@ $text-color: #444;  /* kolor tekstu */
 * Zastosowano dodatek Hero-Slider. W celu przystosowania do tej witryny zastosowa³em podane ni¿ej klasy.
 * 
 */
+    .half-height{
+        height: 45vh !important;
+    }
+    .full-height{
+        min-height: 100vh !important;
+    }
     .slider{
         margin: 0; 
         padding: 0; 
-        min-height: 100vh !important;
-
-        /* sl - slider */
+        
+/* sl - slider */
 
         /* Klasy dla pojedyñczego obiektu - jeden 'popularny' wpis */
         .sl-item{
@@ -124,7 +129,6 @@ $text-color: #444;  /* kolor tekstu */
     .search-bar{
         width: 100%; 
         position: absolute; 
-        bottom: 10vh; 
         z-index: 0;
 
         .search-form{
@@ -137,6 +141,12 @@ $text-color: #444;  /* kolor tekstu */
         a{
             width: 100%;
         }
+    }
+    .search-bar-center{
+        bottom:30%;
+    }
+    .search-bar-bottom{
+        bottom: 10vh;         
     }
 
     /* Opis restauracji (rst) */
@@ -179,7 +189,7 @@ $text-color: #444;  /* kolor tekstu */
             padding: 10px 0; 
         }
 
-        // Klasy ni¿er odsuwaj¹ siê od siebie.
+        // Klasy ni¿ej odsuwaj¹ siê od siebie.
         .entrys{
             padding-right:20px;
         }
@@ -188,14 +198,20 @@ $text-color: #444;  /* kolor tekstu */
         }
     }
 
-    /* Klasa dla contentu - zawartoœæ przesuwa siê 20px w górê po scrollu w dó³ */
-    .site-content-static{
-        @include translateY(-20px);
-    }
+        /* Klasa dla contentu - zawartoœæ przesuwa siê 20px w górê po scrollu w dó³ */
+        .sc-static{
+            @include translateY(-20px);
+        }
 
-    .shadow{
-        @include box-shadow(0px 0px 71px -40px rgba(0,0,0,0.75));
-    }
+        // Jeœli nie ma na stronie bannera, tworzê górny margines, ¿eby by³o widaæ ca³¹ stronê.
+        .sc-no-banner{
+            margin-top: 75px;
+        }
+
+        // Dodanie cienia pod nawigacj¹
+        .shadow{
+            @include box-shadow(0px 0px 71px -40px rgba(0,0,0,0.75));
+        }
 
     /* Tytu³y stron */
     .site-titles{
@@ -277,6 +293,7 @@ $text-color: #444;  /* kolor tekstu */
                 left: 0; 
                 background-color: $fg-color; 
                 z-index: 5;
+                text-align: justify;
             }
             .op-desc-trigger:hover + .op-desc-to-show, 
             .op-desc-to-show:hover{
@@ -287,7 +304,8 @@ $text-color: #444;  /* kolor tekstu */
                 padding: 10px;
             }
             .op-rating{
-                color: $main_color; 
+                color: $main_color;
+                margin-top: 4px; 
                 ul{ 
                     margin-bottom: 5px; 
                     li{
@@ -470,7 +488,30 @@ $text-color: #444;  /* kolor tekstu */
         }
 
 
-    
+
+/**
+* #.# Paginacja
+* Dodane klasy dla obiektu 'current' dla Wordpressa
+*/  
+    ul.pagination li span.current {
+        background: #CD5C5C none repeat scroll 0% 0%;
+        color: #FFF;
+        cursor: default;
+        font-weight: bold;
+    }
+    ul.pagination li span{
+        border-radius: 3px;
+        transition: background-color 300ms ease-out 0s;
+        background: transparent none repeat scroll 0% 0%;
+        color: #999;
+        display: block;
+        font-size: 1em;
+        font-weight: normal;
+        line-height: inherit;
+        padding: 0.0625rem 0.625rem;
+    }
+
+
     
 /**
 * #.# Stopka
@@ -507,3 +548,5 @@ $text-color: #444;  /* kolor tekstu */
             }
         }
     }    
+
+
