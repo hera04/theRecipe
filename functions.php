@@ -21,7 +21,7 @@
         add_theme_support('post-thumbnails'); // wsparcie dla ikon wpisu
         add_theme_support('post-formats', array('gallery'));
         
-        
+    #region Display Taxonomy    
     // #.# Funkcje wyœwietlania taksonomii
         function printRestaurantCategories($post_id) {
             printPostCategories($post_id, array('locations'));
@@ -43,13 +43,15 @@
                 // getMsgs()->addInfo('Taksonomia dodana');
             }
         }
+    #endregion
         
     // #.# Pobranie banneru
         function get_banner(){
             get_template_part('banner');
             return true;
         }
-        
+    
+    #region Register Sidebar
     // #.# Rejestrowanie sidebarów - https://codex.wordpress.org/Function_Reference/register_sidebar
     
         if(function_exists(register_sidebar)) {
@@ -73,116 +75,29 @@
                 register_sidebar(array_merge($sidebar, $sidebar_opts));
             }
         };
+    #endregion
         
         
-    /* #.# Rejestrowanie strony ustawień || https://codex.wordpress.org/Settings_API
-     * 1. Rejestracja ustawień strony - register_setting || https://codex.wordpress.org/Function_Reference/register_setting
-     * 2. Action Hook - add_action (wywołanie strony ustawień)
-     * 3. Formularz linkujący do options.php
-     * 4. Rejestracja pól w formularzu ustawień - setting_fields || https://codex.wordpress.org/Function_Reference/settings_fields
-     * 5. Przekazanie opcji z formularza z pomocą get_options || https://codex.wordpress.org/Function_Reference/get_option
-     * 6. Powiązanie opcji ze stroną .php
-     */      
-    /*
-        // 1:
-        function trc_admin_init(){
-            register_setting( 'trc_theme_options' , 'banner_status' );
-        }
-        // 2:
-        add_action( 'admin_init', 'trc_admin_init' );
-        
-        function trc_settings_page(){ 
-        ?>
-            <div class="setting-wrapper" style="margin:auto; width:100%;">
-                <?php screen_icon(); ?>
-                <h1>Ustawienia szablonu theRecipe</h1>
-                <form action="option.php" method="post" id="trc-options-form">
-                    <?php settings_fields('trc_theme_options') // setting_fields przyjmuje jako argument nazwę grupy ustawień zadeklarowaną w rejestracji ustawień ?>
-
-                    <!--<h3>
-                        <label for="trc_banner_items">Ilość elementów w bannerze</label>
-                        <input type="text" value="<?php echo esc_attr(get_option('trc_banner_setting'));?>" name="trc_banner_items" id="trc_banner_items" />
-                    </h3>-->
-                    <h2>Ustawienia bannera</h2>
-                    <table class="form-table" style="margin-left:50px;">
-                        <tbody>
-                            <tr>
-                                <th scope="row">Widoczność</th>
-                                <td id="trc_banner_visibility">
-                                    <fieldset>
-                                        <legend class="screen-reader-text"><span>Widoczność</span></legend>
-                                        <p>
-                                           <label>
-                                                <input type="checkbox" name="banner_status" id="banner_status" value="1"> Włącz banner
-	                                       </label>
-	                                    </p>
-                                    </fieldset>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Banner wyświetla</th>
-                                <td id="trc_banner_items">
-                                    <fieldset>
-                                        <legend class="screen-reader-text"><span>Banner wyświetla</span></legend>
-                                        <p>
-                                           <label for="banner_items">Ilość wyświetlanych elementów: 
-                                                <select id="banner_items" name="banner_items">
-	                                                <option value="0">&mdash; Wybierz &mdash;</option>
-	                                                <option value="3">3 elementy</option>
-	                                                <option value="4">4 elementy</option>
-                                                    <option value="3">5 elementów</option>
-                                                </select>
-                                            </label>
-	                                    </p>
-                                    </fieldset>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Zawartość</th>
-                                <td id="trc_banner_content">
-                                    <fieldset>
-                                        <legend class="screen-reader-text"><span>Zawartość</span></legend>
-                                        <p>
-                                            <label>
-		                                        <input type="radio" value="search_bar" name="show_on_front" checked="checked" > Wyszukiwarka </br >
-                                                <input type="radio" value="best_restaurants" name="show_on_front"> Najlepsze restauracje </br >
-	                                        </label>
-	                                    </p>
-                                    </fieldset>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Czas przejścia</th>
-                                <td id="trc_banner_delay">
-                                    <fieldset>
-                                        <legend class="screen-reader-text"><span>Czas przejścia (ms)</span></legend>
-                                        <p>
-                                            <label>
-		                                        <input type="text" name="move_delay" placeholder="(ms)">
-	                                        </label>
-	                                    </p>
-                                    </fieldset>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <input type="submit" value="Zapisz" class="button" />
-                </form>
-            </div>
-        <?php
-        }
-        
-        function trc_settings_menu(){
-            add_theme_page('theRecipe - Ustawienia','Szablon theRecipe', 'manage_options','trc_theme_options','trc_settings_page');
-        }
-        add_action('admin_menu','trc_settings_menu');
-     */ 
+          
 ?>
 
 <?php
 
-    #region Register Settings
+    /* #.# Rejestrowanie strony ustawień || https://codex.wordpress.org/Settings_API || http://code.tutsplus.com/series/the-complete-guide-to-the-wordpress-settings-api--cms-624
+     *  1. Register Settings:
+     *      1.1: Dodanie sekcji ustawień || https://codex.wordpress.org/Function_Reference/add_settings_section       
+     *      1.2: Dodanie opcji do sekcji ustawień || https://codex.wordpress.org/Function_Reference/add_settings_field
+     *      1.3: Rejestraca ustawień (register_settings()) || https://codex.wordpress.org/Function_Reference/register_setting
+     *  2. Callbacks functions
+     *  3. Tworzenie menu ustawień
+     *      3.1 Dodanie Strony ustawień || https://codex.wordpress.org/Function_Reference/add_menu_page || https://codex.wordpress.org/Function_Reference/add_theme_page || https://codex.wordpress.org/Function_Reference/add_plugin_page
+     *      3.2 Funkcje wyświetlające interfejs ustawień
+     *          3.2.1: Pamiętać o Formie
+     *          3.2.2: https://codex.wordpress.org/Function_Reference/settings_fields
+     *          3.2.3: https://codex.wordpress.org/Function_Reference/do_settings_sections
+     */
+
+    #region 1.Register Settings
     /* ------------------------------------------------------------------------ *
      * Register setting
      * ------------------------------------------------------------------------ */
@@ -190,89 +105,79 @@
     add_action('admin_init', 'trc_theme_options_init');
     function trc_theme_options_init() {
         
-        /*  We need to make sure that our collection of options exists in the database. 
-         *  To do this, we'll make a call to the get_option function. If it returns false, 
-         *  then we'll add our new set of options using the add_option function.
-         *  http://code.tutsplus.com/tutorials/the-complete-guide-to-the-wordpress-settings-api-part-4-on-theme-options--wp-24902
-         */
+            /*  Sprawdzam czy kolekcja opcji general_settings_options istnieje w bazie danych.
+            *   [ANG]
+            *   We need to make sure that our collection of options exists in the database. 
+            *   To do this, we'll make a call to the get_option function. If it returns false, 
+            *   then we'll add our new set of options using the add_option function.
+            *   http://code.tutsplus.com/tutorials/the-complete-guide-to-the-wordpress-settings-api-part-4-on-theme-options--wp-24902
+            */
             if( false == get_option( 'general_settings_options' ) ) {  
                 add_option( 'general_settings_options' );
             }
-        
-        // See if the options exist, and initialize them if they don't
-        $options = get_option('general_settings_options');
-        if (!is_array($options)) {
-            // replace "false" for "true" if you want the options to be checked by default
-            $options = array("show_banner" => false, "select_content" => false, "number_of_items" => false);
-            update_option('general_settings_options', $options);
-        }
- 
-        add_settings_section(                   // Dodajemy sekcję ustawień (grupa ustawień) || https://codex.wordpress.org/Function_Reference/add_settings_section       
-            'general_settings',                 // ID used to identify this section and with which to register options
-            'Ustawienia szablonu theRecipe',    // Title to be displayed on the administration page
-            'trc_general_settings_callback',    // Callback used to render the description of the section
-            'general_settings_options'           // Page on which to add this section of options
-        );
-     
-            add_settings_field(                     // Dodajemy pola ustawień || https://codex.wordpress.org/Function_Reference/add_settings_field
-                'show_banner',                      // ID used to identify the field throughout the theme
-                'Banner',                           // The label to the left of the option interface element
-                'trc_show_banner_callback',         // The name of the function responsible for rendering the option interface
-                'general_settings_options',         // The page on which this option will be displayed
-                'general_settings',                 // The name of the section to which this field belongs
-                array(                              // The array of arguments to pass to the callback. In this case, just a description.
-                    'Aktuwuj to ustawienie, aby móc używać bannera.'
-                )
-            );
-     
-            add_settings_field( 
-                'select_content',                     
-                'Content',              
-                'trc_select_content_callback',  
-                'general_settings_options',                          
-                'general_settings',         
-                array(                              
-                    'Wybierz zawartość, która będzie wyświetlana w bannerze:'
-                )
-            );
-     
-            add_settings_field( 
-                'number_of_items',                      
-                'Numbef of items',               
-                'trc_number_of_items_callback',   
-                'general_settings_options',                          
-                'general_settings',         
-                array(                              
-                    'Wybierz ilość elemetów w bannerze:'
-                )
-            );
-     
-        // Finally, we register the fields with WordPress
-        //register_setting(
-        //    'general_settings',
-        //    'show_banner'
-        //);
-     
-        //register_setting(
-        //    'general_settings',
-        //    'select_content'
-        //);
-     
-        //register_setting(
-        //    'general_settings',
-        //    'number_of_items'
-        //);
             
-        register_setting(
-            'general_settings_options',
-            'general_settings_options'
-        );
+            /*
+            * Funkcja zapobiega wyświetlaniu Warning: Illegal string offset 'type'.
+            *  [ANG] See if the options exist, and initialize them if they don't
+            */ 
+            $options = get_option('general_settings_options');
+            if (!is_array($options)) {
+                // replace "false" for "true" if you want the options to be checked by default
+                $options = array("show_banner" => true, "select_content" => false, "number_of_items" => false);
+                update_option('general_settings_options', $options);
+            }
+ 
+        
+            // #.1
+            add_settings_section(                           
+                'general_settings',                         // ID used to identify this section and with which to register options
+                'Ustawienia szablonu theRecipe',            // Title to be displayed on the administration page
+                'trc_general_settings_callback',            // Callback used to render the description of the section
+                'general_settings_options'                  // Page on which to add this section of options
+            );
+     
+            // #.2
+                add_settings_field(                          
+                    'show_banner',                          // ID used to identify the field throughout the theme
+                    'Banner',                               // The label to the left of the option interface element
+                    'trc_show_banner_callback',             // The name of the function responsible for rendering the option interface
+                    'general_settings_options',             // The page on which this option will be displayed
+                    'general_settings',                     // The name of the section to which this field belongs
+                    array(                                  // The array of arguments to pass to the callback. In this case, just a description.
+                        'Aktuwuj to ustawienie, aby móc używać bannera.'
+                    )
+                );
+     
+                add_settings_field( 
+                    'select_content',                     
+                    'Content',              
+                    'trc_select_content_callback',  
+                    'general_settings_options',                          
+                    'general_settings',         
+                    array(                              
+                        'Wybierz zawartość, która będzie wyświetlana w bannerze:'
+                    )
+                );
+     
+                add_settings_field( 
+                    'number_of_items',                      
+                    'Numbef of items',               
+                    'trc_number_of_items_callback',   
+                    'general_settings_options',                          
+                    'general_settings',         
+                    array(                              
+                        'Wybierz ilość elemetów w bannerze:'
+                    )
+                );
+     
+            // #.3
+            register_setting( 'general_settings_options' , 'general_settings_options' );
      
     }
     
     #endregion
     
-    #region Callbacks
+    #region 2. Callbacks
  
     #region Section Callbacks    
     /* ------------------------------------------------------------------------ *
@@ -352,13 +257,14 @@
         
     #endregion
         
-    #region Create Menu
+    #region 3. Create Menu
     /* ------------------------------------------------------------------------ *
     * Section Create Menu - tworzymy tutaj menu strony ustawień
     * ------------------------------------------------------------------------ */
         
+        // 3.1
         function trc_create_menu_page() {
-            add_menu_page(                      // https://codex.wordpress.org/Function_Reference/add_menu_page
+            add_menu_page(                      
                 'Ustawienia theRecipe',         // The title to be displayed on the corresponding page for this menu
                 'theRecipe',                    // The text to be displayed for this actual menu item
                 'administrator',                // Which type of users can see this menu
@@ -378,27 +284,22 @@
         }
         add_action('admin_menu', 'trc_create_menu_page');
         
+        // 3.2
         function trc_settings_page_display() { 
         ?>
-            <!-- Create a header in the default WordPress 'wrap' container -->
             <div class="wrap">
  
-                <!-- Add the icon to the page -->
-                <div id="icon-themes" class="icon32"></div>
                 <h2>Ustawienia motywu theRecipe</h2>
  
-                <!-- Make a call to the WordPress function for rendering errors when settings are saved. -->
-                <?php settings_errors(); ?>
+                <<?php settings_errors(); ?>
  
-                <!-- Create the form that will be used to render our options -->
                 <form method="post" action="options.php"> 
-                    <?php settings_fields( 'general_settings_options' );       // https://codex.wordpress.org/Function_Reference/settings_fields?>
-                    <?php do_settings_sections( 'general_settings_options' );  // https://codex.wordpress.org/Function_Reference/do_settings_sections ?>         
+                    <?php settings_fields( 'general_settings_options' );       // 3.2.2  ?>
+                    <?php do_settings_sections( 'general_settings_options' );  // 3.2.3  ?>         
                     <?php submit_button(); ?>
-                    <!--<input type="submit" value="Zapisz" class="button" />-->
                 </form>
  
-            </div><!-- /.wrap -->
+            </div>
         <?php
         }
         
