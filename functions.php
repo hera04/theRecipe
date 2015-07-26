@@ -22,7 +22,7 @@
         add_theme_support('post-formats', array('gallery'));
         
     #region Display Taxonomy    
-    // #.# Funkcje wyœwietlania taksonomii
+    // #.# Funkcje wyświetlania taksonomii
         function printRestaurantCategories($post_id) {
             printPostCategories($post_id, array('locations'));
         }
@@ -75,9 +75,7 @@
                 register_sidebar(array_merge($sidebar, $sidebar_opts));
             }
         };
-    #endregion
-        
-        
+    #endregion    
           
 ?>
 
@@ -105,29 +103,46 @@
     add_action('admin_init', 'trc_theme_options_init');
     function trc_theme_options_init() {
         
-            /*  Sprawdzam czy kolekcja opcji general_settings_options istnieje w bazie danych.
-            *   [ANG]
-            *   We need to make sure that our collection of options exists in the database. 
-            *   To do this, we'll make a call to the get_option function. If it returns false, 
-            *   then we'll add our new set of options using the add_option function.
-            *   http://code.tutsplus.com/tutorials/the-complete-guide-to-the-wordpress-settings-api-part-4-on-theme-options--wp-24902
-            */
-            if( false == get_option( 'general_settings_options' ) ) {  
-                add_option( 'general_settings_options' );
-            }
-            
-            /*
-            * Funkcja zapobiega wyświetlaniu Warning: Illegal string offset 'type'.
-            *  [ANG] See if the options exist, and initialize them if they don't
-            */ 
-            $options = get_option('general_settings_options');
-            if (!is_array($options)) {
-                // replace "false" for "true" if you want the options to be checked by default
-                $options = array("show_banner" => true, "select_content" => false, "number_of_items" => false);
-                update_option('general_settings_options', $options);
-            }
- 
+            // general_settings_option
         
+                /*  Sprawdzam czy kolekcja opcji general_settings_options istnieje w bazie danych.
+                *   [ANG]
+                *   We need to make sure that our collection of options exists in the database. 
+                *   To do this, we'll make a call to the get_option function. If it returns false, 
+                *   then we'll add our new set of options using the add_option function.
+                *   http://code.tutsplus.com/tutorials/the-complete-guide-to-the-wordpress-settings-api-part-4-on-theme-options--wp-24902
+                */
+                if( false == get_option( 'general_settings_options' ) ) {  
+                    add_option( 'general_settings_options' );
+                }
+                /*
+                * Funkcja zapobiega wyświetlaniu Warning: Illegal string offset 'type'.
+                *  [ANG] See if the options exist, and initialize them if they don't
+                */ 
+                $options = get_option('general_settings_options');
+                if (!is_array($options)) {
+                    // replace "false" for "true" if you want the options to be checked by default
+                    $options = array("show_banner" => true, "select_content" => false, "number_of_items" => false);
+                    update_option('general_settings_options', $options);
+                }
+            // ------------------------------------------------------------------------------------------------------------------------------       
+                
+                
+            // social_settings_option -------------------------------------------------------------------------------
+                
+                if( false == get_option( 'social_settings_options' ) ) {  
+                    add_option( 'general_settings_options' );
+                }
+                
+                $options = get_option('social_settings_options');
+                if (!is_array($options)) {
+                    $options = array("show_banner" => true, "select_content" => false, "number_of_items" => false);
+                    update_option('social_settings_options', $options);
+                }
+            // ------------------------------------------------------------------------------------------------------ 
+ 
+        // general_settings_option ---------------------------------------------------------------------------------------------------------------
+                
             // #.1
             add_settings_section(                           
                 'general_settings',                         // ID used to identify this section and with which to register options
@@ -171,8 +186,50 @@
                 );
      
             // #.3
-            register_setting( 'general_settings_options' , 'general_settings_options' );
-     
+            register_setting( 'general_settings_options' , 'general_settings_options' );    // w argumentach 'strona ustawień' zadeklarowana w $page w add_settings_section
+        // --------------------------------------------------------------------------------------------------------------------------------------    
+            
+        // social settings -------------------------------------
+            add_settings_section(                           
+                'social_settings',
+                'Ustawienia portali społecznościowych',
+                'trc_social_settings_callback',
+                'social_settings_options'
+            );
+                           
+                add_settings_field(                          
+                    'facebook_link',
+                    'Facebook',
+                    'trc_facebook_link_callback',
+                    'social_settings_options',
+                    'social_settings',
+                    array(
+                        'Podaj link do strony na Facebooku.'
+                    )
+                );
+                add_settings_field(                          
+                    'twitter_link',
+                    'Twitter',
+                    'trc_twitter_link_callback',
+                    'social_settings_options',
+                    'social_settings',
+                    array(
+                        'Podaj link do strony na Twitterze.'
+                    )
+                );
+                add_settings_field(                          
+                    'google_plus_link',
+                    'Google+',
+                    'trc_google_plus_link_callback',
+                    'social_settings_options',
+                    'social_settings',
+                    array(
+                        'Podaj link do strony na Google+.'
+                    )
+                );
+                
+            register_setting( 'social_settings_options' , 'social_settings_options' );
+        // -----------------------------------------------------
     }
     
     #endregion
@@ -192,6 +249,10 @@
             echo '<p>Wybierz ustawienia, które Cię interesują:</p>';
         }
         
+        function trc_social_settings_callback() {
+            echo '<p>Wpisz linki do portali społecznościowych:</p>';
+        }
+        
     #endregion
  
     #region Field Callbacks        
@@ -206,8 +267,6 @@
          * Na koniec dodaje label dla checkboxa, który znajduje się w tablicy z agrumentami w add_setting_field dla show_banner
          */ 
         function trc_show_banner_callback($args) {   
-            
-            //if (empty(get_option('show_banner'))) update_option( 'show_banner', 1);
             
             $options = get_option('general_settings_options');  
     
@@ -227,8 +286,6 @@
          */ 
         function trc_select_content_callback($args) {
             
-            //if (empty(get_option('show_banner'))) update_option( 'show_banner', 1);
-            
             $options = get_option('general_settings_options');  
             
             $html = '<input type="checkbox" id="select_content" name="general_settings_options[select_content]" value="1" ' . checked(1, $options['select_content'], false) . '/>'; 
@@ -243,14 +300,45 @@
          */ 
         function trc_number_of_items_callback($args) {
             
-            //if (empty(get_option('show_banner'))) update_option( 'show_banner', 1);
-            
             $options = get_option('general_settings_options');  
             
             $html = '<input type="checkbox" id="number_of_items" name="general_settings_options[number_of_items]" value="1" ' . checked(1, $options['number_of_items'], false) . '/>'; 
             $html .= '<label for="number_of_items"> '  . $args[0] . '</label>'; 
             
             echo $html;
+        }
+        
+        function trc_facebook_link_callback($args) {   
+            
+            $options = get_option('social_settings_options');  
+            
+            $html = '<input type="text" id="facebook_link" name="social_settings_options[facebook_link]" value="'.$options['facebook_link'].'" />'; 
+            $html .= '<label for="facebook_link"> '  . $args[0] . '</label>'; 
+            
+            echo $html;
+            
+        }  
+        
+        function trc_twitter_link_callback($args) {   
+            
+            $options = get_option('social_settings_options');  
+            
+            $html = '<input type="text" id="twitter_link" name="social_settings_options[twitter]" value="'.$options['twitter'].'" />'; 
+            $html .= '<label for="twitter"> '  . $args[0] . '</label>'; 
+            
+            echo $html;
+            
+        }
+        
+        function trc_google_plus_link_callback($args) {   
+            
+            $options = get_option('social_settings_options');  
+            
+            $html = '<input type="text" id="google_plus" name="social_settings_options[google_plus]" value="'.$options['google_plus'].'" />'; 
+            $html .= '<label for="google_plus"> '  . $args[0] . '</label>'; 
+            
+            echo $html;
+            
         }
         
     #endregion
@@ -289,13 +377,15 @@
         ?>
             <div class="wrap">
  
-                <h2>Ustawienia motywu theRecipe</h2>
+                <!--<h2>Ustawienia motywu theRecipe</h2>-->
  
-                <<?php settings_errors(); ?>
+                <?php settings_errors(); ?>
  
                 <form method="post" action="options.php"> 
                     <?php settings_fields( 'general_settings_options' );       // 3.2.2  ?>
-                    <?php do_settings_sections( 'general_settings_options' );  // 3.2.3  ?>         
+                    <?php do_settings_sections( 'general_settings_options' );  // 3.2.3  ?>  
+                    <?php settings_fields( 'social_settings_options' );       // 3.2.2  ?>
+                    <?php do_settings_sections( 'social_settings_options' );  // 3.2.3  ?>         
                     <?php submit_button(); ?>
                 </form>
  
@@ -315,4 +405,3 @@
         
     #endregion
 ?>
-
