@@ -95,297 +95,398 @@
      *          3.2.3: https://codex.wordpress.org/Function_Reference/do_settings_sections
      */
 
-    #region 1.Register Settings
-    /* ------------------------------------------------------------------------ *
-     * Register setting
-     * ------------------------------------------------------------------------ */
+    #region 1. Register Settings   
     
-    add_action('admin_init', 'trc_theme_options_init');
-    function trc_theme_options_init() {
+        #region Theme General Settings Init
+        //Inicjowane są tutaj ustawienia i pola dla ogólnych ustawień szablonu.
         
-            // general_settings_option
         
-                /*  Sprawdzam czy kolekcja opcji general_settings_options istnieje w bazie danych.
-                *   [ANG]
-                *   We need to make sure that our collection of options exists in the database. 
-                *   To do this, we'll make a call to the get_option function. If it returns false, 
-                *   then we'll add our new set of options using the add_option function.
-                *   http://code.tutsplus.com/tutorials/the-complete-guide-to-the-wordpress-settings-api-part-4-on-theme-options--wp-24902
-                */
-                if( false == get_option( 'general_settings_options' ) ) {  
-                    add_option( 'general_settings_options' );
-                }
-                /*
-                * Funkcja zapobiega wyświetlaniu Warning: Illegal string offset 'type'.
-                *  [ANG] See if the options exist, and initialize them if they don't
-                */ 
-                $options = get_option('general_settings_options');
-                if (!is_array($options)) {
-                    // replace "false" for "true" if you want the options to be checked by default
-                    $options = array("show_banner" => true, "select_content" => false, "number_of_items" => false);
-                    update_option('general_settings_options', $options);
-                }
-            // ------------------------------------------------------------------------------------------------------------------------------       
+            add_action('admin_init', 'trc_general_settings_init');
+            function trc_general_settings_init() {
+        
+                #region Checking Options
+                    /*  
+                    * Sprawdzam czy kolekcja opcji general_settings istnieje w bazie danych i przypisanie wartości startowych.
+                    */   
+                    
+                    if( false == get_option( 'general_settings' ) ) {  
+                        add_option( 'general_settings' );
+                        $options = array("show_banner" => true, "select_content" => 'search_bar', "number_of_items" => '3');
+                        update_option('general_settings', $options);
+                    }
                 
-                
-            // social_settings_option -------------------------------------------------------------------------------
-                
-                if( false == get_option( 'social_settings_options' ) ) {  
-                    add_option( 'general_settings_options' );
-                }
-                
-                $options = get_option('social_settings_options');
-                if (!is_array($options)) {
-                    $options = array("show_banner" => true, "select_content" => false, "number_of_items" => false);
-                    update_option('social_settings_options', $options);
-                }
-            // ------------------------------------------------------------------------------------------------------ 
- 
-        // general_settings_option ---------------------------------------------------------------------------------------------------------------
-                
-            // #.1
-            add_settings_section(                           
-                'general_settings',                         // ID used to identify this section and with which to register options
-                'Ustawienia szablonu theRecipe',            // Title to be displayed on the administration page
-                'trc_general_settings_callback',            // Callback used to render the description of the section
-                'general_settings_options'                  // Page on which to add this section of options
-            );
-     
-            // #.2
-                add_settings_field(                          
-                    'show_banner',                          // ID used to identify the field throughout the theme
-                    'Banner',                               // The label to the left of the option interface element
-                    'trc_show_banner_callback',             // The name of the function responsible for rendering the option interface
-                    'general_settings_options',             // The page on which this option will be displayed
-                    'general_settings',                     // The name of the section to which this field belongs
-                    array(                                  // The array of arguments to pass to the callback. In this case, just a description.
-                        'Aktuwuj to ustawienie, aby móc używać bannera.'
-                    )
-                );
-     
-                add_settings_field( 
-                    'select_content',                     
-                    'Content',              
-                    'trc_select_content_callback',  
-                    'general_settings_options',                          
-                    'general_settings',         
-                    array(                              
-                        'Wybierz zawartość, która będzie wyświetlana w bannerze:'
-                    )
-                );
-     
-                add_settings_field( 
-                    'number_of_items',                      
-                    'Numbef of items',               
-                    'trc_number_of_items_callback',   
-                    'general_settings_options',                          
-                    'general_settings',         
-                    array(                              
-                        'Wybierz ilość elemetów w bannerze:'
-                    )
-                );
-     
-            // #.3
-            register_setting( 'general_settings_options' , 'general_settings_options' );    // w argumentach 'strona ustawień' zadeklarowana w $page w add_settings_section
-        // --------------------------------------------------------------------------------------------------------------------------------------    
+                #endregion
             
-        // social settings -------------------------------------
-            add_settings_section(                           
-                'social_settings',
-                'Ustawienia portali społecznościowych',
-                'trc_social_settings_callback',
-                'social_settings_options'
-            );
-                           
-                add_settings_field(                          
-                    'facebook_link',
-                    'Facebook',
-                    'trc_facebook_link_callback',
-                    'social_settings_options',
-                    'social_settings',
-                    array(
-                        'Podaj link do strony na Facebooku.'
-                    )
-                );
-                add_settings_field(                          
-                    'twitter_link',
-                    'Twitter',
-                    'trc_twitter_link_callback',
-                    'social_settings_options',
-                    'social_settings',
-                    array(
-                        'Podaj link do strony na Twitterze.'
-                    )
-                );
-                add_settings_field(                          
-                    'google_plus_link',
-                    'Google+',
-                    'trc_google_plus_link_callback',
-                    'social_settings_options',
-                    'social_settings',
-                    array(
-                        'Podaj link do strony na Google+.'
-                    )
-                );
+                #region #.1 Add Settings
+                    
+                    add_settings_section(                           
+                        'general_settings_section',                         // ID used to identify this section and with which to register options
+                        'Ogólne ustawienia szablonu theRecipe',     // Title to be displayed on the administration page
+                        'trc_general_settings_callback',            // Callback used to render the description of the section
+                        'general_settings'                     // Page on which to add this section of options. Będzie to w następnych krokach kolekcja ustawień sekcji.
+                    );
                 
-            register_setting( 'social_settings_options' , 'social_settings_options' );
-        // -----------------------------------------------------
-    }
+                        #region #.2 Add Fields
+                    
+                            add_settings_field(                          
+                                'show_banner',                          // ID used to identify the field throughout the theme
+                                'Pokazuj banner',                       // The label to the left of the option interface element
+                                'trc_show_banner_callback',             // The name of the function responsible for rendering the option interface
+                                'general_settings',                     // The page on which this option will be displayed
+                                'general_settings_section',             // The name of the section to which this field belongs
+                                array(                                  // The array of arguments to pass to the callback. In this case, just a description.
+                                    'Aktywuj to ustawienie, aby móc używać bannera.'
+                                )
+                            );
+     
+                            add_settings_field( 
+                                'select_content',                     
+                                'Zawartość bannera',              
+                                'trc_select_content_callback',  
+                                'general_settings',                          
+                                'general_settings_section',         
+                                array(                              
+                                    'Wybierz zawartość, która będzie wyświetlana w bannerze:'
+                                )
+                            );
+     
+                            add_settings_field( 
+                                'number_of_items',                      
+                                'Ilość elementów w bannerze',               
+                                'trc_number_of_items_callback',   
+                                'general_settings',                          
+                                'general_settings_section',         
+                                array(                              
+                                    'Wybierz ilość elemetów w bannerze:'
+                                )
+                            );
+                            
+                        #endregion 
+                
+                #endregion
+             
+                #region #.3 Register Settings
+                     
+                    register_setting( 'general_settings' , 'general_settings' );    // w argumentach 'strona ustawień' zadeklarowana w $page w add_settings_section
+                
+                #endregion
+            }
+            
+        #endregion
+    
+        #region Social Options Init
+        //Inicjowane są tutaj ustawienia i pola dla ustawień społecznościowych.
+        
+        
+            add_action('admin_init', 'trc_social_settings_init');
+            function trc_social_settings_init() {
+        
+                #region Checking Options
+                
+                    if( false == get_option( 'social_settings' ) ) {  
+                        add_option( 'social_settings' );
+                        $options = array('facebook' => '', 'twitter' => '', 'google_plus' => '', 'instagram' => '', 'pinrest' => '');
+                        update_option('social_settings', $options);
+                    }
+                    
+                #endregion
+        
+                #region Add Settings
+                    
+                    add_settings_section(                           
+                        'social_settings_section',                      // ID used to identify this section and with which to register options
+                        'Ustawienia Social Media',              // Title to be displayed on the administration page
+                        'trc_social_settings_callback',         // Callback used to render the description of the section
+                        'social_settings'                  // Page on which to add this section of options
+                    );
+        
+                        #region Add Fields
+                            
+                            add_settings_field(                          
+                                'facebook',                         // ID used to identify the field throughout the theme
+                                'Facebook',                         // The label to the left of the option interface element
+                                'trc_facebook_callback',            // The name of the function responsible for rendering the option interface
+                                'social_settings',             // The page on which this option will be displayed
+                                'social_settings_section',                  // The name of the section to which this field belongs
+                                array(                              // The array of arguments to pass to the callback. In this case, just a description.
+                                    'Wpisz adres strony na Facebooku.'
+                                )
+                            );
+                            add_settings_field(                          
+                                'twitter',
+                                'Twitter',
+                                'trc_twitter_callback',
+                                'social_settings',
+                                'social_settings_section',
+                                array(
+                                    'Wpisz adres profilu na Twitterze.'
+                                )
+                            );
+                            add_settings_field(                          
+                                'google_plus',
+                                'Google+',
+                                'trc_google_plus_callback',
+                                'social_settings',
+                                'social_settings_section',
+                                array(
+                                    'Wpisz adres strony na Google+.'
+                                )
+                            );
+                            add_settings_field(                          
+                                'instagram',
+                                'Instagram',
+                                'trc_instagram_callback',
+                                'social_settings',
+                                'social_settings_section',
+                                array(
+                                    'Wpisz adres profilu na Instagramie.'
+                                )
+                            );
+                            add_settings_field(                          
+                                'pinrest',
+                                'Pinrest',
+                                'trc_pinrest_callback',
+                                'social_settings',
+                                'social_settings_section',
+                                array( 
+                                    'Wpisz adres profilu na Pinrest.'
+                                )
+                            );
+                            
+                        #endregion
+        
+                #endregion
+        
+                #region Register Settings
+                            
+                    register_setting( 'social_settings' , 'social_settings' );        
+                    
+                #endregion
+            }
+            
+        #endregion
     
     #endregion
     
     #region 2. Callbacks
- 
-    #region Section Callbacks    
-    /* ------------------------------------------------------------------------ *
-     * Section Callbacks
-     * ------------------------------------------------------------------------ */
- 
-        /**
-         * Funkcja wypisuje krótki opis sekcji ustawień.     * 
-         * Wywoływana z funkcji trc_theme_options_init() poprzez podanie parametru w funkcji add_settings_section.
-         */
-        function trc_general_settings_callback() {
-            echo '<p>Wybierz ustawienia, które Cię interesują:</p>';
-        }
         
-        function trc_social_settings_callback() {
-            echo '<p>Wpisz linki do portali społecznościowych:</p>';
-        }
+        #region Form Functions
+            
+            function generate_checkbox_form( $option_collections, $option, $args ){
+                /**
+                 * Funkcja generuje formularz checkbox na podstawie podanych w argumentach danych.
+                 * $option_collections  - kolekcja ustawień. W moim przypadku pole $page z add_section
+                 * $option              - ID pola ustawień zdefiniowanego w add_section_field
+                 * $args                - argumenty przekazane z funkcji pierwotnej (np. label dla ustawienia )
+                 */ 
+                if ( isset($option_collections) ){
+                    $options = get_option($option_collections);
+                    
+                    if ( isset($options) && isset($options[$option]) ){
+                        
+                        $html = '<input type="checkbox" id="'.$option.'" name="'.$option_collections.'['.$option.']" value="1" ' . checked(1, $options[$option], false) . '/>'; 
+                        $html .= '<label for="'.$option.'"> '  . $args[0] . '</label>';
+                        echo $html;
+                    } else echo 'Błędne parametry funkcji generate_checkbox_form';
+                    
+                } else echo 'Błędne parametry funkcji generate_checkbox_form';
+            }
+        
+            function generate_radio_form( $option_collections, $option, $sub_options, $default_val, $args ){
+                /**
+                 * Funkcja generuje formularz Radio na podstawie podanych w argumentach danych.
+                 * Jeśli nie jest włączona opcja show_banner - nie ma dostępu do zmiany ustawień zawartości banneru.
+                 * $option_collections  - kolekcja ustawień. W moim przypadku pole $page z add_section
+                 * $option      - ID pola ustawień zdefiniowanego w add_section_field
+                 * $sub-options - tablica podopcji. $sub_options = ( array( ID_podopcji , Opis podopcji ) )
+                 * $default_val - wartość domyślna jaka ma być ustawiona.
+                 * $args        - argumenty przekazane z funkcji pierwotnej (np. label dla ustawienia )
+                 */ 
+                
+                if ( is_array($sub_options) && isset($option_collections)){
+                    $options = get_option( $option_collections );
+                    
+                    if ( isset($options) && isset($options[$option]) ){
+                        // Jeśli nie podano wartości domyślnej staje się nią pierwszy element sub_options.
+                        if (!isset($default_val)) $default_val = $sub_options[0];
+                        
+                        // Ustawienie domyślnej wartości. Gdy tego nie ma, po włączeniu i wyłączeni banneru, nie ma domyślnej wartości podopcji.
+                        // Problem powstaje przez to, że wyłączamy pola (disabled) i wartości nie wysyłają się do bazy danych.
+                        if (!isset($options[$option])) {
+                            $options[$option] = $default_val;
+                            update_option($option_collections, $options);
+                        }
+                        
+                        echo '<p> '  . $args[0] . '</p></br >';  
+                        // Pętla tworzy obiekty typu Radio
+                        foreach ( $sub_options as $sub_option ){
+                            $html = '<input type="radio" id="'.$sub_option[0].'" name="general_settings['.$option.']" value="'.$sub_option[0].'"' . checked( $sub_option[0], $options[$option], false ) . disabled('', $options['show_banner'], false ) . '/>';
+                            $html .= '<label for="'.$sub_option[0].'">'.$sub_option[1].'</label></br >';
+                            echo $html;
+                        };
+                    } else echo 'Błędne parametry funkcji generate_radio_form';
+                    
+                } else echo 'Błędne parametry funkcji generate_radio_form';
+            }
+            
+            function generate_select_form( $option_collections, $option, $sub_options, $default_val, $args ) {
+                /**
+                 * Funkcja generuje formularz select na podstawie podanych w argumentach danych.
+                 * $option_collections  - kolekcja ustawień. W moim przypadku pole $page z add_section
+                 * $option              - ID pola ustawień z kolekcji, zdefiniowanego w add_section_field
+                 * $sub-options         - tablica podopcji. $sub_options = ( array( ID_podopcji , Opis podopcji ) )
+                 * $default_val         - wartość domyślna jaka ma być ustawiona.
+                 * $args                - argumenty przekazane z funkcji pierwotnej (np. label dla ustawienia )
+                 */    
+                
+                if ( is_array($sub_options) && isset($option_collections) ){
+                    $options = get_option( $option_collections );
+                    
+                        if ( isset($options) && isset($options[$option]) ){
+                    
+                            if (!isset($default_val)) $default_val = $sub_options[0];
+                    
+                            if (!isset($options[$option])) {
+                                $options[$option] = $default_val;
+                                update_option($option_collections, $options);
+                            }
+                    
+                            echo '<p> '  . $args[0] . '</p></br >';                  
+                            echo '<select id="'.$option.'" name="'.$option_collections.'['.$option.']" '. disabled('', $options['show_banner'], false ) .'>';    
+                    
+                            foreach ( $sub_options as $sub_option ){
+                                $html = '<option value="'.$sub_option[0].'"' . selected($sub_option[0], $options[$option], false) . '>'.$sub_option[1].'</option>';
+                                echo $html;
+                            };           
+                    
+                            echo $html .= '</select>';
+                        } else echo 'Błędne parametry funkcji generate_select_form';
+                        
+                 } else echo 'Błędne parametry funkcji generate_select_form';
+            }
+            
+            function generate_text_form( $option_collections, $option, $args ) {
+                /**
+                 * Funkcja generuje formularz select na podstawie podanych w argumentach danych.
+                 * $option_collections  - kolekcja ustawień. W moim przypadku pole $page z add_section
+                 * $option              - ID pola ustawień z kolekcji, zdefiniowanego w add_section_field
+                 * $args                - argumenty przekazane z funkcji pierwotnej (np. label dla ustawienia )
+                 */  
+                
+                $options = get_option( $option_collections );
+                    
+                if ( isset($options) && isset($options[$option]) ){                    
+                    $html = '<input type="text" id="'.$option.'" name="'.$option_collections.'['.$option.']" value="' . $options['.$option.'] . '" />'; 
+                    $html .= '<label for="'.$option.'"> '  . $args[0] . '</label>'; 
+                    
+                    echo $html;
+                } else echo 'Błędne parametry funkcji generate_text_form'.$options.' '.$options[$option].'';
+                
+            }
+            
+        #endregion
+ 
+        #region Section Callbacks 
+        /**
+        * Funkcje wypisują krótki opis dla danej sekcji ustawień. 
+        * Wywoływana z funkcji trc_theme_options_init() poprzez podanie parametru w funkcji add_settings_section.
+        */
+       
+            function trc_general_settings_callback() {
+                echo '<p>Zmień ogólne ustawienia motywu:</p>';
+            }
+        
+            function trc_social_settings_callback() {
+                echo '<p>Podaj linki do portali społecznościowych:</p>';
+            }
+        
+        #endregion
+ 
+        #region Field Callbacks
+        
+            function trc_show_banner_callback($args) {  
+                
+                $option = array( 'show_banner' );
+                generate_checkbox_form('general_settings','show_banner', $args );
+            }    
+            
+            
+            function trc_select_content_callback($args) { 
+                $default_val = 'search_bar';               
+                
+                $sub_options = array(   
+                    array('search_bar','Wyszukiwarka'), 
+                    array('posts_bar','Ostatnie posty')
+                );
+                generate_radio_form('general_settings','select_content', $sub_options, $default_val, $args );
+            }
+            
+            
+            function trc_number_of_items_callback($args) {
+                $sub_options = array(   
+                    array( 3 , '3 elementy' ), 
+                    array( 4 , '4 elementy' ),
+                    array( 5 , '5 elementów' )
+                );
+                generate_radio_form('general_settings','number_of_items', $sub_options, 3 , $args );
+            }
+            
+        
+            function trc_facebook_callback($args) {                   
+                generate_text_form('social_settings','facebook',$args);
+            }
+            function trc_twitter_callback($args) {                   
+                generate_text_form('social_settings','twitter',$args);
+            }
+            function trc_google_plus_callback($args) {                   
+                generate_text_form('social_settings','google_plus',$args);
+            }
+            function trc_instagram_callback($args) {                   
+                generate_text_form('social_settings','instagram',$args);
+            }
+            function trc_pinrest_callback($args) {                   
+                generate_text_form('social_settings','pinrest',$args);
+            }
+        
+        #endregion
         
     #endregion
- 
-    #region Field Callbacks        
-    /* ------------------------------------------------------------------------ *
-     * Field Callbacks
-     * ------------------------------------------------------------------------ */
         
-        /**
-         * Funkcja renderuje checkbox dla opcji show_banner.
-         * 
-         * W get_option() jako argument podajemy id pola ustawień.
-         * Na koniec dodaje label dla checkboxa, który znajduje się w tablicy z agrumentami w add_setting_field dla show_banner
-         */ 
-        function trc_show_banner_callback($args) {   
-            
-            $options = get_option('general_settings_options');  
-    
-            // 2. We also access the show_header element of the options collection in the call to the checked() helper function        
-            // 3. Next, we update the name attribute to access this element's ID in the context of the display options array
-            $html = '<input type="checkbox" id="show_banner" name="general_settings_options[show_banner]" value="1" ' . checked(1, $options['show_banner'], false) . '/>'; 
-            
-            // Here, we'll take the first argument of the array and add it to a label next to the checkbox
-            $html .= '<label for="show_banner"> '  . $args[0] . '</label>'; 
-            
-            echo $html;
-     
-        }    
+    #region 3. Create Setting Menu
         
-        /**
-         * Funkcja renderuje pola radio dla opcji select_content.
-         */ 
-        function trc_select_content_callback($args) {
+        #region 3.1 Creating Menu Page
             
-            $options = get_option('general_settings_options');  
-            
-            $html = '<input type="checkbox" id="select_content" name="general_settings_options[select_content]" value="1" ' . checked(1, $options['select_content'], false) . '/>'; 
-            $html .= '<label for="select_content"> '  . $args[0] . '</label>'; 
-            
-            echo $html;
-        }
+            function trc_create_menu_page() {
+                add_menu_page(                      
+                    'Ustawienia ogólne theRecipe',      // The title to be displayed on the corresponding page for this menu
+                    'theRecipe',                        // The text to be displayed for this actual menu item
+                    'administrator',                    // Which type of users can see this menu
+                    'general_settings',                 // The unique ID - that is, the slug - for this menu item
+                    'general_settings_display',         // The name of the function to call when rendering the menu for this page
+                    ''                                  // Default icon
+                );
+                add_submenu_page(
+                    'general_settings',                         // Register this submenu with the menu defined above
+                    'Ustawienia portali społecznościowych',     // The text to the display in the browser when this menu item is active
+                    'Społeczności',                             // The text for this menu item
+                    'administrator',                            // Which type of users can see this menu
+                    'social_settings',                          // The unique ID - the slug - for this menu item
+                    'trc_social_settings_display'               // The function used to render the menu for this page to the screen
+                );            
+            }
+            add_action('admin_menu', 'trc_create_menu_page');
         
+        #endregion
         
-        /**
-         * Funkcja renderuje select dla opcji number_of_items.
-         */ 
-        function trc_number_of_items_callback($args) {
-            
-            $options = get_option('general_settings_options');  
-            
-            $html = '<input type="checkbox" id="number_of_items" name="general_settings_options[number_of_items]" value="1" ' . checked(1, $options['number_of_items'], false) . '/>'; 
-            $html .= '<label for="number_of_items"> '  . $args[0] . '</label>'; 
-            
-            echo $html;
-        }
-        
-        function trc_facebook_link_callback($args) {   
-            
-            $options = get_option('social_settings_options');  
-            
-            $html = '<input type="text" id="facebook_link" name="social_settings_options[facebook_link]" value="'.$options['facebook_link'].'" />'; 
-            $html .= '<label for="facebook_link"> '  . $args[0] . '</label>'; 
-            
-            echo $html;
-            
-        }  
-        
-        function trc_twitter_link_callback($args) {   
-            
-            $options = get_option('social_settings_options');  
-            
-            $html = '<input type="text" id="twitter_link" name="social_settings_options[twitter]" value="'.$options['twitter'].'" />'; 
-            $html .= '<label for="twitter"> '  . $args[0] . '</label>'; 
-            
-            echo $html;
-            
-        }
-        
-        function trc_google_plus_link_callback($args) {   
-            
-            $options = get_option('social_settings_options');  
-            
-            $html = '<input type="text" id="google_plus" name="social_settings_options[google_plus]" value="'.$options['google_plus'].'" />'; 
-            $html .= '<label for="google_plus"> '  . $args[0] . '</label>'; 
-            
-            echo $html;
-            
-        }
-        
-    #endregion
-        
-    #endregion
-        
-    #region 3. Create Menu
-    /* ------------------------------------------------------------------------ *
-    * Section Create Menu - tworzymy tutaj menu strony ustawień
-    * ------------------------------------------------------------------------ */
-        
-        // 3.1
-        function trc_create_menu_page() {
-            add_menu_page(                      
-                'Ustawienia theRecipe',         // The title to be displayed on the corresponding page for this menu
-                'theRecipe',                    // The text to be displayed for this actual menu item
-                'administrator',                // Which type of users can see this menu
-                'trc_settings_page',            // The unique ID - that is, the slug - for this menu item
-                'trc_settings_page_display',    // The name of the function to call when rendering the menu for this page
-                ''                              // Default icon
-                //'58'                          // The position in the menu order this menu should appear.
-            );
-            //add_submenu_page(
-            //    'trc_settings_page',                // Register this submenu with the menu defined above
-            //    'Opcje theRecipe',                  // The text to the display in the browser when this menu item is active
-            //    'Opcje',                            // The text for this menu item
-            //    'administrator',                    // Which type of users can see this menu
-            //    'trc_options_page',                 // The unique ID - the slug - for this menu item
-            //    'trc_options_submenu_page_display'  // The function used to render the menu for this page to the screen
-            //);
-        }
-        add_action('admin_menu', 'trc_create_menu_page');
-        
-        // 3.2
-        function trc_settings_page_display() { 
+        function general_settings_display() { 
         ?>
             <div class="wrap">
- 
-                <!--<h2>Ustawienia motywu theRecipe</h2>-->
- 
                 <?php settings_errors(); ?>
- 
                 <form method="post" action="options.php"> 
-                    <?php settings_fields( 'general_settings_options' );       // 3.2.2  ?>
-                    <?php do_settings_sections( 'general_settings_options' );  // 3.2.3  ?>  
-                    <?php settings_fields( 'social_settings_options' );       // 3.2.2  ?>
-                    <?php do_settings_sections( 'social_settings_options' );  // 3.2.3  ?>         
+                    
+                    <?php settings_fields( 'general_settings' );       // 3.2.2  ?>
+                    <?php do_settings_sections( 'general_settings' );  // 3.2.3  ?>
+                          
                     <?php submit_button(); ?>
                 </form>
  
@@ -393,15 +494,21 @@
         <?php
         }
         
-        //function trc_options_submenu_page_display() { 
-        //    // Create a header in the default WordPress 'wrap' container
-        //    $html = '<div class="wrap">';
-        //    $html .= '<h2>Opcje szablonu theRecipe</h2>';
-        //    $html .= '</div>';
-            
-        //    // Send the markup to the browser
-        //    echo $html; 
-        //}
-        
+        function trc_social_settings_display() { 
+        ?>
+            <div class="wrap">
+ 
+                <?php settings_errors(); ?>
+                <form method="post" action="options.php"> 
+
+                    <?php settings_fields( 'social_settings' ); ?>
+                    <?php do_settings_sections( 'social_settings' ); ?>   
+                          
+                    <?php submit_button(); ?>
+                </form>
+ 
+            </div>
+        <?php
+        }
     #endregion
 ?>

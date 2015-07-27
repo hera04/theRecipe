@@ -1,11 +1,15 @@
 <?php get_header(); ?>
 
     <!-- BANNER -->
-    <?php  $is_banner = get_banner(); ?>    
+    <?php
+        $options = get_option('general_settings');
+        if ($options['show_banner'] == '1') $is_banner = get_banner();   
+        //if ( get_option('show_banner') == '1') $is_banner = get_banner();
+    ?>
 
     <!-- MAIN CONTENT ----------------------------------------------------------------->
     <div class="site-content <?php if($is_banner) echo 'sc-static'; else echo 'sc-no-banner';?>" id="siteContent_?">
-
+        
         <!-- Linki do portali społecznościowych -->
         <div class="social-media hide-for-small-only">
             <ul class="inline-list">

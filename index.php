@@ -16,7 +16,7 @@
                 <div class="mask"></div>
             </li>
 
-            <li style="background-image: url(<?php echo THEME_URL ?>images/24.jpg);" class="selected sl-item">
+            <li style="background-image: url(<?php echo THEME_URL ?>images/24.jpg);" class="sl-item">
                 <div class="large-6 column" style="margin-top: 20%;">
                     <div class="sl-desc-wrapper">
                         <h2 class="sl-desc-title">Deser z truskawami</h2>
@@ -28,7 +28,7 @@
                 <div class="mask"></div>
             </li>
 
-            <li style="background-image: url(<?php echo THEME_URL ?>images/8.jpg);" class="selected sl-item">
+            <li style="background-image: url(<?php echo THEME_URL ?>images/8.jpg);" class="sl-item">
                 <div class="large-6 column" style="margin-top: 20%;">
                     <div class="sl-desc-wrapper">
                         <h2 class="sl-desc-title">Deser z truskawami</h2>
