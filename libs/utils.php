@@ -1,8 +1,9 @@
 <?php 
-    /* Funkcje, które mogê wykorzystaæ w ró¿nych motywach */ 
+    /* Funkcje, które mogê wykorzystaæ w ró¿nych motywach */     
     
+    #region #.# Raportowanie b³êdów
     /*
-     * #.# Wypisywanie informacji
+     * #.# Wypisywanie informacji, warningów itp
      */
         require_once THEME_DIR.'libs/messages.class.php';
         $msgs = messages::getInstance();
@@ -25,10 +26,10 @@
                 echo '<a href="#" class="close">&times;</a></div>';
             }
         }
-        
-        
+     #endregion   
+    
+    #region #.# Rating
     /*
-     * #.# Rating
      * Funkcja wypisuje w postaci listy rating danego wpisu.
      */
         function showRating($postID,$field_name,$max_point){
@@ -45,9 +46,11 @@
                 echo '</ul>';
             } else echo 'Brak oceny';
         }
+    #endregion
     
+    #region #.# Wczytywanie komentarzy
     /*
-     * #.# Wczytywanie komentarzy
+     * Funkcja wczytuje ostatnie komentarze ze strony
      */
         function fetchRecentComments($limit){
             global $wpdb;
@@ -55,10 +58,10 @@
             $limit = (int)$limit; // Rzutowanie na int dla bezpieczeñstwa
         
             /* 
-                * Tworzenie aliasów w MYSQL skraca zapytanie.
-                * 'SELECT C.* FROM {$wpdb->comments} C' oznacza nadanie aliasu C tabeli $wpdb->comments.
-                * LEFT JOIN - z³¹czenie tabeli lewej z czêœci¹ wspóln¹ tabeli prawej
-                * */
+            * Tworzenie aliasów w MYSQL skraca zapytanie.
+            * 'SELECT C.* FROM {$wpdb->comments} C' oznacza nadanie aliasu C tabeli $wpdb->comments.
+            * LEFT JOIN - z³¹czenie tabeli lewej z czêœci¹ wspóln¹ tabeli prawej
+            * */
             $res = $wpdb->get_results("
                 SELECT C.*, P.post_title, P.ID
                 FROM {$wpdb->comments} C
@@ -71,9 +74,11 @@
         
             return $res;
         }
+    #endregion
     
-    /* #.# Przycinanie stringów
-     *     Tytu³y musz¹ mieæ odpowiedni¹ d³ugoœæ, aby nie zepsu³y szablonu.
+    #region #.# Przycinanie wypisów
+    /* 
+     * Przycinanie wypisów - musz¹ mieæ odpowiedni¹ d³ugoœæ, aby nie zepsu³y szablonu.
      * */
         function cutText($text, $maxLength){
         
@@ -96,12 +101,14 @@
         
             return $return;
         }     
-        
-        
+    #endregion    
+    
+    #region #.# Operacje na adresach www i parametrach
     /*
-     * #.# Operacje na adresach www i parametrach
+     * Funkcje operuj¹ce na adresach www i parametrach
      */
         function current_page_url() {
+            // Funkcja generuje adres aktualnie odwiedzanej strony.
             $pageURL = 'http';
             if( isset($_SERVER["HTTPS"]) ) {
                 if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
@@ -116,6 +123,7 @@
         }
         
         function getQueryParams(){
+            // Funkcja pobiera wszystkiw parametry z adresu www
             global $query_string;
             $parts = explode('&', $query_string);
             
@@ -129,6 +137,7 @@
         }  
         
         function getQuerySingleParam($name){
+            //Funkcjapobiera pojedyñczy parametr z adresu www
             $qparams = getQueryParams();
             
             if(isset($qparams[$name])){
@@ -137,14 +146,16 @@
             
             return NULL;
         }
+     #endregion   
+     
+    #region #.# Zapytania do bazy
         
-        
-    /*
-     * #.# Zaokr¹glanie zapytañ do bazy WP
-     * Pomocne w prostym wyszukiwaniu, gdzie mo¿emy 'zapodziaæ' jedn¹ literkê itp
-     */    
         add_filter('posts_where', 'title_like_posts_where', 10, 2);
         function title_like_posts_where( $where, &$wp_query ) {
+            /*
+             * Zaokr¹glanie zapytañ do bazy WP
+             * Pomocne w prostym wyszukiwaniu, gdzie mo¿emy 'zapodziaæ' jedn¹ literkê itp
+             */       
             global $wpdb;
             
             if ($post_title_like = $wp_query->get('post_title_like')){
@@ -154,10 +165,13 @@
             return $where;
         }
         
-    /*
-     * #.# Tworzenie uniwersalnej paginacji
-     * $loop jest to obiekt WP_Query dla tego motywu. Nie u¿ywam wp_query, poniewa¿ $loop bierze udzia³ w filtrowaniu wyników wyszukiwania.
-     */
+    #endregion
+    
+    #region #.# Paginacja
+        /*
+         * Tworzenie uniwersalnej paginacji
+         * $loop jest to obiekt WP_Query dla tego motywu. Nie u¿ywam wp_query, poniewa¿ $loop bierze udzia³ w filtrowaniu wyników wyszukiwania.
+         */
         function generatePagination($paged,$loop){
             $big = 999999999; // need an unlikely integer
 
@@ -183,4 +197,141 @@
                 echo '</ul>';
             }
         }
+    #endregion
+        
+    #region #.# Generowanie formularzy ustawieñ
+        
+        function generate_checkbox_form( $option_collections, $option, $args ){
+            /**
+                * Funkcja generuje formularz checkbox na podstawie podanych w argumentach danych.
+                * $option_collections  - kolekcja ustawieñ. W moim przypadku pole $page z add_section
+                * $option              - ID pola ustawieñ zdefiniowanego w add_section_field
+                * $args                - argumenty przekazane z funkcji pierwotnej (np. label dla ustawienia )
+                */ 
+            if ( isset($option_collections) ){
+                $options = get_option($option_collections);
+                
+                if ( isset($options) ){
+                    $html = '<input type="checkbox" id="'.$option.'" name="'.$option_collections.'['.$option.']" value="1" ' . checked(1, $options[$option], false) . '/>'; 
+                    $html .= '<label for="'.$option.'"> '  . $args[0] . '</label>';
+                    echo $html;
+                } else echo 'B³êdne parametry funkcji generate_checkbox_form. Brak kolekcji opcji lub opcji w bazie danych.';
+                
+            } else echo 'B³êdne parametry funkcji generate_checkbox_form. NIe podano nazwy kolekcji opcji.';
+        }
+        
+        function generate_radio_form( $option_collections, $option, $sub_options,  $args ){
+            /**
+                * Funkcja generuje formularz Radio na podstawie podanych w argumentach danych.
+                * Jeœli nie jest w³¹czona opcja show_banner - nie ma dostêpu do zmiany ustawieñ zawartoœci banneru.
+                * $option_collections  - kolekcja ustawieñ. W moim przypadku pole $page z add_section
+                * $option      - ID pola ustawieñ zdefiniowanego w add_section_field
+                * $sub-options - tablica podopcji. $sub_options = ( array( ID_podopcji , Opis podopcji ) )
+                * $default_val - wartoœæ domyœlna jaka ma byæ ustawiona.
+                * $args        - argumenty przekazane z funkcji pierwotnej (np. label dla ustawienia )
+                */ 
+            
+            if ( is_array($sub_options) && isset($option_collections)){
+                $options = get_option( $option_collections );
+                
+                if ( isset($options) && isset($options[$option]) ){
+                    // Jeœli nie podano wartoœci domyœlnej staje siê ni¹ pierwszy element sub_options.
+                    if (!isset($default_val)) $default_val = $sub_options[0];
+                    
+                    // EDIT : Usun¹³em wy³¹czanie pola
+                    // Ustawienie domyœlnej wartoœci. Gdy tego nie ma, po w³¹czeniu i wy³¹czeni banneru, nie ma domyœlnej wartoœci podopcji.
+                    // Problem powstaje przez to, ¿e wy³¹czamy pola (disabled) i wartoœci nie wysy³aj¹ siê do bazy danych.
+                    //if (!isset($options[$option])) {
+                    //    $options[$option] = $default_val;
+                    //    update_option($option_collections, $options);
+                    //}
+                    
+                    echo '<p> '  . $args[0] . '</p></br >';  
+                    // Pêtla tworzy obiekty typu Radio
+                    foreach ( $sub_options as $sub_option ){
+                        $html = '<input type="radio" id="'.$sub_option[0].'" name="general_settings['.$option.']" value="'.$sub_option[0].'"' . checked( $sub_option[0], $options[$option], false ) . ' />';
+                        $html .= '<label for="'.$sub_option[0].'">'.$sub_option[1].'</label></br >';
+                        echo $html;
+                    };
+                } else echo 'B³êdne parametry funkcji generate_radio_form.  Brak kolekcji opcji lub opcji w bazie danych.';
+                
+            } else echo 'B³êdne parametry funkcji generate_radio_form. $sub_options nie jest tablic¹, lub nie podano nazwy kolekcji opcji.';
+        }
+        
+        function generate_select_form( $option_collections, $option, $sub_options, $args ) {
+            /**
+                * Funkcja generuje formularz select na podstawie podanych w argumentach danych.
+                * $option_collections  - kolekcja ustawieñ. W moim przypadku pole $page z add_section
+                * $option              - ID pola ustawieñ z kolekcji, zdefiniowanego w add_section_field
+                * $sub-options         - tablica podopcji. $sub_options = ( array( ID_podopcji , Opis podopcji ) )
+                * $default_val         - wartoœæ domyœlna jaka ma byæ ustawiona.
+                * $args                - argumenty przekazane z funkcji pierwotnej (np. label dla ustawienia )
+                */    
+            
+            if ( is_array($sub_options) && isset($option_collections) ){
+                $options = get_option( $option_collections );
+                
+                if ( isset($options) && isset($options[$option]) ){
+                    
+                    //if (!isset($default_val)) $default_val = $sub_options[0];
+                    //if (!isset($options[$option])) {
+                    //    $options[$option] = $default_val;
+                    //    update_option($option_collections, $options);
+                    //}
+                    
+                    echo '<p> '  . $args[0] . '</p></br >';                  
+                    echo '<select id="'.$option.'" name="'.$option_collections.'['.$option.']" />';    
+                    
+                    foreach ( $sub_options as $sub_option ){
+                        $html = '<option value="'.$sub_option[0].'"' . selected($sub_option[0], $options[$option], false) . '>'.$sub_option[1].'</option>';
+                        echo $html;
+                    };           
+                    
+                    echo $html .= '</select>';
+                } else echo 'B³êdne parametry funkcji generate_select_form.  Brak kolekcji opcji lub opcji w bazie danych.';
+                
+            } else echo 'B³êdne parametry funkcji generate_select_form. $sub_options nie jest tablic¹, lub nie podano nazwy kolekcji opcji.';
+        }
+        
+        function generate_text_form( $option_collections, $option, $args ) {
+            /**
+                * Funkcja generuje formularz select na podstawie podanych w argumentach danych.
+                * $option_collections  - kolekcja ustawieñ. W moim przypadku pole $page z add_section
+                * $option              - ID pola ustawieñ z kolekcji, zdefiniowanego w add_section_field
+                * $args                - argumenty przekazane z funkcji pierwotnej (np. label dla ustawienia )
+                */  
+            if ( isset($option_collections) ){
+                $options = get_option( $option_collections );
+                
+                if ( isset($options) && isset($options[$option]) ){                    
+                    $html = '<input type="text" id="'.$option.'" name="'.$option_collections.'['.$option.']" value="' . $options[$option] . '" />'; 
+                    $html .= '<label for="'.$option.'"> '  . $args[0] . '</label>'; 
+                    
+                    echo $html;
+                } else echo 'B³êdne parametry funkcji generate_text_form.  Brak kolekcji opcji lub opcji w bazie danych.';
+            } else echo 'B³êdne parametry funkcji generate_text_form. $sub_options nie jest tablic¹, lub nie podano nazwy kolekcji opcji.';    
+        }
+        
+    #endregion
+        
+    #region #.# Walidacja danych
+        
+        function do_input_sanitize($input){
+            /**
+             * This function is called just before the data is written to the database. It allows you to process all the arguments just before saving them.  
+             * Notice above that the callback accepts a single argument that we've named $input. This argument is the collection of options that exist for the social option sections. 
+             */ 
+            $output = array();
+            
+            foreach( $input as $key => $val ) {                
+                if( isset ( $input[$key] ) ) {
+                    $output[$key] = esc_url_raw( strip_tags( stripslashes( $input[$key] ) ) );
+                }                
+            }
+            
+            // Return the new collection
+            return apply_filters( 'do_input_sanitize', $output, $input );             
+        }
+        
+    #endregion
 ?>

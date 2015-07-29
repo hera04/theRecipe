@@ -88,6 +88,22 @@
 
             <!-- WPISY --------------------------------------------------- -->
             <div class="large-8 column">
+
+                <?php
+                    
+                    $excerpt_length = 100;
+                    
+                    $recipes_query = new WP_Query( array(
+                        'posts_per_page'   => 6,             // Ilość postów z których korzystamy
+                        'orderby'       => 'post_date',     // Kolejność porządkowania po kolumnie daty dodania
+                        'order'         => 'DESC',          // Kolejność od najnowszych do najstarszych
+                        'post_type'     => array( 'restaurants', 'post' ),
+                        'post_status'   => 'published',
+                        'paged'         => $paged           // Przypisanie 'paged' zmiennej $paged, ponieważ domyślnei jest ustawiona tylko w stronach archiwum
+                    ));
+                    
+                ?>
+
                 <!-- GŁÓWNY WPIS ----------------------------------------- -->
                 <div class="row main-post show-for-medium-up">
                     <div class="medium-12 column">
@@ -110,175 +126,71 @@
                     </div>
                 </div>
                 <!-- ----------------------------------------------------- -->
+
                 <!-- POZOSTAŁE WPISY ------------------------------------- -->
                 <div class="medium-12 column">
                     <!-- Wpisy 1 - 6 -->
                     <div class="row other-posts">
-                        <div class="medium-6 column op-wrapper">
-                            <!-- Tytuł przepisu -->
-                            <h5 class="op-category">Dania</h5>
-                            <a href="#"><h3 class="site-titles">Pasztet z sosem</h3></a>
-                            <!-- Opis przepisu -->
-                            <div class="medium-12 op-desc-wrapper">
-                                <img class="op-desc-trigger" src="<?php echo THEME_URL; ?>images/8.jpg" alt="Zdjęcie wpisu" />
-                                <div class="op-desc-to-show">
-                                    <div class="medium-12 columns op-desc">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-                                        <a class="right" href="#">Zobacz przepis...</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Podtytuł i ocena przepisu -->
-                            <div class="medium-12 columns">
-                                <h5 class="left">Na każdą okazję</h5>
-                                <div class="right op-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="medium-6 column op-wrapper">
-                            <!-- Tytuł przepisu -->
-                            <h5 class="op-category">Dania</h5>
-                            <a href="#"><h3 class="site-titles">Pasztet z sosem</h3></a>
-                            <!-- Opis przepisu -->
-                            <div class="medium-12 op-desc-wrapper">
-                                <img class="op-desc-trigger" src="<?php echo THEME_URL; ?>images/8.jpg" alt="Zdjęcie wpisu" />
-                                <div class="op-desc-to-show">
-                                    <div class="medium-12 columns op-desc">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-                                        <a class="right" href="#">Zobacz przepis...</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Podtytuł i ocena przepisu -->
-                            <div class="medium-12 columns">
-                                <h5 class="left">Na każdą okazję</h5>
-                                <div class="right op-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="medium-6 column op-wrapper">
-                            <!-- Tytuł przepisu -->
-                            <h5 class="op-category">Dania</h5>
-                            <a href="#"><h3 class="site-titles">Pasztet z sosem</h3></a>
-                            <!-- Opis przepisu -->
-                            <div class="medium-12 op-desc-wrapper">
-                                <img class="op-desc-trigger" src="<?php echo THEME_URL; ?>images/8.jpg" alt="Zdjęcie wpisu" />
-                                <div class="op-desc-to-show">
-                                    <div class="medium-12 columns op-desc">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-                                        <a class="right" href="#">Zobacz przepis...</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Podtytuł i ocena przepisu -->
-                            <div class="medium-12 columns">
-                                <h5 class="left">Na każdą okazję</h5>
-                                <div class="right op-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="medium-6 column op-wrapper">
-                            <!-- Tytuł przepisu -->
-                            <h5 class="op-category">Dania</h5>
-                            <a href="#">
-                                <h3 class="site-titles">Pasztet z sosem</h3></a>
-                            <!-- Opis przepisu -->
-                            <div class="medium-12 op-desc-wrapper">
-                                <img class="op-desc-trigger" src="<?php echo THEME_URL; ?>images/8.jpg" alt="Zdjęcie wpisu"/>
-                                <div class="op-desc-to-show">
-                                    <div class="medium-12 columns op-desc">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-                                        <a class="right" href="#">Zobacz przepis...</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Podtytuł i ocena przepisu -->
-                            <div class="medium-12 columns">
-                                <h5 class="left">Na każdą okazję</h5>
-                                <div class="right op-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="medium-6 column op-wrapper">
-                            <!-- Tytuł przepisu -->
-                            <h5 class="op-category">Dania</h5>
-                            <a href="#">
-                                <h3 class="site-titles">Pasztet z sosem</h3></a>
-                            <!-- Opis przepisu -->
-                            <div class="medium-12 op-desc-wrapper">
-                                <img class="op-desc-trigger" src="<?php echo THEME_URL; ?>images/8.jpg" alt="Zdjęcie wpisu"/>
-                                <div class="op-desc-to-show">
-                                    <div class="medium-12 columns op-desc">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-                                        <a class="right" href="#">Zobacz przepis...</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Podtytuł i ocena przepisu -->
-                            <div class="medium-12 columns">
-                                <h5 class="left">Na każdą okazję</h5>
-                                <div class="right op-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="medium-6 column op-wrapper">
-                            <!-- Tytuł przepisu -->
-                            <h5 class="op-category">Dania</h5>
-                            <a href="#"><h3 class="site-titles">Pasztet z sosem</h3></a>
-                            <!-- Opis przepisu -->
-                            <div class="medium-12 op-desc-wrapper">
-                                <img class="op-desc-trigger" src="<?php echo THEME_URL; ?>images/8.jpg" alt="Zdjęcie wpisu" />
-                                <div class="op-desc-to-show">
-                                    <div class="medium-12 columns op-desc">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-                                        <a class="right" href="#">Zobacz przepis...</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Podtytuł i ocena przepisu -->
-                            <div class="medium-12 columns">
-                                <h5 class="left">Na każdą okazję</h5>
-                                <div class="right op-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
+
+                        <?php
+                            if ( $recipes_query -> have_posts() ){
+                                while ($recipes_query -> have_posts() ){
+                                    $recipes_query -> the_post();
+                                   
+                                    ?>
+                                        <div class="medium-6 column op-wrapper">
+                                            <!-- Tytuł przepisu -->
+                                            <h6 class="op-category"><?php echo printPostTypeName($post->ID); echo printRestaurantCategories($post->ID);?></h6>
+                                            <a href="#"><h3 class="site-titles"><?php the_title(); ?></h3></a>
+                                            <!-- Opis przepisu -->
+                                            <div class="medium-12 op-desc-wrapper">
+                                                <img class="op-desc-trigger" src="<?php echo THEME_URL; ?>images/8.jpg" alt="Zdjęcie wpisu" />
+                                                <div class="op-desc-to-show">
+                                                    <div class="medium-12 columns op-desc">
+                                                        <?php echo cutText(get_the_excerpt(),$excerpt_length); ?>
+                                                        <a class="right" href="<?php the_permalink(); ?>">Zobacz przepis...</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Podtytuł i ocena przepisu -->
+                                            <div class="medium-12 columns">
+                                                <h5 class="left">Na każdą okazję</h5>
+                                                <div class="right op-rating">
+                                                    <ul class="inline-list">
+                                                        <?php showRating($post->ID,'ranking',5); ?>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php
+                                }                       
+                            }
+                        ?>
+
+                        
+
                     </div>
                     <!-- Link do wszystkich przepisów -->
+
+                    <!-- #region PAGINACJA -->                
                     <div class="row">
                         <div class="medium-12 column text-center">
-                            <a>Zobacz więcej przepisów...</a>
+                            <div class="pagination-centered">
+                                <?php
+                                    generatePagination(get_query_var('paged'),$recipes_query);                                
+                                ?>                            
+                            </div>
                         </div>
                     </div>
+                    <!-- #endregion -->
+
                 </div>
                 <!-- ----------------------------------------------------- -->
+
             </div>
             <!-- --------------------------------------------------------- -->
             <!-- SIDEBAR - szukajka - komentarze - tagi ------------------ -->
-            <?php get_sidebar( 'index' ); ?>
+            <?php get_sidebar( 'restaurants-archive' ); ?>
             <!-- --------------------------------------------------------- -->
 
         </div>
