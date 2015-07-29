@@ -95,9 +95,7 @@
                                                             <a href="<?php the_permalink(); ?>">Czytaj dalej...</a>
                                                         </div>
                                                         <div class="right op-rating">
-                                                            <ul class="inline-list">
-                                                                <?php showRating($post->ID,'ranking',5); ?>
-                                                            </ul>
+                                                            <?php showRating($post->ID,'ranking',5); ?>
                                                         </div>
                                                     </div>
                                                 </div>

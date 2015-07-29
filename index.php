@@ -90,61 +90,83 @@
             <div class="large-8 column">
 
                 <?php
+                    #region Loop Settings and Other Variables
                     
                     $excerpt_length = 100;
                     
+                    $parity = 0;    // Zmienna która sprawdza parzystość. Wymagana w celu otwarcia i zamknięcia klasy 'row' dla pozostałych postów (wymóg Foundation) .
+                    
                     $recipes_query = new WP_Query( array(
-                        'posts_per_page'   => 6,             // Ilość postów z których korzystamy
+                        'posts_per_page'   => 7,             // Ilość postów z których korzystamy
                         'orderby'       => 'post_date',     // Kolejność porządkowania po kolumnie daty dodania
                         'order'         => 'DESC',          // Kolejność od najnowszych do najstarszych
-                        'post_type'     => array( 'restaurants', 'post' ),
+                        'post_type'     => array( 'restaurants', 'post', 'recipes' ),
                         'post_status'   => 'published',
                         'paged'         => $paged           // Przypisanie 'paged' zmiennej $paged, ponieważ domyślnei jest ustawiona tylko w stronach archiwum
                     ));
                     
+                    #endregion                    
                 ?>
 
-                <!-- GŁÓWNY WPIS ----------------------------------------- -->
-                <div class="row main-post show-for-medium-up">
-                    <div class="medium-12 column">
-                        <!-- Data i Kategoria ---------------------------- -->
-                        <div class="medium-5 large-4 column show-for-medium-up mp-info">
-                            <h6>poniedziałek, 20 listopad</h6>
-                            <h3><b>Dania</b></h3>
-                        </div>
-                        <!-- Opis głównej wiadomości---------------------- -->
-                        <div class="medium-12 column mp-desc-wrapper">
-                            <h2>Pomysł na sorbet owocowy</h2>
-                            <p class="right show-for-small-only"><a href="#">Zobacz przepis...</a></p>
-                            <p class="show-for-medium-up">
-                                Ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.Ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.
-                                <br /><a class="right" href="#">Zobacz przepis...</a>
-                            </p>
-                        </div>
-                        <!-- Zdjęcie wiadomości -->
-                        <img src="<?php echo THEME_URL; ?>images/6.jpg" />
-                    </div>
-                </div>
-                <!-- ----------------------------------------------------- -->
-
-                <!-- POZOSTAŁE WPISY ------------------------------------- -->
-                <div class="medium-12 column">
-                    <!-- Wpisy 1 - 6 -->
-                    <div class="row other-posts">
-
-                        <?php
-                            if ( $recipes_query -> have_posts() ){
-                                while ($recipes_query -> have_posts() ){
-                                    $recipes_query -> the_post();
-                                   
+                <?php
+                    if ( $recipes_query -> have_posts() ) :
+                        while ($recipes_query -> have_posts() ) :
+                            $recipes_query -> the_post();
+                            ?>
+                            <?php if ( ($paged == 0) && ($parity == 0) ) : ?>
+                                <!-- GŁÓWNY WPIS ----------------------------------------- -->
+                                <div class="row main-post">
+                                    <div class="medium-12 column">
+                                        <!-- Data i Kategoria ---------------------------- -->
+                                        <div class="medium-5 large-4 column show-for-medium-up mp-info">
+                                            <h6><?php echo the_time('l').', '; echo the_date('j F'); ?></h6>
+                                            <h3><?php printPostTypeName($post->ID); ?></h3>
+                                        </div>
+                                        <!-- Opis głównej wiadomości---------------------- -->
+                                        <div class="medium-12 column mp-desc-wrapper show-for-medium-up">
+                                            <a href="<?php the_permalink() ?>"><h2 class="left"><?php the_title();?></h2></a>
+                                            <p class="right">
+                                                <?php echo cutText(get_the_excerpt(),300); ?>
+                                                <br /><a class="right" href="<?php the_permalink() ?>">Zobacz wpis...</a>
+                                            </p>
+                                        </div>
+                                                <!-- Pokazuj inny opis tylko dla małych ekranów -->
+                                                <div class="show-for-small-only">
+                                                    <h2><?php echo the_title(); ?></h2>                                            
+                                                    <h6 class="op-category"><?php echo printPostTypeName($post->ID); echo printRestaurantCategories($post->ID);?></h6> 
+                                                    <p><?php echo cutText(get_the_excerpt(),300); ?><a href="<?php the_permalink() ?>"> Zobacz wpis...</a></p>                                           
+                                                </div>                                        
+                                        <!-- Zdjęcie wiadomości -->
+                                        <img src="<?php echo THEME_URL; ?>images/6.jpg" />
+                                    </div>
+                                </div>
+                                <!-- ----------------------------------------------------- -->                
+                            <?php else: ?>
+                                <!-- POZOSTAŁE WPISY ------------------------------------- -->
+                                    <?php
+                                        /*
+                                         * Sprawdzam tutaj kiedy otworzyć i zamknąć div z klasą 'row'. Foundation wymaga tego, aby kolumny w wierszu nie przekraczały ilości 12.
+                                         * Ze względu na to, że jeden wpis zajmuje 6 kolumn, w jednym wieszu mogą być tylko 2 wpisy. Warunki poniżej sprawdzają:
+                                         * a) Czy jesteśmy na stronie 0. Jeśli tak - trzeba zastosować inny warunek dla parzystości ($parity) ponieważ tylko na tej stronie mamy /GŁÓWNY POST/ i z nim warunki się rozjeżdżają.
+                                         * b) Czy jesteśmy na stronie !0. Jeśli tak - wykonaj inne otwarcie/zamknięcie 'row'.
+                                         */ 
+                                        $open_row = false;
+                                        if ( (($paged == 0) && ($parity % 2 == 1)) || (($paged != 0) && ($parity % 2 == 0)) ) $open_row = true;
+                                        $close_row = false;
+                                        if ( (($paged == 0) && ($parity % 2 == 0)) || (($paged != 0) && ($parity % 2 == 1)) ) $close_row = true;
                                     ?>
+                                    <?php if ( $open_row ) echo '<div class="row">'    // Otwarcie klasy 'row' co 2 wpisy. Wymóg Foundation, aby suma kolumn nie przekraczała 12. ?>
                                         <div class="medium-6 column op-wrapper">
                                             <!-- Tytuł przepisu -->
                                             <h6 class="op-category"><?php echo printPostTypeName($post->ID); echo printRestaurantCategories($post->ID);?></h6>
                                             <a href="#"><h3 class="site-titles"><?php the_title(); ?></h3></a>
                                             <!-- Opis przepisu -->
                                             <div class="medium-12 op-desc-wrapper">
-                                                <img class="op-desc-trigger" src="<?php echo THEME_URL; ?>images/8.jpg" alt="Zdjęcie wpisu" />
+                                                <?php 
+                                                    if ( has_post_thumbnail($post->ID) ){
+                                                        the_post_thumbnail('post-thumbnail', array( 'class' => 'op-desc-trigger', 'alt' => 'Miniaturka wpisu' )); 
+                                                    } else echo '<img class="op-desc-trigger" src="'.THEME_URL.'images/restaurants-default.jpg" alt="Miniaturka wpisu" />';
+                                                ?>
                                                 <div class="op-desc-to-show">
                                                     <div class="medium-12 columns op-desc">
                                                         <?php echo cutText(get_the_excerpt(),$excerpt_length); ?>
@@ -156,39 +178,36 @@
                                             <div class="medium-12 columns">
                                                 <h5 class="left">Na każdą okazję</h5>
                                                 <div class="right op-rating">
-                                                    <ul class="inline-list">
-                                                        <?php showRating($post->ID,'ranking',5); ?>
-                                                    </ul>
+                                                    <?php showRating($post->ID,'ranking',5); ?>
                                                 </div>
                                             </div>
-                                        </div>
-                                    <?php
-                                }                       
-                            }
-                        ?>
+                                        </div>  
+                                    <?php if ( $close_row ) echo '</div>';              // Zamknięcie kalsy 'row'   ?> 
+                                <!-- ----------------------------------------------------- -->
+                            <?php endif; ?>
 
-                        
+                            <?php
+                            $parity++;
+                        endwhile;                        
+                    endif;
+                ?>
 
-                    </div>
-                    <!-- Link do wszystkich przepisów -->
-
-                    <!-- #region PAGINACJA -->                
-                    <div class="row">
-                        <div class="medium-12 column text-center">
-                            <div class="pagination-centered">
-                                <?php
-                                    generatePagination(get_query_var('paged'),$recipes_query);                                
-                                ?>                            
-                            </div>
+                <!-- #region PAGINACJA -->                
+                <div class="row">
+                    <div class="medium-12 column text-center">
+                        <div class="pagination-centered">
+                            <?php
+                                generatePagination(get_query_var('paged'),$recipes_query);                                
+                            ?>                            
                         </div>
                     </div>
-                    <!-- #endregion -->
-
                 </div>
-                <!-- ----------------------------------------------------- -->
+                <!-- #endregion -->
 
             </div>
             <!-- --------------------------------------------------------- -->
+
+
             <!-- SIDEBAR - szukajka - komentarze - tagi ------------------ -->
             <?php get_sidebar( 'restaurants-archive' ); ?>
             <!-- --------------------------------------------------------- -->

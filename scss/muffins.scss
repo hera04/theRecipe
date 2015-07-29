@@ -256,6 +256,11 @@ $text-color: #444;  /* kolor tekstu */
             right: 50px; 
             top: 0; 
             z-index: 2;
+
+            h3 a{
+                font-weight: bold;
+                color:black;
+            }
         }
         /* pojemnik na opis g³ównego postu */
         .mp-desc-wrapper{

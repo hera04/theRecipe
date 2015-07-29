@@ -334,4 +334,11 @@
         }
         
     #endregion
+        
+    #.# Domyœlna miniaturka
+        function get_thumbnail($post_id){
+            if ( has_post_thumbnail($post_id) ){
+                the_post_thumbnail('post-thumbnail', array( 'class' => 'op-desc-trigger', 'alt' => 'Miniaturka wpisu' )); 
+            } else echo '<img class="op-desc-trigger" src="'.THEME_URL.'images/restaurants-default.jpg" alt="Miniaturka wpisu" />';
+        }
 ?>

@@ -41,7 +41,7 @@
                              * Jakie funkcjonalnoœci wspiera dany typ posta 
                              * Jeœli wejdziemy do panelu administracyjnego i włączymy 'opcje ekranu' zobaczymy wszystkie funkcjonalności danego typu postu.
                              * */
-                            'title','editor','author','post-thumbnails','excerpt','comments','custom-fields','post-formats'
+                            'title','editor','author','thumbnail','excerpt','comments','custom-fields','post-formats'
                         ),
                         'has_archive'=>true            // Czy ten typ postu będzie mial swoje własne archiwum
                     );
