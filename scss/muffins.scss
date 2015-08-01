@@ -163,6 +163,13 @@ $text-color: #444;  /* kolor tekstu */
         overflow: hidden;
         text-align: justify; 
     }
+    .rst-address-table{        
+        border: none; 
+        width: 100%;
+        a{
+            color:$text-color;
+        }        
+    }
 
     /* Nawigacja po popularnych wpisach */
     .sl-nav{
@@ -475,7 +482,7 @@ $text-color: #444;  /* kolor tekstu */
             }
             .rc-author-desc{ /* Od Autora o przepisie */
                 font-size: 1.1rem;
-            }
+            }            
         }
 
         /* rcs - recipe sidebar */
@@ -551,6 +558,10 @@ $text-color: #444;  /* kolor tekstu */
             }
             .ab-desc{
                 //font-size: 0.9rem;
+            }
+            a{
+                color: $text-color;
+                &:hover{color: $main_color};
             }
         }
     }    

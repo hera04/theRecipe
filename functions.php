@@ -25,7 +25,17 @@
         add_theme_support('post-thumbnails'); // wsparcie dla ikon wpisu
         add_theme_support('post-formats', array('gallery'));
         
-    #endregion            
+    #endregion          
+        
+    #region Ustawieni filtrów
+    
+        // https://codex.wordpress.org/Function_Reference/wpautop
+        add_filter ('the_content', 'wpautop');
+
+        ////disable wptexturize
+        //remove_filter('the_content', 'wptexturize');
+        
+    #endregion
         
     #region Raportowanie błędów / informacji / przypomnień
         // https://codex.wordpress.org/Plugin_API/Action_Reference/admin_notices

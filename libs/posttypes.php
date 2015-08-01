@@ -3,6 +3,7 @@
      * Zawiera deklaracje customowych typów postów oraz taksonomii.
      * */
     
+    #region Register Posttypes
     /* #.# Rejestracja typow postów 
      * https://codex.wordpress.org/Function_Reference/register_taxonomy
      */
@@ -10,6 +11,7 @@
         add_action('init','therecipe_init_posttypes');  /* action hook, który wywoła init */
         function therecipe_init_posttypes(){
         
+            #region Przepisy
                 /* Rejestrujemy typ postu przepisy https://codex.wordpress.org/Function_Reference/register_post_type*/
                     $recipes_args = array(
                         'labels' => array(
@@ -50,7 +52,9 @@
                     register_post_type('recipes', $recipes_args);
                     
                 /* ------------------------------------------------------------------------------------------------------------- */
+            #endregion
             
+            #region Food Fight
                 /* Rejestrujemy typ postu food_fight */
                     $food_fight_args = array(
                         'labels' => array(
@@ -88,6 +92,10 @@
                 
                 /* ------------------------------------------------------------------------------------------------------------- */
                 
+            #endregion
+                
+            #region Restauracje
+                
                 /* Rejestrujemy typ postu restaurants */
                     $restaurants_args = array(
                         'labels' => array(
@@ -122,141 +130,161 @@
                     register_post_type('restaurants', $restaurants_args);
                 
                 /* ------------------------------------------------------------------------------------------------------------- */
+                
+            #endregion
         }
+    #endregion
     
+    #region Register Taxonomy
     /* #.# Rejestracja taksonomii 
      * https://codex.wordpress.org/Function_Reference/register_taxonomy
-     * */
+     **/
     
         add_action('init','therecipe_init_taxonomies');
         function therecipe_init_taxonomies(){
-            register_taxonomy(
-                'dessert_type',
-                array('recipes'),
-                array(
-                    'hierarchical' => false,
-                    'labels'=>array(
-		                'name'                       => 'Rodzaj deseru',
-		                'singular_name'              => 'Rodzaj deseru',
-		                'search_items'               => 'Wyszukaj rodzaj deseru',
-		                'popular_items'              => 'Popularne rodzaje deserów',
-		                'all_items'                  => 'Wszystkie rodzaje deserów',
-		                'parent_item'                => null,
-		                'parent_item_colon'          => null,
-		                'edit_item'                  => 'Edytuj rodzaj deseru',
-		                'update_item'                => 'Aktualizuj rodzaj deseru',
-		                'add_new_item'               => 'Dodaj nowy rodzaj deseru',
-		                'new_item_name'              => 'Nazwa nowego rodzaju deseru',
-		                'separate_items_with_commas' => 'Oddziel rodzaje deserów przecinkiem',
-		                'add_or_remove_items'        => 'Dodaj lub usuń rodzaje wyrobów',
-		                'choose_from_most_used'      => 'Wybierz z najczęsiej używanych rodzajów deserów',
-		                'not_found'                  => 'Nie znaleziono żadnych rodzajów deserów',
-		                'menu_name'                  => 'Rodzaj deseru'
-                    ),
-                    'show_ui'               => true,
-		            'show_admin_column'     => true,
-		            'update_count_callback' => '_update_post_term_count',   // Automatyczny callback (wywołanie zwrotne) - automatycznie po zapisaniu zostanie uruchomiona funkcja, któr¹ podamy w argumencie.
-		            'query_var'             => true,
-		            'rewrite'               => array( 'slug' => 'dessert_type' )    // Przypisywanie linków. Jeœli jest false to nie korzystamy z permalinków. Jeœli ustawimy slug to korzystamy z pretty urls za pomc¹ nazwy taksonomii np ..../product_type/...
-                )
-            );
-        
-            register_taxonomy(
-                'ocassion',
-                array('recipes'),
-                array(
-                    'hierarchical' => false,
-                    'labels'=>array(
-		                'name'                       => 'Okazja',
-		                'singular_name'              => 'Okazja',
-		                'search_items'               => 'Wyszukaj okazje',
-		                'popular_items'              => 'Popularne okazje',
-		                'all_items'                  => 'Wszystkie okazje',
-		                'parent_item'                => null,
-		                'parent_item_colon'          => null,
-		                'edit_item'                  => 'Edytuj okazję',
-		                'update_item'                => 'Aktualizuj okazję',
-		                'add_new_item'               => 'Dodaj nową okazję',
-		                'new_item_name'              => 'Nazwa nowej okazji',
-		                'separate_items_with_commas' => 'Oddziel okazje przecinkiem',
-		                'add_or_remove_items'        => 'Dodaj lub usuń okazje',
-		                'choose_from_most_used'      => 'Wybierz z najczęściej używanych okazji',
-		                'not_found'                  => 'Nie znaleziono okazji',
-		                'menu_name'                  => 'Okazje'
-                    ),
-                    'show_ui'               => true,
-		            'show_admin_column'     => true,
-		            'update_count_callback' => '_update_post_term_count',   // Automatyczny callback (wywo³anie zwrotne) - automatycznie po zapisaniu zostanie uruchomiona funkcja, któr¹ podamy w argumencie.
-		            'query_var'             => true,
-		            'rewrite'               => array( 'slug' => 'ocassion' )    // Przypisywanie linków. Jeœli jest false to nie korzystamy z permalinków. Jeœli ustawimy slug to korzystamy z pretty urls za pomc¹ nazwy taksonomii np ..../product_type/...
-                )
-            );
             
-            register_taxonomy(
-                'ingredients',
-                array('recipes'),
-                array(
-                    'hierarchical' => false,
-                    'labels'=>array(
-		                'name'                       => 'Składniki',
-		                'singular_name'              => 'Składniki',
-		                'search_items'               => 'Wyszukaj składniki',
-		                'popular_items'              => 'Popularne składniki',
-		                'all_items'                  => 'Wszystkie składniki',
-		                'parent_item'                => null,
-		                'parent_item_colon'          => null,
-		                'edit_item'                  => 'Edytuj składnik',
-		                'update_item'                => 'Aktualizuj składnik',
-		                'add_new_item'               => 'Dodaj nową składnik',
-		                'new_item_name'              => 'Nazwa nowego składnika',
-		                'separate_items_with_commas' => 'Oddziel składniki przecinkiem',
-		                'add_or_remove_items'        => 'Dodaj lub usuń składniki',
-		                'choose_from_most_used'      => 'Wybierz z najczęściej używanych składników',
-		                'not_found'                  => 'Nie znaleziono składników',
-		                'menu_name'                  => 'Składniki'
-                    ),
-                    'show_ui'               => true,
-		            'show_admin_column'     => true,
-		            'update_count_callback' => '_update_post_term_count',   // Automatyczny callback (wywo³anie zwrotne) - automatycznie po zapisaniu zostanie uruchomiona funkcja, któr¹ podamy w argumencie.
-		            'query_var'             => true,
-		            'rewrite'               => array( 'slug' => 'ingredients' )    // Przypisywanie linków. Jeœli jest false to nie korzystamy z permalinków. Jeœli ustawimy slug to korzystamy z pretty urls za pomc¹ nazwy taksonomii np ..../product_type/...
-                )
-            );
+            #region Typ Deseru
             
-            register_taxonomy(
-                'locations',
-                array('restaurants'),
-                array(
-                    'hierarchical' => true,
-                    'labels'=>array(
-		                'name'                       => 'Położenie',
-		                'singular_name'              => 'Położenie',
-		                'search_items'               => 'Wyszukaj położenia',
-		                'popular_items'              => 'Popularne położenia',
-		                'all_items'                  => 'Wszystkie położenia',
-		                'parent_item'                => null,
-		                'parent_item_colon'          => null,
-		                'edit_item'                  => 'Edytuj położenie',
-		                'update_item'                => 'Aktualizuj położenie',
-		                'add_new_item'               => 'Dodaj nowe położenie',
-		                'new_item_name'              => 'Nazwa nowego położenia',
-		                'separate_items_with_commas' => 'Oddziel położenia przecinkiem',
-		                'add_or_remove_items'        => 'Dodaj lub usuń położenia',
-		                'choose_from_most_used'      => 'Wybierz z najczęściej używanych położeń',
-		                'not_found'                  => 'Nie znaleziono położeń'
-                    ),
-                    'show_ui'               => true,
-		            'show_admin_column'     => true,
-		            'update_count_callback' => '_update_post_term_count',   // Automatyczny callback (wywo³anie zwrotne) - automatycznie po zapisaniu zostanie uruchomiona funkcja, któr¹ podamy w argumencie.
-		            'query_var'             => true,
-		            'rewrite'               => array( 'slug' => 'locations' )    // Przypisywanie linków. Jeœli jest false to nie korzystamy z permalinków. Jeœli ustawimy slug to korzystamy z pretty urls za pomc¹ nazwy taksonomii np ..../product_type/...
-                )
-            );
+                register_taxonomy(
+                    'dessert_type',
+                    array('recipes'),
+                    array(
+                        'hierarchical' => false,
+                        'labels'=>array(
+		                    'name'                       => 'Rodzaj deseru',
+		                    'singular_name'              => 'Rodzaj deseru',
+		                    'search_items'               => 'Wyszukaj rodzaj deseru',
+		                    'popular_items'              => 'Popularne rodzaje deserów',
+		                    'all_items'                  => 'Wszystkie rodzaje deserów',
+		                    'parent_item'                => null,
+		                    'parent_item_colon'          => null,
+		                    'edit_item'                  => 'Edytuj rodzaj deseru',
+		                    'update_item'                => 'Aktualizuj rodzaj deseru',
+		                    'add_new_item'               => 'Dodaj nowy rodzaj deseru',
+		                    'new_item_name'              => 'Nazwa nowego rodzaju deseru',
+		                    'separate_items_with_commas' => 'Oddziel rodzaje deserów przecinkiem',
+		                    'add_or_remove_items'        => 'Dodaj lub usuń rodzaje wyrobów',
+		                    'choose_from_most_used'      => 'Wybierz z najczęsiej używanych rodzajów deserów',
+		                    'not_found'                  => 'Nie znaleziono żadnych rodzajów deserów',
+		                    'menu_name'                  => 'Rodzaj deseru'
+                        ),
+                        'show_ui'               => true,
+		                'show_admin_column'     => true,
+		                'update_count_callback' => '_update_post_term_count',   // Automatyczny callback (wywołanie zwrotne) - automatycznie po zapisaniu zostanie uruchomiona funkcja, któr¹ podamy w argumencie.
+		                'query_var'             => true,
+		                'rewrite'               => array( 'slug' => 'dessert_type' )    // Przypisywanie linków. Jeœli jest false to nie korzystamy z permalinków. Jeœli ustawimy slug to korzystamy z pretty urls za pomc¹ nazwy taksonomii np ..../product_type/...
+                    )
+                );
+            
+            #endregion
         
-        
+            #region Okazje
+                
+                register_taxonomy(
+                    'ocassion',
+                    array('recipes'),
+                    array(
+                        'hierarchical' => false,
+                        'labels'=>array(
+		                    'name'                       => 'Okazja',
+		                    'singular_name'              => 'Okazja',
+		                    'search_items'               => 'Wyszukaj okazje',
+		                    'popular_items'              => 'Popularne okazje',
+		                    'all_items'                  => 'Wszystkie okazje',
+		                    'parent_item'                => null,
+		                    'parent_item_colon'          => null,
+		                    'edit_item'                  => 'Edytuj okazję',
+		                    'update_item'                => 'Aktualizuj okazję',
+		                    'add_new_item'               => 'Dodaj nową okazję',
+		                    'new_item_name'              => 'Nazwa nowej okazji',
+		                    'separate_items_with_commas' => 'Oddziel okazje przecinkiem',
+		                    'add_or_remove_items'        => 'Dodaj lub usuń okazje',
+		                    'choose_from_most_used'      => 'Wybierz z najczęściej używanych okazji',
+		                    'not_found'                  => 'Nie znaleziono okazji',
+		                    'menu_name'                  => 'Okazje'
+                        ),
+                        'show_ui'               => true,
+		                'show_admin_column'     => true,
+		                'update_count_callback' => '_update_post_term_count',   // Automatyczny callback (wywo³anie zwrotne) - automatycznie po zapisaniu zostanie uruchomiona funkcja, któr¹ podamy w argumencie.
+		                'query_var'             => true,
+		                'rewrite'               => array( 'slug' => 'ocassion' )    // Przypisywanie linków. Jeœli jest false to nie korzystamy z permalinków. Jeœli ustawimy slug to korzystamy z pretty urls za pomc¹ nazwy taksonomii np ..../product_type/...
+                    )
+                );
+                
+            #endregion
+            
+            #region Składniki
+                
+                register_taxonomy(
+                    'ingredients',
+                    array('recipes'),
+                    array(
+                        'hierarchical' => false,
+                        'labels'=>array(
+		                    'name'                       => 'Składniki',
+		                    'singular_name'              => 'Składniki',
+		                    'search_items'               => 'Wyszukaj składniki',
+		                    'popular_items'              => 'Popularne składniki',
+		                    'all_items'                  => 'Wszystkie składniki',
+		                    'parent_item'                => null,
+		                    'parent_item_colon'          => null,
+		                    'edit_item'                  => 'Edytuj składnik',
+		                    'update_item'                => 'Aktualizuj składnik',
+		                    'add_new_item'               => 'Dodaj nową składnik',
+		                    'new_item_name'              => 'Nazwa nowego składnika',
+		                    'separate_items_with_commas' => 'Oddziel składniki przecinkiem',
+		                    'add_or_remove_items'        => 'Dodaj lub usuń składniki',
+		                    'choose_from_most_used'      => 'Wybierz z najczęściej używanych składników',
+		                    'not_found'                  => 'Nie znaleziono składników',
+		                    'menu_name'                  => 'Składniki'
+                        ),
+                        'show_ui'               => true,
+		                'show_admin_column'     => true,
+		                'update_count_callback' => '_update_post_term_count',   // Automatyczny callback (wywo³anie zwrotne) - automatycznie po zapisaniu zostanie uruchomiona funkcja, któr¹ podamy w argumencie.
+		                'query_var'             => true,
+		                'rewrite'               => array( 'slug' => 'ingredients' )    // Przypisywanie linków. Jeœli jest false to nie korzystamy z permalinków. Jeœli ustawimy slug to korzystamy z pretty urls za pomc¹ nazwy taksonomii np ..../product_type/...
+                    )
+                );
+            
+            #endregion
+                
+            #region Lokacje
+            
+                register_taxonomy(
+                    'locations',
+                    array('restaurants'),
+                    array(
+                        'hierarchical' => true,
+                        'labels'=>array(
+		                    'name'                       => 'Położenie',
+		                    'singular_name'              => 'Położenie',
+		                    'search_items'               => 'Wyszukaj położenia',
+		                    'popular_items'              => 'Popularne położenia',
+		                    'all_items'                  => 'Wszystkie położenia',
+		                    'parent_item'                => null,
+		                    'parent_item_colon'          => null,
+		                    'edit_item'                  => 'Edytuj położenie',
+		                    'update_item'                => 'Aktualizuj położenie',
+		                    'add_new_item'               => 'Dodaj nowe położenie',
+		                    'new_item_name'              => 'Nazwa nowego położenia',
+		                    'separate_items_with_commas' => 'Oddziel położenia przecinkiem',
+		                    'add_or_remove_items'        => 'Dodaj lub usuń położenia',
+		                    'choose_from_most_used'      => 'Wybierz z najczęściej używanych położeń',
+		                    'not_found'                  => 'Nie znaleziono położeń'
+                        ),
+                        'show_ui'               => true,
+		                'show_admin_column'     => true,
+		                'update_count_callback' => '_update_post_term_count',   // Automatyczny callback (wywo³anie zwrotne) - automatycznie po zapisaniu zostanie uruchomiona funkcja, któr¹ podamy w argumencie.
+		                'query_var'             => true,
+		                'rewrite'               => array( 'slug' => 'locations' )    // Przypisywanie linków. Jeœli jest false to nie korzystamy z permalinków. Jeœli ustawimy slug to korzystamy z pretty urls za pomc¹ nazwy taksonomii np ..../product_type/...
+                    )
+                );
+            
+            #endregion
+                
         }
     /* ---------------------------------------------------------------- */
-    
+    #endregion
         
     
 ?>

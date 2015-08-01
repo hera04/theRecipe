@@ -1,4 +1,4 @@
-<?php get_header(); ?>
+﻿<?php get_header(); ?>
 
     <!-- POPULARNE WPISY -------------------------------------------------------------->
     <section class="cd-hero">
@@ -72,16 +72,9 @@
     <div class="site-content" id="siteContent">
 
         <!-- Linki do portali społecznościowych -->
-        <div class="social-media hide-for-small-only">
-            <ul class="inline-list">
-                <li><a href="http://www.facebook.pl"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                <li><a href="#"><i class="fa fa-pinterest-p"></i></a></li>
-            </ul>
-        </div>
-        <!-- ------------------------------------------------------------- -->
+            <?php get_template_part('social-links'); ?>
+        <!-- ---------------------------------- -->
+
         <!-- Sekcja wpisów ----------------------------------------------- -->
         <div class="row" style="text-align: justify;">
             <h1 style="padding-left:10px;">Najnowsze wpisy</h1>
@@ -90,6 +83,7 @@
             <div class="large-8 column">
 
                 <?php
+                    
                     #region Loop Settings and Other Variables
                     
                     $excerpt_length = 100;
@@ -113,7 +107,7 @@
                         while ($recipes_query -> have_posts() ) :
                             $recipes_query -> the_post();
                             ?>
-                            <?php if ( ($paged == 0) && ($parity == 0) ) : ?>
+                            <?php if ( ( ($paged == 0) || ($paged == 1) ) && ($parity == 0) ) : ?>
                                 <!-- GŁÓWNY WPIS ----------------------------------------- -->
                                 <div class="row main-post">
                                     <div class="medium-12 column">
@@ -147,13 +141,15 @@
                                         /*
                                          * Sprawdzam tutaj kiedy otworzyć i zamknąć div z klasą 'row'. Foundation wymaga tego, aby kolumny w wierszu nie przekraczały ilości 12.
                                          * Ze względu na to, że jeden wpis zajmuje 6 kolumn, w jednym wieszu mogą być tylko 2 wpisy. Warunki poniżej sprawdzają:
-                                         * a) Czy jesteśmy na stronie 0. Jeśli tak - trzeba zastosować inny warunek dla parzystości ($parity) ponieważ tylko na tej stronie mamy /GŁÓWNY POST/ i z nim warunki się rozjeżdżają.
-                                         * b) Czy jesteśmy na stronie !0. Jeśli tak - wykonaj inne otwarcie/zamknięcie 'row'.
-                                         */ 
+                                         * a) Czy jesteśmy na stronie 0 lub 1. Jeśli tak - trzeba zastosować inny warunek dla parzystości ($parity) ponieważ tylko na tej stronie mamy /GŁÓWNY POST/ i z nim muszą inaczej być otwierane/zamykane kalsy 'row'.
+                                         * b) Czy jesteśmy na stronie !0 lub !1. Jeśli tak - wykonaj inne otwarcie/zamknięcie 'row'.
+                                         */
+                                        if (($paged == 0)||($paged == 1)) $only_for_first_page = true;
+                                        
                                         $open_row = false;
-                                        if ( (($paged == 0) && ($parity % 2 == 1)) || (($paged != 0) && ($parity % 2 == 0)) ) $open_row = true;
+                                        if ( ( $only_for_first_page && ($parity % 2 == 1)) || ( !$only_for_first_page && ($parity % 2 == 0)) ) $open_row = true;
                                         $close_row = false;
-                                        if ( (($paged == 0) && ($parity % 2 == 0)) || (($paged != 0) && ($parity % 2 == 1)) ) $close_row = true;
+                                        if ( ( $only_for_first_page && ($parity % 2 == 0)) || ( !$only_for_first_page && ($parity % 2 == 1)) ) $close_row = true;
                                     ?>
                                     <?php if ( $open_row ) echo '<div class="row">'    // Otwarcie klasy 'row' co 2 wpisy. Wymóg Foundation, aby suma kolumn nie przekraczała 12. ?>
                                         <div class="medium-6 column op-wrapper">
@@ -165,7 +161,7 @@
                                                 <?php 
                                                     if ( has_post_thumbnail($post->ID) ){
                                                         the_post_thumbnail('post-thumbnail', array( 'class' => 'op-desc-trigger', 'alt' => 'Miniaturka wpisu' )); 
-                                                    } else echo '<img class="op-desc-trigger" src="'.THEME_URL.'images/restaurants-default.jpg" alt="Miniaturka wpisu" />';
+                                                    } else echo '<img class="op-desc-trigger" src="'.THEME_URL.'images/default.jpg" alt="Miniaturka wpisu" />';
                                                 ?>
                                                 <div class="op-desc-to-show">
                                                     <div class="medium-12 columns op-desc">
