@@ -1,51 +1,30 @@
 <?php 
     /* Funkcje, które mogê wykorzystaæ w ró¿nych motywach */     
     
-    #region #.# Raportowanie b³êdów
-    /*
-     * #.# Wypisywanie informacji, warningów itp
-     */
-        require_once THEME_DIR.'libs/messages.class.php';
-        $msgs = messages::getInstance();
-        
-        function getMsgs(){
-            global $msgs;
-            return $msgs;
-        }
-        
-        function showInfo(){
-            if(getMsgs()){
-                echo '<div data-alert class="alert-box warning radius info-bar">';
-                if (getMsgs()->isInfo()){ 
-                    echo '<ol>';
-                    foreach (getMsgs()->getInfos() as $inf){
-                        echo '<li>'.$inf.'</li>';
-                    }
-                    echo '</ol>';
-                };  
-                echo '<a href="#" class="close">&times;</a></div>';
-            }
-        }
-     #endregion   
-    
     #region #.# Rating
     /*
      * Funkcja wypisuje w postaci listy rating danego wpisu.
+     * Jeœli $exten jest ustawiony na true, funkcja wypisuje rating w wersji rozszerzronej ( 10 gwiazdek )
      */
-        function showRating($postID,$field_name,$max_point){
-            $rate = (int)get_post_meta($postID,$field_name,true);   // get_post_meta: https://developer.wordpress.org/reference/functions/get_post_meta/
-            if ($rate){  
+        function showRating($postID, $extend = false){
+            $max_point = 5;
+            $rate = (int)get_post_meta($postID,'ranking',true);   // get_post_meta: https://developer.wordpress.org/reference/functions/get_post_meta/
+            if ($rate){
+                if ($extend){
+                    $rate *= 2;
+                    $max_point = 10;
+                };
                 echo '<ul class="inline-list">';
                 for($i=1; $i<=$max_point; $i++){
                     echo '<li class="';
-                    if( $i <= $rate){
-                        echo 'active';
-                    }
-                    echo '"></li>';
+                    if( $i <= $rate ){ echo 'active'; }
+                    if( $extend ){ echo ' extend'; }
+                echo '"></li>';
                 };
                 echo '</ul>';
-            } else echo 'Brak oceny';
+            } else echo '<ul class="inline-list">Brak oceny</ul>';
         }
+        
     #endregion
     
     #region #.# Wczytywanie komentarzy
@@ -336,9 +315,9 @@
     #endregion
         
     #.# Domyœlna miniaturka
-        function get_thumbnail($post_id){
+        function trc_print_thumbnail($post_id){
             if ( has_post_thumbnail($post_id) ){
                 the_post_thumbnail('post-thumbnail', array( 'class' => 'op-desc-trigger', 'alt' => 'Miniaturka wpisu' )); 
-            } else echo '<img class="op-desc-trigger" src="'.THEME_URL.'images/restaurants-default.jpg" alt="Miniaturka wpisu" />';
+            } else echo '<img class="op-desc-trigger" src="'.THEME_URL.'images/default.jpg" alt="Miniaturka wpisu" />';
         }
 ?>

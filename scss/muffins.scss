@@ -60,6 +60,14 @@ $text-color: #444;  /* kolor tekstu */
         z-index: 10;
     }
 
+/*
+* #.# Ustawienia domyœlnych stylów Wordpress
+*/
+
+    .gallery-item{
+        padding: 0 10px;
+    }
+
 
 /**
 * #.# Menu nawigacji
@@ -316,25 +324,6 @@ $text-color: #444;  /* kolor tekstu */
             .op-desc{
                 padding: 10px;
             }
-            .op-rating{
-                color: $main_color;
-                margin-top: 4px; 
-                ul{ 
-                    margin-bottom: 5px; 
-                    li{
-                        margin:0 2px; padding:0;
-                        position:relative;
-                        font-family: FontAwesome;  
-                        &:before{
-                            content: "\f006";
-                        }                          
-                    }
-                }
-                .active:before{
-                    content: "\f005";
-                }
-
-            }
             .op-footer{
                 /* Jest to stopka, która zawiera w sobie przycisk 'Czytaj dalej' oraz rating. 
                 *  Wykorzystywana w rozsze¿onym formacie postu.
@@ -342,6 +331,31 @@ $text-color: #444;  /* kolor tekstu */
                 position: absolute; 
                 bottom: 0; 
                 right:0
+            }
+        }
+        .rating{
+            color: $main_color;
+            /*margin-top: 4px;*/
+            text-align: center;
+            ul{ 
+                margin-bottom: 0; 
+                display: inline-block; 
+                text-align: left;
+                li{
+                    margin:0 2px; padding:0;
+                    position:relative;
+                    font-family: FontAwesome;  
+                    &:before{
+                        content: "\f006";
+                    }
+                    &.extend{
+                        margin: auto 5px;
+                        font-size: 1.3em;
+                    }                          
+                }
+            }
+            .active:before{
+                content: "\f005";
             }
         }
 

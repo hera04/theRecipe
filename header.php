@@ -54,8 +54,9 @@
                     <ul class="right">
 
                         <li class="has-dropdown">
-                            <a href="recipe.html">Przepisy</a>
+                            <a href="#>">Przepisy</a>
                             <ul class="dropdown">
+                                <li><a href="<?php echo esc_url(home_url('/index.php/recipes')); ?>">Wszystkie</a></li>
                                 <li><a href="#">Babki</a></li>
                                 <li><a href="#">Muffinki</a></li>
                                 <li><a href="#">Ciasta</a></li>
@@ -66,7 +67,6 @@
                                 <li><a href="#">Inne</a></li>
                             </ul>
                         </li>
-                        <li><a href="base.html">Szukaj</a></li>
                         <li><a href="#">Food Fight</a></li>
                         <li><a href="<?php echo esc_url(home_url('/index.php/restaurants')); ?>">Restauracje</a></li>
                         <li><a href="#">Kontakt</a></li>

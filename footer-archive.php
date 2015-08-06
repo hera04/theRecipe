@@ -1,5 +1,5 @@
     <!-- FOOTER ----------------------------------------------------------------------->
-    <div class="site-content footer" style="transform: translateY(20px); z-index: -1;">
+    <div class="site-content footer">
         <div class="row medium-collapse">
             <div class="medium-12 column">
 

@@ -1,6 +1,6 @@
-﻿<?php get_header(); ?>
+<?php get_header(); ?>
 
-    <!-- POPULARNE WPISY -------------------------------------------------------------->
+    <!-- #region big-banner -->
     <section class="cd-hero">
         <ul class="cd-hero-slider autoplay slider full-height">
 
@@ -65,58 +65,53 @@
             </nav>
         </div>
     </section>
-    <!-- --------------------------------------------------------------------------- -->
-
-
-    <!-- MAIN CONTENT -------------------------------------------------------------- -->
+    <!-- #endregion -->
+ 
+    <!-- #region Main content -->
     <div class="site-content" id="siteContent">
 
-        <!-- Linki do portali społecznościowych -->
-            <?php get_template_part('social-links'); ?>
-        <!-- ---------------------------------- -->
+        <?php get_template_part('social-links'); ?>
 
-        <!-- Sekcja wpisów ----------------------------------------------- -->
         <div class="row" style="text-align: justify;">
             <h1 style="padding-left:10px;">Najnowsze wpisy</h1>
 
-            <!-- WPISY --------------------------------------------------- -->
+            <!-- #region Posts -->
             <div class="large-8 column">
-
-                <?php
+            <?php                   
+                #region Settings
                     
-                    #region Loop Settings and Other Variables
+                    $excerpt_length = 150;
                     
-                    $excerpt_length = 100;
+                    $parity = 0;                                                        // Zmienna która sprawdza parzystość. Wymagana w celu otwarcia i zamknięcia klasy 'row' dla pozostałych postów (wymóg Foundation) .
                     
-                    $parity = 0;    // Zmienna która sprawdza parzystość. Wymagana w celu otwarcia i zamknięcia klasy 'row' dla pozostałych postów (wymóg Foundation) .
-                    
-                    $recipes_query = new WP_Query( array(
-                        'posts_per_page'   => 7,             // Ilość postów z których korzystamy
-                        'orderby'       => 'post_date',     // Kolejność porządkowania po kolumnie daty dodania
-                        'order'         => 'DESC',          // Kolejność od najnowszych do najstarszych
+                    $index_query = new WP_Query( array(
+                        'posts_per_page'   => 7,                                        
+                        'orderby'       => 'post_date',                                 
+                        'order'         => 'DESC',                                      
                         'post_type'     => array( 'restaurants', 'post', 'recipes' ),
                         'post_status'   => 'published',
-                        'paged'         => $paged           // Przypisanie 'paged' zmiennej $paged, ponieważ domyślnei jest ustawiona tylko w stronach archiwum
+                        'paged'         => $paged                                       // Przypisanie 'paged' zmiennej $paged, ponieważ domyślnei jest ustawiona tylko w stronach archiwum
                     ));
                     
-                    #endregion                    
-                ?>
-
+                #endregion                    
+            ?>
+                <!-- #region Loop -->
                 <?php
-                    if ( $recipes_query -> have_posts() ) :
-                        while ($recipes_query -> have_posts() ) :
-                            $recipes_query -> the_post();
+                    if ( $index_query -> have_posts() ) :
+                        while ($index_query -> have_posts() ) : $index_query -> the_post();
                             ?>
                             <?php if ( ( ($paged == 0) || ($paged == 1) ) && ($parity == 0) ) : ?>
-                                <!-- GŁÓWNY WPIS ----------------------------------------- -->
+                                <!-- #region Main post-->
                                 <div class="row main-post">
                                     <div class="medium-12 column">
-                                        <!-- Data i Kategoria ---------------------------- -->
+
+                                        <!-- Data i Kategoria  -->
                                         <div class="medium-5 large-4 column show-for-medium-up mp-info">
                                             <h6><?php echo the_time('l').', '; echo the_date('j F'); ?></h6>
                                             <h3><?php printPostTypeName($post->ID); ?></h3>
                                         </div>
-                                        <!-- Opis głównej wiadomości---------------------- -->
+
+                                        <!-- Opis głównej wiadomości -->
                                         <div class="medium-12 column mp-desc-wrapper show-for-medium-up">
                                             <a href="<?php the_permalink() ?>"><h2 class="left"><?php the_title();?></h2></a>
                                             <p class="right">
@@ -124,19 +119,22 @@
                                                 <br /><a class="right" href="<?php the_permalink() ?>">Zobacz wpis...</a>
                                             </p>
                                         </div>
+
                                                 <!-- Pokazuj inny opis tylko dla małych ekranów -->
                                                 <div class="show-for-small-only">
                                                     <h2><?php echo the_title(); ?></h2>                                            
                                                     <h6 class="op-category"><?php echo printPostTypeName($post->ID); echo printRestaurantCategories($post->ID);?></h6> 
                                                     <p><?php echo cutText(get_the_excerpt(),300); ?><a href="<?php the_permalink() ?>"> Zobacz wpis...</a></p>                                           
-                                                </div>                                        
+                                                </div>  
+                                                                              
                                         <!-- Zdjęcie wiadomości -->
                                         <img src="<?php echo THEME_URL; ?>images/6.jpg" />
+
                                     </div>
                                 </div>
-                                <!-- ----------------------------------------------------- -->                
+                                <!-- #endregion -->                
                             <?php else: ?>
-                                <!-- POZOSTAŁE WPISY ------------------------------------- -->
+                                <!-- #region Other Posts -->
                                     <?php
                                         /*
                                          * Sprawdzam tutaj kiedy otworzyć i zamknąć div z klasą 'row'. Foundation wymaga tego, aby kolumny w wierszu nie przekraczały ilości 12.
@@ -154,8 +152,8 @@
                                     <?php if ( $open_row ) echo '<div class="row">'    // Otwarcie klasy 'row' co 2 wpisy. Wymóg Foundation, aby suma kolumn nie przekraczała 12. ?>
                                         <div class="medium-6 column op-wrapper">
                                             <!-- Tytuł przepisu -->
-                                            <h6 class="op-category"><?php echo printPostTypeName($post->ID); echo printRestaurantCategories($post->ID);?></h6>
-                                            <a href="#"><h3 class="site-titles"><?php the_title(); ?></h3></a>
+                                            <h6 class="op-category"><?php echo printPostTypeName($post->ID); ?></h6>
+                                            <a href="<?php the_permalink(); ?>"><h3 class="site-titles"><?php the_title(); ?></h3></a>
                                             <!-- Opis przepisu -->
                                             <div class="medium-12 op-desc-wrapper">
                                                 <?php 
@@ -173,13 +171,13 @@
                                             <!-- Podtytuł i ocena przepisu -->
                                             <div class="medium-12 columns">
                                                 <h5 class="left">Na każdą okazję</h5>
-                                                <div class="right op-rating">
-                                                    <?php showRating($post->ID,'ranking',5); ?>
-                                                </div>
+                                                <h5 class="right rating">
+                                                    <?php showRating($post->ID); ?>
+                                                </h5>
                                             </div>
                                         </div>  
                                     <?php if ( $close_row ) echo '</div>';              // Zamknięcie kalsy 'row'   ?> 
-                                <!-- ----------------------------------------------------- -->
+                                <!-- #endregion -->
                             <?php endif; ?>
 
                             <?php
@@ -187,8 +185,9 @@
                         endwhile;                        
                     endif;
                 ?>
+                <!-- #endregion -->
 
-                <!-- #region PAGINACJA -->                
+                <!-- #region Pagination -->                
                 <div class="row">
                     <div class="medium-12 column text-center">
                         <div class="pagination-centered">
@@ -201,18 +200,18 @@
                 <!-- #endregion -->
 
             </div>
-            <!-- --------------------------------------------------------- -->
+            <!-- #endregion -->
 
-
-            <!-- SIDEBAR - szukajka - komentarze - tagi ------------------ -->
+            <!-- #region Sidebar-->
             <?php get_sidebar( 'restaurants-archive' ); ?>
-            <!-- --------------------------------------------------------- -->
+            <!-- #endregion -->
 
         </div>
-        <!-- ------------------------------------------------------------- -->
+
     </div>
-    <!-- --------------------------------------------------------------------------- -->
-    <!-- FOOD BATTLE --------------------------------------------------------------- -->
+    <!-- #endregion -->
+
+    <!-- #region Food Battle -->
     <div class="show-for-large-up battle-wrapper">
         <!-- Statystyki i opis wypieków -->
         <div class="medium-4 column medium-offset-4 bt-desc">
@@ -277,14 +276,15 @@
             </div>
         </form>
     </div>
-    <!-- --------------------------------------------------------------------------- -->
-    <!-- MODALE -------------------------------------------------------------------- -->
+    <!-- #endregion -->
+
+    <!-- #region Modals -->
     <div id="myModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
         <h2 id="modalTitle">Awesome. I have it.</h2>
         <p class="lead">Your couch. It is mine.</p>
         <p>I'm a cool paragraph that lives inside of an even cooler modal. Wins!</p>
         <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>
-    <!-- --------------------------------------------------------------------------- -->
+    <!-- #endregion -->
     
-    <?php get_footer();?>
+<?php get_footer();?>

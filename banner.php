@@ -53,12 +53,12 @@
                 <div class="search-bar search-bar-center">
                     <form method="get" action="<?php current_page_url(); ?>">
                         <div class="row">
-                            <div class="medium-10 columns">
+                            <div class="small-9 medium-10 columns">
                                 <input type="text" name="search" id="search" placeholder="<?php echo $search; ?>" class="radius search-form" />
                             </div>
-                            <div class="medium-2 column">
+                            <div class="small-3 medium-2 column">
                                 <input type="submit" value="Szukaj" class="button show-for-large-up radius" style="width: 100%;"/>
-                                <!--<input type="submit" value="GO!" class="button hide-for-large-up radius" style="width: 100%;"/>-->
+                                <input type="submit" value="GO!" class="button hide-for-large-up radius" style="width: 100%;"/>
                             </div>
                         </div>
                     </form>
