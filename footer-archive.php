@@ -39,9 +39,9 @@
                                     <!-- Podtytuł i ocena przepisu -->
                                     <div class="medium-12 columns">
                                         <h5 class="left">Na każdą okazję</h5>
-                                        <div class="right op-rating">
-                                            <?php showRating($post->ID,'ranking',5); ?>
-                                        </div>
+                                        <h5 class="right rating">
+                                            <?php showRating($post->ID); ?>
+                                        </h5>
                                     </div>
                                 </div>
 

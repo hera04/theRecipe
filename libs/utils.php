@@ -314,10 +314,17 @@
         
     #endregion
         
-    #.# Domyœlna miniaturka
+    #region #.# Domyœlna miniaturka
         function trc_print_thumbnail($post_id){
             if ( has_post_thumbnail($post_id) ){
                 the_post_thumbnail('post-thumbnail', array( 'class' => 'op-desc-trigger', 'alt' => 'Miniaturka wpisu' )); 
             } else echo '<img class="op-desc-trigger" src="'.THEME_URL.'images/default.jpg" alt="Miniaturka wpisu" />';
         }
+        
+        function trc_get_thumbnail($post_id){
+            if ( has_post_thumbnail($post_id) ){
+                return get_the_post_thumbnail();
+            } else return THEME_URL.'images/default.jpg';
+        }
+    #endregion
 ?>

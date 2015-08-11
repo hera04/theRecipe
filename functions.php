@@ -144,6 +144,41 @@
         };
     #endregion   
         
+    #region Ingridients
+        
+        function getIngredients($post_id){
+            
+            $ingredients_table = array();
+            $ingredients_list = (string)get_post_meta($post_id,'ingredients',true);
+            
+            if ( isset($ingredients_list) && !empty($ingredients_list) ){
+                $ingredients = explode("\n",trim($ingredients_list));
+                foreach ($ingredients as $ingredient){
+                    $ingredients_table[] = $ingredient;            
+                }
+            } else return 0;
+            
+            return $ingredients_table;
+        }
+        
+        function printIngredients($post_id){
+            echo '<div class="panel">';
+                echo '<ul>';
+            
+                $ingredients = getIngredients($post_id);
+                if ( $ingredients ){
+                    foreach ($ingredients as $ingredient){
+                        echo '<li>'.$ingredient.'</li>';
+                    }
+                } else echo '<li>Brak składników!</li>';
+            
+                echo '</ul>';
+            echo '</div>';
+            
+        }
+        
+    #endregion
+        
     // #.# Pobranie banneru
         function get_banner(){
             get_template_part('banner');

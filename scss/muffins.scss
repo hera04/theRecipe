@@ -42,6 +42,10 @@ $text-color: #444;  /* kolor tekstu */
         background-color: $bg-color;
     }
 
+    table{
+        width:100%;
+    }
+
     input[type="text"] {
       @include input-placeholder {
         color: rgba(0,0,0,0.8);
@@ -171,7 +175,8 @@ $text-color: #444;  /* kolor tekstu */
         overflow: hidden;
         text-align: justify; 
     }
-    .rst-address-table{        
+
+    .rst-address-table, .rc-review-table{        
         border: none; 
         width: 100%;
         a{
@@ -289,7 +294,7 @@ $text-color: #444;  /* kolor tekstu */
         /* op - other-posts */
         .op-wrapper{
             overflow: hidden;
-            padding-bottom:25px;
+            /*padding-bottom:25px;*/
             border-bottom-style: solid;
             border-bottom-width: 1px;
             border-bottom-color: $bg-color;
@@ -364,11 +369,10 @@ $text-color: #444;  /* kolor tekstu */
             .cm-title{
                 //padding-bottom: 5px;
                 padding-right: 5px; 
+                font-size:1.3em;
             }
             .cm-description{
-                margin-bottom: 0; 
-                margin-left: 10px;
-                padding-top: 15px; 
+                padding: 10px 0;
                 /*border-top-style: solid; 
                 border-top-width: 1px; 
                 border-top-color: $secondary-color;*/ 

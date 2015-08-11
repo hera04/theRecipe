@@ -4,87 +4,105 @@
     <!-- #region Banner -->
     <?php
         $options = get_option('general_settings');
-        if ($options['show_banner'] == '1') $is_banner = get_banner();   
-        //if ( get_option('show_banner') == '1') $is_banner = get_banner();
+        if ($options['show_banner'] == '1') $is_banner = get_banner();
     ?>
     <!-- #endregion -->
 
-    <!-- #region MAIN CONTENT -->
-
+    <!-- #region Content wrapper -->
     <div class="site-content <?php if($is_banner) echo 'sc-static'; else echo 'sc-no-banner';?>" id="siteContent_?">
 
         <!-- Linki do portali społecznościowych -->
         <?php get_template_part('social-links'); ?>
 
-        <!-- Breadcrumbs -->
+        <!-- #region Breadcrumbs -->
         <div class="row brc-wrapper hide-for-small-only">
             <div class="medium-12 column">
-                <?php show_breadcrumbs('locations'); ?>        
+                <?php show_breadcrumbs('dessert_type'); ?>        
             </div>
         </div>
+        <!-- #endregion -->
 
-        <!-- #region Content -->
+        <!-- #region Main content -->
         <div class="row" style="text-align: justify;  padding-top: 3%;">
 
-            <!-- #region Główna zawartość -->
+            <!-- #region Content -->
             <div class="large-8 column recipe">
 
-                <!-- #region Informacje -->
+                <!-- #region Informations -->
                 <div class="row ">
                     <div class="medium-12 column">
 
-                        <!-- #region Tytuł -->
+                        <!-- #region Title -->
                         <h1 class="rc-title"><?php the_title(); ?></h1>
                         <h5 class="rc-author"><?php echo '@'.get_the_author().' | '.get_the_date('l, j F Y').' | '.get_the_time('G:i'); ?></h5>
                         <!-- #endregion -->
                         
-                        <!-- #region Położnie -->
+                        <!-- #region Description -->
                         <div class="row">
-                            <!-- Mapka -->
+                            <!-- Miniaturka przepisu -->
                             <div class="medium-8 column">
-                                <img src="<?php echo THEME_URL; ?>images/restaurant-map.jpg" class="rc-main-image"/>
+                                <?php trc_print_thumbnail($post->ID); ?>
                             </div>
-                            <!-- Dane adresowe -->
+
+                            <!-- Szybki przegląd -->
                             <div class="medium-4 column">
-                                <?php $restaurant_fields = get_fields($post->ID); // http://www.advancedcustomfields.com/resources/get_fields/ ?>
-                                <table class="rst-address-table">
+                                <p>Szybki przegląd:</p>
+
+                                <?php $recipe_fields = get_fields($post->ID); // http://www.advancedcustomfields.com/resources/get_fields/ ?>
+                                <table class="rc-review-table">
                                     <tbody>
-                                    <tr>
-                                        <td><i class="fa fa-map-marker"></i></td>
-                                        <td><?php echo $restaurant_fields['address']; ?> </td>
+                                    <tr title="Kalorie">
+                                        <td style="text-align:center;"><i class="fa fa-balance-scale"></i></td>
+                                        <td><?php echo $recipe_fields['kcal']; ?> kcal</td>
                                     </tr>
-                                    <tr>
-                                        <td><i class="fa fa-phone"></i></td>
-                                        <td><?php echo $restaurant_fields['telephone'] ?></td>
+                                    <tr title="Czas przygotowania">
+                                        <td style="text-align:center;"><i class="fa fa-clock-o"></i></td>
+                                        <td><?php echo $recipe_fields['preparation_time'] ?></td>
                                     </tr>
-                                    <tr>
-                                        <td><i class="fa fa-clock-o"></i></td>
-                                        <td><?php echo $restaurant_fields['opening_hours']; ?></td>
+                                    <tr title="Trudność">
+                                        <td style="text-align:center;"><i class="fa fa-level-up"></i></td>
+                                        <td><?php echo $recipe_fields['difficulty']; ?></td>
                                     </tr>
-                                    <tr>
-                                        <td><i class="fa fa-envelope-o"></i></td>
-                                        <td><?php echo '<a href="mailto:'.$restaurant_fields['email'].'">'.$restaurant_fields['email'].'</a>' ?></td>
+                                    <tr title="Porcje">
+                                        <td style="text-align:center;"><i class="fa fa-cutlery "></i></td>
+                                        <td><?php echo $recipe_fields['servings']; ?></td>
                                     </tr>
-                                    <tr>
-                                        <td><i class="fa fa-globe"></i></td>
-                                        <td><?php echo '<a href="'.$restaurant_fields['www'].'">'.$restaurant_fields['www'].'</a>' ?></td>
+                                    <tr title="Koszt">
+                                        <td style="text-align:center;"><i class="fa fa-money "></i></td>
+                                        <td><?php echo $recipe_fields['cost']; ?></td>
                                     </tr>
                                     </tbody>
                                 </table>
+
+                                <span style="padding: 10px 0;">Wydrukuj <a href="#" data-reveal-id="printList">listę zakupów</a>.</span>
                             </div>
+
                         </div>
+                        <!-- #endregion -->
+
+                        <!-- #region Excerpt -->
+                        <?php if (has_excerpt($post->ID)) :?>
+                            <div class="row">
+                                <div class="medium-11 column">
+                                    <p><?php the_excerpt(); ?></p>
+                                </div>
+                            </div>
+                        <?php endif; ?>
                         <!-- #endregion -->
 
                     </div>
                 </div>
                 <!-- #endregion -->
 
-                <!-- #region Recenzja restauracji -->
+                <!-- #region Recipe -->
                 <div class="row">
                     <div class="medium-12 column">
-                        <h3 class="rc-subtitle">Recenzja</h3>
+                        <h3 class="rc-subtitle">Przepis</h3>
                         <div class="row">
                             <div class="medium-11 column medium-centered">
+
+                                <p>Składniki:</p>
+                                <?php printIngredients($post->ID);?>
 
                                 <?php the_content(); ?>
 
@@ -105,7 +123,7 @@
                 <!-- Oceń przepis -->
                 <div class="row">
                     <div class="medium-12 column">
-                        <h3 style="font-weight:500;">Oceń restaurację:</h3>
+                        <h3 style="font-weight:500;">Ocena przepisu:</h3>
                         <div class="row">
                             <div class="medium-11 column medium-centered rating">
                                 <?php showRating($post->ID, true); ?>
@@ -157,9 +175,53 @@
         </div>
         <!-- #endregion -->
 
-
     </div>
+    <!-- #endregion -->
+
+    <!-- #region Modals -->
+
+        <!-- #region printIngredients -->
+            <div id="printList" class="reveal-modal" style="width: 50%;" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+                <?php $ingredients = getIngredients($post->ID); ?>
+                <div class="medium-8 column medium-centered">
+                    <?php echo '<h3>'.get_the_title().'</h3>'; ?>
+                    <table>            
+                        <tbody>
+                            <?php foreach ($ingredients as $ingredient) : ?>            
+                            <tr>
+                                <td><?php echo $ingredient; ?></td>
+                                <td><i class="fa fa-square-o"></i></td>
+                            </tr>
+                            <?php endforeach; ?> 
+                        </tbody>             
+                    </table>
+                    <a href="#" class="button small right">Drukuj</a>
+                    <?php?>
+                </div>                  
+            </div>
+        <!-- #endregion -->
+
+        <!-- #region Comments -->
+
+            <div id="addComent" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+                <div class="row">
+                    <div class="medium-6 medium-centered column comment-wrapper">
+                        <h5 class="site-titles cm-title">Odpowiedz na post</h5>
+                        <p class="cm-description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                        <p class="left cm-date">dzisiaj, 10:30</p>
+                        <p class="right cm-author">~andrzejek</p><br />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="medium-6 column medium-centered">
+                        <textarea rows="5" placeholder="Wpisz komentarz."></textarea>
+                        <a class="button small" href="#">Wyślij komentarz</a>
+                    </div>
+                </div>
+            </div>
+
+        <!-- #endregion -->
 
     <!-- #endregion -->
         
-    <?php get_footer(); ?>
+<?php get_footer(); ?>

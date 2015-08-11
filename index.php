@@ -2,43 +2,56 @@
 
     <!-- #region big-banner -->
     <section class="cd-hero">
+
+        <?php                   
+            #region Settings
+                $widget_options = get_option('general_settings');
+                
+                $post_limit = $widget_options['number_of_items'];
+                
+                $i = 0;
+                    
+                $widget_query = new WP_Query( array(
+                    'posts_per_page'    => $widget_options['number_of_items'],                                        
+                    'orderby'           => 'post_date',                                 
+                    'order'             => 'DESC',                                      
+                    'post_type'         => array( 'restaurants', 'post', 'recipes' ),
+                    'post_status'       => 'publish'
+                ));
+                    
+            #endregion                    
+        ?>
+
         <ul class="cd-hero-slider autoplay slider full-height">
 
-            <li style="background-image: url(<?php echo THEME_URL ?>images/33.jpg);" class="selected sl-item">
-                <div class="large-6 column" style="margin-top: 20%;">
-                    <div class="sl-desc-wrapper">
-                        <h2 class="sl-desc-title">Deser z truskawami</h2>
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-                        </p>
-                    </div>
-                </div>
-                <div class="mask"></div>
-            </li>
+            <?php
+            
+                if ( $widget_query -> have_posts() ) :
+                    while ($widget_query -> have_posts() ) : $widget_query -> the_post(); ?>
 
-            <li style="background-image: url(<?php echo THEME_URL ?>images/24.jpg);" class="sl-item">
-                <div class="large-6 column" style="margin-top: 20%;">
-                    <div class="sl-desc-wrapper">
-                        <h2 class="sl-desc-title">Deser z truskawami</h2>
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-                        </p>
-                    </div>
-                </div>
-                <div class="mask"></div>
-            </li>
+                        <?php  $image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );  // https://codex.wordpress.org/Function_Reference/wp_get_attachment_image_src ?>
 
-            <li style="background-image: url(<?php echo THEME_URL ?>images/8.jpg);" class="sl-item">
-                <div class="large-6 column" style="margin-top: 20%;">
-                    <div class="sl-desc-wrapper">
-                        <h2 class="sl-desc-title">Deser z truskawami</h2>
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-                        </p>
-                    </div>
-                </div>
-                <div class="mask"></div>
-            </li>
+                        <li style="background-image: url(<?php echo $image_url[0] ?>);" class=" <?php if (i==0) echo 'selected'; ?> sl-item">
+                            <div class="large-6 column" style="margin-top: 20%;">
+                                <a href="<?php the_permalink(); ?>">                            
+                                    <div class="sl-desc-wrapper">
+                                        <h2 class="sl-desc-title"><?php the_title();?></h2>
+                                        <p>
+                                            <?php echo get_the_excerpt(); ?>
+                                        </p>
+                                    </div>                                    
+                                </a>
+                            </div>
+                            <div class="mask"></div>
+                        </li>
+
+                        <?php
+                        $i++;
+                    endwhile;
+                endif;
+                wp_reset_query();        
+            ?>
+
         </ul>
 
         <div class="search-bar search-bar-bottom">
@@ -58,12 +71,14 @@
         <div class="cd-slider-nav sl-nav">
             <nav>
                 <ul>
-                    <li class="selected"><p><i class="fa fa-circle-thin"></i></p></li>
-                    <li class=""><p><i class="fa fa-circle-thin"></i></p></li>
-                    <li class=""><p><i class="fa fa-circle-thin"></i></p></li>
+                    <?php for ( $i=0 ; $i< $post_limit ; $i++ ) :?>
+                        <li class="<?php if ($i==0) echo 'selected'; ?>"><p><i class="fa fa-circle-thin"></i></p></li>
+                    <?php endfor; ?>
                 </ul>
             </nav>
         </div>
+
+        
     </section>
     <!-- #endregion -->
  
@@ -89,7 +104,7 @@
                         'orderby'       => 'post_date',                                 
                         'order'         => 'DESC',                                      
                         'post_type'     => array( 'restaurants', 'post', 'recipes' ),
-                        'post_status'   => 'published',
+                        'post_status'   => 'publish',
                         'paged'         => $paged                                       // Przypisanie 'paged' zmiennej $paged, ponieważ domyślnei jest ustawiona tylko w stronach archiwum
                     ));
                     
@@ -102,36 +117,76 @@
                             ?>
                             <?php if ( ( ($paged == 0) || ($paged == 1) ) && ($parity == 0) ) : ?>
                                 <!-- #region Main post-->
-                                <div class="row main-post">
-                                    <div class="medium-12 column">
+                                
+                                 <div class="row">
+                                    <div class="medium-12 column op-wrapper">
 
-                                        <!-- Data i Kategoria  -->
-                                        <div class="medium-5 large-4 column show-for-medium-up mp-info">
-                                            <h6><?php echo the_time('l').', '; echo the_date('j F'); ?></h6>
-                                            <h3><?php printPostTypeName($post->ID); ?></h3>
+                                        <!-- Tytuł posta -->
+                                        <div class="row" style="padding:0;">
+                                            <div class="medium-12 column">
+                                                <a href="<?php the_permalink();?>" class="left"><h3 class="site-titles"><?php the_title();?></h3></a>
+                                                <h6 class="op-category right"><?php echo printPostTypeName($post->ID)?> <span class="label">Popularny!</span></h6>  
+                                            </div>
                                         </div>
 
-                                        <!-- Opis głównej wiadomości -->
-                                        <div class="medium-12 column mp-desc-wrapper show-for-medium-up">
-                                            <a href="<?php the_permalink() ?>"><h2 class="left"><?php the_title();?></h2></a>
-                                            <p class="right">
-                                                <?php echo cutText(get_the_excerpt(),300); ?>
-                                                <br /><a class="right" href="<?php the_permalink() ?>">Zobacz wpis...</a>
-                                            </p>
-                                        </div>
+                                        <!-- Opis posta -->
+                                        <div class="row">
+                                            <!-- #region Miniaturka posta -->
+                                            <?php 
+                                                $has_thumb = has_post_thumbnail($post->ID);
+                                                // Jeśli wpis ma miniaturkę, wyświetli ją zajmując połowę wrappera dla opisu, a jeśli nie ma miniaturki opis zajmuje całą szerokość.
+                                                if($has_thumb) {
+                                                    $wrapper_class = 'medium-6';
+                                                    $excerpt_length = 170;
+                                                    
+                                                    // Wyświetlam miniaturkę
+                                                    echo '<div class="medium-6 column">';
+                                                    the_post_thumbnail('post-thumbnail', array( 'class'	=> 'op-desc-trigger'));
+                                                    echo '</div>';
+                                                } else {
+                                                    $wrapper_class = 'medium-12';
+                                                    $excerpt_length = 500;
+                                                }
+                                            ?>
+                                            <!-- #endregion -->
 
-                                                <!-- Pokazuj inny opis tylko dla małych ekranów -->
-                                                <div class="show-for-small-only">
-                                                    <h2><?php echo the_title(); ?></h2>                                            
-                                                    <h6 class="op-category"><?php echo printPostTypeName($post->ID); echo printRestaurantCategories($post->ID);?></h6> 
-                                                    <p><?php echo cutText(get_the_excerpt(),300); ?><a href="<?php the_permalink() ?>"> Zobacz wpis...</a></p>                                           
-                                                </div>  
-                                                                              
-                                        <!-- Zdjęcie wiadomości -->
-                                        <img src="<?php echo THEME_URL; ?>images/6.jpg" />
+                                            <!-- #region Opis posta -->
+                                                <div class="<?php echo $wrapper_class; ?> column" style="cursor: default">
 
+                                                    <!-- Wypis -->
+                                                    <div class="row">
+                                                        <div class="medium-12 column">
+                                                            <h5>Na każdą okazję</h5>
+                                                            <p><?php echo cutText(get_the_excerpt(),$excerpt_length); ?></p>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Odnośnik do posta i rating -->
+                                                    <div class="row">
+                                                        <div class="medium-12 column right op-footer">
+                                                            <div class="left">
+                                                                <a href="<?php the_permalink(); ?>">Czytaj dalej...</a>
+                                                            </div>
+                                                            <div class="right rating">
+                                                                <?php showRating($post->ID); ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            <!-- #endregion -->
+                                        </div>  
+                                        
+                                        <!-- Statystyki i data -->
+                                        <div class="row">
+                                            <div class="medium-12 column">
+                                                <div class="left"><i class="fa fa-comments-o"></i> <?php comments_number( '0 komentarzy', '1 komentarz', '% komentarzy' ); ?>  </div>
+                                                <div class="right"><?php echo the_time('l').', '; echo the_date('j F'); ?></div>
+                                            </div>                                           
+                                        </div>                                                                        
+                                                                            
                                     </div>
                                 </div>
+
                                 <!-- #endregion -->                
                             <?php else: ?>
                                 <!-- #region Other Posts -->
@@ -139,27 +194,25 @@
                                         /*
                                          * Sprawdzam tutaj kiedy otworzyć i zamknąć div z klasą 'row'. Foundation wymaga tego, aby kolumny w wierszu nie przekraczały ilości 12.
                                          * Ze względu na to, że jeden wpis zajmuje 6 kolumn, w jednym wieszu mogą być tylko 2 wpisy. Warunki poniżej sprawdzają:
-                                         * a) Czy jesteśmy na stronie 0 lub 1. Jeśli tak - trzeba zastosować inny warunek dla parzystości ($parity) ponieważ tylko na tej stronie mamy /GŁÓWNY POST/ i z nim muszą inaczej być otwierane/zamykane kalsy 'row'.
+                                         * a) Czy jesteśmy na stronie 0 lub 1. Jeśli tak - otwarcie div.row rozpoczynamy od 2 wpisu (dlatego $parity%2 == 1), ponieważ tylko na tej stronie mamy /GŁÓWNY POST/ i z nim muszą inaczej być otwierane/zamykane kalsy 'row'.
                                          * b) Czy jesteśmy na stronie !0 lub !1. Jeśli tak - wykonaj inne otwarcie/zamknięcie 'row'.
                                          */
-                                        if (($paged == 0)||($paged == 1)) $only_for_first_page = true;
+                                        if (($paged == 0)||($paged == 1)) $first_page = true;
                                         
                                         $open_row = false;
-                                        if ( ( $only_for_first_page && ($parity % 2 == 1)) || ( !$only_for_first_page && ($parity % 2 == 0)) ) $open_row = true;
+                                            if ( ( $first_page && ($parity % 2 == 1)) || ( !$first_page && ($parity % 2 == 0)) ) $open_row = true;
                                         $close_row = false;
-                                        if ( ( $only_for_first_page && ($parity % 2 == 0)) || ( !$only_for_first_page && ($parity % 2 == 1)) ) $close_row = true;
+                                            if ( ( $first_page && ($parity % 2 == 0)) || ( !$first_page && ($parity % 2 == 1)) ) $close_row = true;
                                     ?>
                                     <?php if ( $open_row ) echo '<div class="row">'    // Otwarcie klasy 'row' co 2 wpisy. Wymóg Foundation, aby suma kolumn nie przekraczała 12. ?>
                                         <div class="medium-6 column op-wrapper">
                                             <!-- Tytuł przepisu -->
-                                            <h6 class="op-category"><?php echo printPostTypeName($post->ID); ?></h6>
-                                            <a href="<?php the_permalink(); ?>"><h3 class="site-titles"><?php the_title(); ?></h3></a>
+                                            <h6 class="op-category"><?php echo printPostTypeName($post->ID)?> <span class="label right">Popularny!</span></h6>
+                                            <a href="<?php the_permalink(); ?>"><h3 class="site-titles"><?php the_title();?></h3></a>
                                             <!-- Opis przepisu -->
                                             <div class="medium-12 op-desc-wrapper">
                                                 <?php 
-                                                    if ( has_post_thumbnail($post->ID) ){
-                                                        the_post_thumbnail('post-thumbnail', array( 'class' => 'op-desc-trigger', 'alt' => 'Miniaturka wpisu' )); 
-                                                    } else echo '<img class="op-desc-trigger" src="'.THEME_URL.'images/default.jpg" alt="Miniaturka wpisu" />';
+                                                    trc_print_thumbnail($post->ID)
                                                 ?>
                                                 <div class="op-desc-to-show">
                                                     <div class="medium-12 columns op-desc">
@@ -170,7 +223,7 @@
                                             </div>
                                             <!-- Podtytuł i ocena przepisu -->
                                             <div class="medium-12 columns">
-                                                <h5 class="left">Na każdą okazję</h5>
+                                                <h5 class="left"><i class="fa fa-comments-o"></i> <?php comments_number( '0 komentarzy', '1 komentarz', '% komentarzy' ); ?></h5>
                                                 <h5 class="right rating">
                                                     <?php showRating($post->ID); ?>
                                                 </h5>
@@ -182,8 +235,10 @@
 
                             <?php
                             $parity++;
-                        endwhile;                        
+                        endwhile;
+                        if ( ( $first_page && (($parity-1) % 2 != 0)) || ( !$first_page && (($parity-1) % 2 != 1)) ) echo '</div>'; // Zabezpieczenie przed brakiem zamknięcia div.row gdy nie mamy 2 wpisów w jednym wierszu.
                     endif;
+                    wp_reset_query();
                 ?>
                 <!-- #endregion -->
 
@@ -203,7 +258,7 @@
             <!-- #endregion -->
 
             <!-- #region Sidebar-->
-            <?php get_sidebar( 'restaurants-archive' ); ?>
+            <?php get_sidebar( 'index' ); ?>
             <!-- #endregion -->
 
         </div>

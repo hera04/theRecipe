@@ -7,8 +7,8 @@
     <!-- Dynamiczne ustawienie kodowania strony -->
     <meta charset="<?php bloginfo('charset') ?>" />
     
-    <!-- Sprawdzenie czy strona jest wyszukiwark¹ --------------------------------------------------------
-    ---- Jeœli tak to zabraniam robotom indeksuj¹cym indeksowaæ treœci. Unikamy zduplikowanych treœci. -->
+    <!-- Sprawdzenie czy strona jest wyszukiwarkÄ… --------------------------------------------------------
+    ---- JeÅ›li tak to zabraniam robotom indeksujÄ…cym indeksowaÄ‡ treÅ›ci. Unikamy zduplikowanych treÅ›ci. -->
     <?php 
     if(is_search())
         echo '<meta name="robots" content="noindex, nofollow" />' 
@@ -19,7 +19,7 @@
 
     <link rel="Shortcut icon" href="<?php echo THEME_URL; ?>images/favicon.png" />
 
-    <link rel="stylesheet" href="<?php echo get_stylesheet_uri(); ?>"/> <!-- Zwraca œcie¿kê do g³ównego pliku style.css -->
+    <link rel="stylesheet" href="<?php echo get_stylesheet_uri(); ?>"/> <!-- Zwraca Å›cieÅ¼kÄ™ do gÅ‚Ã³wnego pliku style.css -->
     <link rel="stylesheet" href="<?php echo THEME_URL; ?>stylesheets/app.css"/>
     <link rel="stylesheet" href="<?php echo THEME_URL; ?>stylesheets/muffins.css"/>
     <link rel="stylesheet" href="<?php echo THEME_URL; ?>stylesheets/font-awesome.css"/>
@@ -75,7 +75,7 @@
                             <ul class="dropdown">
                                 <li><a href="<?php echo esc_url(admin_url('/')); ?>"><i class="fa fa-user"></i> Administracja</a></li>
                                 <li><a href="#"><i class="fa fa-wrench"></i> Ustawienia</a></li>
-                                <li><a href="#"><i class="fa fa-sign-out"></i> Wyloguj siê</a></li>
+                                <li><a href="#"><i class="fa fa-sign-out"></i> Wyloguj siÄ™</a></li>
                             </ul>
                         </li>
 

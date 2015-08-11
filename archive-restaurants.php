@@ -93,7 +93,7 @@
                                                             <div class="left">
                                                                 <a href="<?php the_permalink(); ?>">Czytaj dalej...</a>
                                                             </div>
-                                                            <div class="right op-rating">
+                                                            <div class="right rating">
                                                                 <?php showRating($post->ID); ?>
                                                             </div>
                                                         </div>
