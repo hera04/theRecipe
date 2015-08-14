@@ -109,14 +109,6 @@
                             </div>
                         </div>
                     </div>
-                </div>                
-                <!-- #endregion -->
-
-                <!-- #region Comments -->
-                <div class="row">
-                    <div class="medium-12 column">
-                        <?php comments_template(); //Funkcja załaduje w to miejsce plik comments.php ?>
-                    </div>
                 </div>
                 <!-- #endregion -->
 
@@ -138,7 +130,43 @@
                             </div>
                         </div>
                     </div>
-                </div>         
+                </div>                
+
+                <!-- Dodaj komentarz -->
+                <div class="row">
+                    <div class="medium-12 column">
+                        <h3>Komentarze do przepisu</h3>
+                        <div class="" style="padding-left: 10px;">
+                            <h5>Dodaj komentarz:</h5>
+                            <textarea rows="5"></textarea>
+                            <a href="#" class="button tiny right">Dodaj</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Komentarze -->
+                <div class="row">
+                    <div class="small-12 medium-8 medium-centered large-12 column">
+                        <div class="row">
+                            <div class="medium-12 column comment-wrapper right">
+                                <a href="#"><h5 class="site-titles cm-title">Herbata z owocami<small> 1 komentarz</small></h5></a>
+                                <p class="cm-description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                                <p class="left cm-date">dzisiaj, 10:30 | <a href="#" data-reveal-id="addComent">Odpowiedz</a></p>
+                                <p class="right cm-author">~andrzejek</p><br />
+                            </div>
+                            <div class="medium-10 column comment-wrapper right">
+                                <p class="cm-description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                                <p class="left cm-date">dzisiaj, 10:30 | <a href="#" data-reveal-id="addComent">Odpowiedz</a></p>
+                                <p class="right cm-author">~andrzejek</p><br />
+                            </div>
+                            <div class="medium-10 column comment-wrapper right">
+                                <p class="cm-description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                                <p class="left cm-date">dzisiaj, 10:30 | <a href="#" data-reveal-id="addComent">Odpowiedz</a></p>
+                                <p class="right cm-author">~andrzejek</p><br />
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
 
@@ -175,7 +203,22 @@
 
         <!-- #region Comments -->
 
-            
+            <div id="addComent" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+                <div class="row">
+                    <div class="medium-6 medium-centered column comment-wrapper">
+                        <h5 class="site-titles cm-title">Odpowiedz na post</h5>
+                        <p class="cm-description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                        <p class="left cm-date">dzisiaj, 10:30</p>
+                        <p class="right cm-author">~andrzejek</p><br />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="medium-6 column medium-centered">
+                        <textarea rows="5" placeholder="Wpisz komentarz."></textarea>
+                        <a class="button small" href="#">Wyślij komentarz</a>
+                    </div>
+                </div>
+            </div>
 
         <!-- #endregion -->
 

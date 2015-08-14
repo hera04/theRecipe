@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
     if( !empty($_SERVER['SCRIPT_FILENAME']) && 'comments.php'==basename($_SERVER['SCRIPT_FILENAME']) )
         die ('Nie możesz bezpośrednio uruchomić tego pliku');
@@ -127,3 +128,5 @@
 
     </div>
 </div>
+=======
+>>>>>>> parent of 333ad55... Działające komentarze
