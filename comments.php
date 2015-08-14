@@ -128,5 +128,3 @@
 
     </div>
 </div>
-=======
->>>>>>> parent of 333ad55... Działające komentarze

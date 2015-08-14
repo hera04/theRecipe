@@ -179,6 +179,61 @@
         
     #endregion
         
+    #region Print Comments
+        
+        function trc_comment_theme($comment, $args, $depth){
+            /*
+             * $comment - tablica komentarzy
+             * $args - argumenty komentarzy
+             * $depth - sposób zagnieżdżenia komentarzy
+             * 
+             * https://codex.wordpress.org/Function_Reference/comment_class
+             * */
+            
+            $GLOBALS['comment'] = $comment;                 // Globalny obiekt kometarza
+            $tag = $args['style'];
+            
+            $is_parent = false;
+            //if ( !empty($args['has_children']) ) $is_parent = true;
+            if ( $depth == 1 ) $is_parent = true;
+            
+            global $comment_number;
+            if ($is_parent) $comment_number++;
+            
+        ?>
+
+            <<?php echo $tag ?> class="comment <?php if ( $is_parent ) echo 'parent' ?>">
+                <div class="cm-author">
+                    <?php 
+                        if ( $is_parent ) echo '#'.$comment_number.' '; 
+                        echo '~'.get_comment_author();
+                    ?>
+                </div>
+                <div class="inner">
+                    <p class="cm-description">
+                        <?php  
+                            //echo '<p>'.var_dump($args).'</p>';
+                            //echo '<p>'.var_dump($comment).'</p>';
+                            //echo '<p>'.$depth.'</p>';
+                            //echo '<p>'.$comment_number.'</p>';
+                                  
+                            echo get_comment_text();
+                            if ( $comment->comment_approved == '0' )
+                                echo '<p>Twój komentarz oczekuje na moderację.</p>'
+                        ?>
+                    </p>
+                    <div class="cm-footer">
+                        <p class="left"><?php echo get_comment_date().','.get_comment_time() ?></p>
+                        <p class="right"><?php comment_reply_link( array_merge($args, array('depth'=>$depth, 'max_depth'=>$args['max_depth']) ) ); ?></p>
+                    </div>
+                </div>
+            <?php // </div> Pamiętać o nie zamykaniu ostatniego div'a ponieważ WP zrobi to automatycnie. ?>
+
+        <?php
+        }
+        
+    #endregion
+        
     // #.# Pobranie banneru
         function get_banner(){
             get_template_part('banner');
