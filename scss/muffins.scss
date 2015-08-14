@@ -365,35 +365,60 @@ $text-color: #444;  /* kolor tekstu */
         }
 
         /* cm - comments */
-        .comment-wrapper{
-            .cm-title{
-                //padding-bottom: 5px;
-                padding-right: 5px; 
-                font-size:1.3em;
+        .comment_list{
+            .comment{
+               padding-left: 30px;
+               border-left: dotted 1px $secondary-color;
+               /*overflow: hidden;*/
+               margin: 10px 0;
+                .cm-title{
+                    //padding-bottom: 5px;
+                    padding-right: 5px; 
+                    font-size:1.1em;
+                }
+                .cm-description{
+                    padding: 10px 0;
+                    /*border-top-style: solid; 
+                    border-top-width: 1px; 
+                    border-top-color: $secondary-color;*/ 
+                    font-size: 0.8rem; 
+                }
+                .cm-quote{
+                    margin: 0 20px; 
+                    color: #888; 
+                    font-style: italic
+                }
+                .cm-author{
+                    font-size: 1em; 
+                    color: $secondary-color;
+                }
+                .cm-footer{
+                    overflow:hidden;
+                    p{
+                        font-size: 0.8rem; 
+                        color: $secondary-color;
+                    }                    
+                }                
             }
-            .cm-description{
-                padding: 10px 0;
-                /*border-top-style: solid; 
-                border-top-width: 1px; 
-                border-top-color: $secondary-color;*/ 
-                font-size: 0.8rem; 
+            .parent{
+                padding: 10px 0 10px 0 !important;
+                //padding-left: 0 !important;
+                border: none !important;
+               // margin: 30px 0 !important;
+                &.cm-author{
+                    font-size: 1.1em !important;
+                }
             }
-            .cm-quote{
-                margin: 0 20px; 
-                color: #888; 
-                font-style: italic
+            .inner{
+                p{
+                    margin: 0;
+                }
             }
-            .cm-author{
-                font-weight: bold; 
-                margin-bottom: 0; 
-                color: $main_color;
-            }
-            .cm-date{
-                margin-top: 5px; 
-                margin-left: 10px; 
-                font-size: 0.8rem; 
-                color: $secondary-color;
-            }
+        }
+        .cm-to-reply{
+            font-size: 1rem; 
+            margin: 10px; 
+            padding: 10px;
         }
     
         /* bt - muffins battle */
