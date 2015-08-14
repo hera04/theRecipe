@@ -28,6 +28,10 @@
     <link rel="pingback" href="<?php  bloginfo('pingback_url');?>" /> <!-- http://blog.dobert.pl/20101110/funkcje-trackback-i-pingback-w-wordpress.html  -->
     
     <script src="<?php echo THEME_URL; ?>bower_components/modernizr/modernizr.js"></script>
+    <script src="<?php echo THEME_URL; ?>bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="<?php echo THEME_URL; ?>bower_components/foundation/js/foundation.min.js"></script>
+    <script src="<?php echo THEME_URL; ?>js/main.js"></script>
+    <script src="<?php echo THEME_URL; ?>js/app.js"></script>
     
     <?php 
         // http://wpninja.pl/artykuly/wp_head-i-wp_footer-dwie-funkcje-o-ktorych-zawsze-powinienes-pamietac/

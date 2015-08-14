@@ -125,6 +125,30 @@
             
             return NULL;
         }
+        
+        function getUrlParams(){
+            // Funkcja pobiera wszystkiw parametry z adresu www
+            $url = current_page_url();
+            $params = explode('?', $url);
+            $params = explode('&', $params[1]);
+            
+            $return = array();
+            foreach($params as $param){
+                //$param = explode('#',$param);
+                $tmp = explode('=', $param);
+                $return[$tmp[0]] = trim(urldecode($tmp[1]));
+            }
+            
+            return $return;
+        }
+        function checkUrlSingleParam($name){
+            //Funkcjapobiera pojedyñczy parametr z adresu www
+            $url_params = getUrlParams();
+            
+            if ( isset($url_params[$name] ) ) { 
+                return true; 
+            } else return false;
+        }
      #endregion   
      
     #region #.# Zapytania do bazy

@@ -82,19 +82,27 @@
                             
                     <?php else: ?>
 
-                        <!--<form id="comment-form" method="post" action="<?php echo get_option('siteurl'); ?>/wp-comments-post.php">
-
-                            <textarea name="comment" rows="5"></textarea>
-                            <?php comment_id_fields(); ?>
-                            <div class="left"><?php cancel_comment_reply_link('Anuluj odpowiedź.'); ?></div>
-                            <button type="submit" class="button tiny right">Dodaj Komentarz</button>
-                            <?php do_action('comment_form',$post->ID);?>
-
-                        </form>-->
-
                         <span style="padding: 10px 0;"><a href="#" data-reveal-id="addComent">Odpowiedz</a>.</span>
 
-                        <div id="addComent" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+                        <div id="addComent" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog" style="width:50%">
+
+                            <h5><?php comment_form_title('Dodaj komentarz','Odpowiedz na komentarz: %s');?></h5>
+
+                            <?php
+                                $is_reply = checkUrlSingleParam('replytocom');
+                            
+                                if ($is_reply):
+                                    
+                                    $parent_ID = get_comment($comment->comment_parent);
+                                    echo '<p class="panel">'.$parent_ID->comment_content.'</p>';
+                                    ?>
+                                    <script type="text/javascript">
+                                        $(document).foundation();
+                                        $(document).ready(function () { $('#addComent').foundation('reveal', 'open') });
+                                    </script>
+                                    <?php
+                                endif;
+                            ?>
 
                             <form id="comment-form" method="post" action="<?php echo get_option('siteurl'); ?>/wp-comments-post.php">
 
@@ -102,7 +110,7 @@
                                 <?php comment_id_fields(); ?>
                                 <div class="left"><?php cancel_comment_reply_link('Anuluj odpowiedź.'); ?></div>
                                 <button type="submit" class="button tiny right">Dodaj Komentarz</button>
-                                <?php do_action('comment_form',$post->ID);?>
+                                <?php do_action('comment_form',$post->ID); ?>
 
                             </form>
                 
