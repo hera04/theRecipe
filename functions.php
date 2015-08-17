@@ -219,7 +219,11 @@
                                   
                             echo get_comment_text();
                             if ( $comment->comment_approved == '0' )
-                                echo '<p>Twój komentarz oczekuje na moderację.</p>'
+                                echo '
+                                <div data-alert class="alert-box info">
+                                    Twój komentarz oczekuje na moderację.
+                                    <a href="#" class="close">&times;</a>
+                                </div>';
                         ?>
                     </p>
                     <div class="cm-footer">

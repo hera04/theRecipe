@@ -15,7 +15,7 @@
 ?>
 
 <!-- Dodaj komentarz -->
-<div class="row">
+<div class="row" id="respond">
     <div class="medium-12 column comments">
 
         <h3 class="rc-subtitle">Komentarze do przepisu: <small><?php comments_number( '0 komentarzy', '1 komentarz', '% komentarzy' );?></small></h3>
@@ -53,7 +53,7 @@
                             wp_list_comments(array(
                                 'callback'      => 'trc_comment_theme',
                                 'style'         => 'div',
-                                'reply_text'    => 'Odpowiedz',
+                                'reply_text'    => '<i class="fa fa-reply"></i>',
                                 'type'          => 'comment'
                             ));
                         ?>
@@ -68,7 +68,7 @@
 
                 </div> 
                 
-                <div class="row respond"> 
+                <div class="row"> 
 
                     <?php if ( get_option('comment_registration') && !is_user_logged_in() ) : ?>
                             
@@ -76,7 +76,7 @@
                             
                     <?php else: ?>
 
-                        <span style="padding: 10px 0;"><a href="#" data-reveal-id="addComent">Odpowiedz</a>.</span>
+                        <span style="padding: 10px 0;"><a href="#" data-reveal-id="addComent"><?php comment_form_title('Dodaj komentarz','Kontynuuj odpowiadanie');?></a></span>
 
                         <div id="addComent" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog" style="width:50%">
 
@@ -85,8 +85,8 @@
                             
                                 if ($is_reply):
                                     
-                                    $parent_ID = get_comment($comment->comment_parent);
-                                    //echo '<p class="panel">'.$parent_ID->comment_content.'</p>';
+                                    $parent_comment = get_comment($is_reply);
+                                    
                                     ?>
                                     <script type="text/javascript">
                                         $(document).foundation();
@@ -106,14 +106,12 @@
                                 
                                     $fields =  array(
                                         'author' =>
-                                          '<p class="comment-form-author"><label for="author">' . __( 'Name', 'domainreference' ) . '</label> ' .
-                                          ( $req ? '<span class="required">*</span>' : '' ) .
+                                          '<p class="comment-form-author"><label for="author">' . __( 'Name', 'domainreference' ) .( $req ? '<span class="required">*</span>' : '' ).'</label> ' .
                                           '<input id="author" name="author" type="text" value="' . esc_attr( $commenter['comment_author'] ) .
                                           '" size="30"' . $aria_req . ' /></p>',
 
                                         'email' =>
-                                          '<p class="comment-form-email"><label for="email">' . __( 'Email', 'domainreference' ) . '</label> ' .
-                                          ( $req ? '<span class="required">*</span>' : '' ) .
+                                          '<p class="comment-form-email"><label for="email">' . __( 'Email', 'domainreference' ) .( $req ? '<span class="required">*</span>' : '' ). '</label> ' .
                                           '<input id="email" name="email" type="text" value="' . esc_attr(  $commenter['comment_author_email'] ) .
                                           '" size="30"' . $aria_req . ' /></p>',
 
@@ -125,11 +123,11 @@
                                     
                                     $args = array(
                                       'id_form'           => 'commentform',
-                                      'id_submit'         => 'submit',
+                                      'id_submit'         => 'submit-comment',
                                       'class_submit'      => 'button tiny right',
                                       'name_submit'       => 'submit',
                                       'title_reply'       => 'Odpowiedz na post.',
-                                      'title_reply_to'    => 'Odpowiedz na komentarz %s: <blockquote class="cm-to-reply">'.$comment->comment_content.'</blockquote>',
+                                      'title_reply_to'    => 'Odpowiedz na komentarz %s: <blockquote class="cm-to-reply">'.$parent_comment->comment_content.'</blockquote>',
                                       'cancel_reply_link' => 'Anuluj odpowiedź',
                                       'label_submit'      => 'Wyślij komentarz',
                                       'format'            => 'xhtml',
@@ -150,9 +148,7 @@
                                           wp_logout_url( apply_filters( 'the_permalink', get_permalink( ) ) )
                                         ) . '</p>',
 
-                                      'comment_notes_before' => '<p class="comment-notes">' .
-                                        __( 'Your email address will not be published.' ) . ( $req ? $required_text : '' ) .
-                                        '</p>',
+                                      'comment_notes_before' => '',
 
                                       'comment_notes_after' => '',
 

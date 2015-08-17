@@ -146,7 +146,7 @@
             $url_params = getUrlParams();
             
             if ( isset($url_params[$name] ) ) { 
-                return true; 
+                return (int)$url_params[$name]; 
             } else return false;
         }
      #endregion   
