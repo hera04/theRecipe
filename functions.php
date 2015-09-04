@@ -202,7 +202,7 @@
             
         ?>
 
-            <<?php echo $tag ?> class="comment <?php if ( $is_parent ) echo 'parent' ?>">
+            <<?php echo $tag ?> class="comment <?php if ( $is_parent ) echo 'comment-parent' ?>">
                 <div class="cm-author">
                     <?php 
                         if ( $is_parent ) echo '#'.$comment_number.' '; 
@@ -210,7 +210,7 @@
                     ?>
                 </div>
                 <div class="inner">
-                    <p class="cm-description">
+                    <p class="cm-text">
                         <?php  
                             //echo '<p>'.var_dump($args).'</p>';
                             //echo '<p>'.var_dump($comment).'</p>';

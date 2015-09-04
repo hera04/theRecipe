@@ -10,7 +10,7 @@
                 $post_limit = $widget_options['number_of_items'];
                 
                 $i = 0;
-                    
+                
                 $widget_query = new WP_Query( array(
                     'posts_per_page'    => $widget_options['number_of_items'],                                        
                     'orderby'           => 'post_date',                                 
@@ -105,7 +105,7 @@
                         'order'         => 'DESC',                                      
                         'post_type'     => array( 'restaurants', 'post', 'recipes' ),
                         'post_status'   => 'publish',
-                        'paged'         => $paged                                       // Przypisanie 'paged' zmiennej $paged, ponieważ domyślnei jest ustawiona tylko w stronach archiwum
+                        'paged'         => $paged                                       // Przypisanie 'paged' zmiennej $paged, ponieważ domyślnie jest ustawiona tylko w stronach archiwum
                     ));
                     
                 #endregion                    

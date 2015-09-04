@@ -40,14 +40,16 @@
     
     <!-- #region Ostatnio komentowane -->
 
-        <!-- Tytuł przepisu -->
+        <!-- Tytuł -->
         <h3 class="site-titles">Ostatnie komentarze</h3>
 
         <!-- Zawartość sekcji -->
         <div class="row">
             <div class="small-12 medium-8 large-11 column right">
-                <ul class="example-orbit" data-orbit data-options="slide_number: false; bullets:false;">
+                <ul class="example-orbit comment-list" data-orbit data-options="slide_number: false; bullets:false;">
                     <?php 
+                        $comment_active = 1;
+                    
                         $recent_comments = get_comments(array(
                             'orderby'           => 'comment_date_gmt',
                             'number'            => 4,
@@ -60,31 +62,29 @@
                             foreach ($recent_comments as $comment) : 
                                 $date = new DateTime($comment->comment_date); ?>
 
-                                <li class="active">
-                                
+                                <li<?php ($comment_active==1) ? '' : 'class="active"'; ?>>                                
                         
-                                        <div class="comment-wrapper">
-
-                                            <div class="cm-title">
-                                                <a href="<?php echo get_permalink($comment->ID); ?>"><h5 class="site-titles"><?php echo cutText($comment->post_title,20); ?></h5></a>
-                                            </div>
-
-                                            <div class="cm-description">
-                                                <p><i class="fa fa-quote-left left"></i></p>
-                                                <p class="cm-quote"><?php echo cutText( $comment->comment_content,200 ); ?></p>
-                                                <p><i class="fa fa-quote-right right"></i></p>
-                                            </div>
-
-                                            <div class="cm-info">
-                                                <p class="left cm-date"><?php $date = date("l, j F Y, H:i"); echo $date; ?></p>
-                                                <p class="right cm-author">~<?php echo comment_author(); ?></p>
-                                            </div>
-                                
+                                    <div class="comment-parent">
+                                        <div class="cm-title">
+                                            <a href="<?php echo get_permalink($comment->ID); ?>"><h5 class="site-titles"><?php echo cutText($comment->post_title,20); ?></h5></a>
                                         </div>
+
+                                        <div class="cm-text">
+                                            <p><i class="fa fa-quote-left left"></i></p>
+                                            <p style="margin:10px;"><?php echo cutText( $comment->comment_content,200 ); ?></p>
+                                            <p><i class="fa fa-quote-right right"></i></p>
+                                        </div>
+
+                                        <div class="cm-footer">
+                                            <p class="left"><?php $date = date("l, j F Y, H:i"); echo $date; ?></p>
+                                            <p class="right">~<?php echo comment_author(); ?></p>
+                                        </div>                                
+                                    </div>
                                 
                                 </li>
 
-                                <?php 
+                                <?php
+                                $comment_active++;
                             endforeach;
                         else:
                             echo '<p>Nie ma żadnych komentarzy</p>';

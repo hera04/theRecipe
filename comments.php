@@ -9,7 +9,7 @@
     
     /* 
      * Ustawienie zmiennej, któa zajmuje się zliczaniem komentarzy na stronie.
-     * Funkcja trc_comment_template korzysta z niej w celu wyświetlania numeró komentarzy.
+     * Funkcja trc_comment_template korzysta z niej w celu wyświetlania numerów komentarzy.
      * */
     $comment_number = 0;
 ?>
@@ -24,27 +24,16 @@
             
         <?php else: ?>
 
-            <div class="small-12 medium-8 large-11 column large-centered">
+            <div class="small-12 medium-11 column medium-centered">
 
-                <div class="row comment_list">
+                <div class="row comment-list">
                     
-                    <!--<div class="comment">
-                        <div style="font-size: 1.2em; color: #999;">#1</div>                            
-                        <div class="parent inner">
-                            <p class="cm-description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-                            <div class="cm-footer">
-                                <p class="cm-date left">dzisiaj, 10:30 | <a href="#" data-reveal-id="addComent">Odpowiedz</a></p>
-                                <p class="cm-author right">~andrzejek</p>
-                            </div>
-                        </div>
-                    </div>-->
-                                
-                    <?php if( have_comments() ) :?>
+                     <?php if( have_comments() ) :?>
 
                         <?php 
                             /*
                              * https://codex.wordpress.org/Function_Reference/wp_list_comments
-                             * Trzeba pamiętać o tym, żeby nie zamykać znacznika komantarzu, ponieważ WP zrobi to sam.
+                             * Trzeba pamiętać o tym, żeby nie zamykać znacznika komantarza, ponieważ WP zrobi to sam.
                              * 
                              * https://codex.wordpress.org/Function_Reference/wp_list_comments
                              * https://codex.wordpress.org/Function_Reference/comment_form
@@ -78,7 +67,7 @@
 
                         <span style="padding: 10px 0;"><a href="#" data-reveal-id="addComent"><?php comment_form_title('Dodaj komentarz','Kontynuuj odpowiadanie');?></a></span>
 
-                        <div id="addComent" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog" style="width:50%">
+                        <div id="addComent" class="reveal-modal medium-10 column" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
 
                             <?php
                                 $is_reply = checkUrlSingleParam('replytocom');
@@ -95,8 +84,6 @@
                                     <?php
                                 endif;
                             ?>
-
-                            <!--<form id="comment-form" method="post" action="<?php echo get_option('siteurl'); ?>/wp-comments-post.php">-->
 
                                 <?php
                                 
@@ -158,8 +145,6 @@
 
                                 <?php comment_form( $args, $post->ID ); ?>
 
-                            <!--</form>-->
-                
                         </div>
                             
                     <?php endif; ?>

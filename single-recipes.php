@@ -124,7 +124,7 @@
             <!-- #endregion -->
 
             <!-- #region Sidebar -->
-                <?php //get_sidebar('restaurants'); ?>
+                <?php //get_sidebar('recipes'); ?>
 
             <div class="large-4 column recipe-side">
 
